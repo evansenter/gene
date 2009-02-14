@@ -1,4 +1,11 @@
-* Does screen resolution go from (0 to 99) or (1 to 100) - Note: For now, 0 indexed to resolve offset issues.
-* Calculator.generate_value(0) returns a Float, may want to return 0
 * There is no evolution of the standard deviation for individual traits. An offspring inherits the sigma value from the donor gene (Look at TD-Lambda)
+  
+  PARTIALLY RESOLVED: There is a naive implementation of TD-Lambda that sets the standard deviation between a minimum and maximum value.
+    It is based on the fitness of the chromosome the trait came from (see Trait.new_standard_deviation_from(fitness)).
+
 * Caching note (Keep RMSD fitness calculation on the chromosome itself so it doesn't need to be recomputed every iteration)
+  
+  PARTIALLY RESOLVED: Chromosomes now have a fitness attribute, but it is not assigned anywhere. 
+    If Calculator.meiosis(chromosome_1, chromosome_2) is called and either chromosome is missing a fitness value, an error is raised.
+
+* Move away from testing methods with randomness over many calls, and use a behavior-driven approach instead.

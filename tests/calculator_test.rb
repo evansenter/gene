@@ -82,21 +82,19 @@ class CalculatorTest < Test::Unit::TestCase
     assert_equal 0, Calculator.convert(0, 1)
   end
 
-  def test_generate_value__raises_error_with_no_max
-    assert_raises ArgumentError do 
+  def test_generate_value__raises_error_when_max_is_nil_or_zero
+    assert_raise ArgumentError do 
       Calculator.generate_value(nil) 
+    end
+    
+    assert_raise ArgumentError do 
+      Calculator.generate_value(0) 
     end
   end
   
-  def test_generate_value__returns_same_type_as_max
-    Calculator.expects(:rand).with(0).times(3).returns(:float)
-    Calculator.expects(:rand).with(100).returns(:integer)
-    
-    assert_equal :float,   Calculator.generate_value(0.0)
-    assert_equal :float,   Calculator.generate_value(1.0)
-    
-    assert_equal :float,   Calculator.generate_value(0)
-    assert_equal :integer, Calculator.generate_value(100)
+  def test_generate_value__returns_same_type_as_max    
+    assert Calculator.generate_value(1.0).is_a?(Float)
+    assert Calculator.generate_value(100).is_a?(Fixnum)
   end
   
   def test_meiosis
@@ -108,6 +106,9 @@ class CalculatorTest < Test::Unit::TestCase
     
     chromosome_1.expects(:get_parameters).twice.returns(:params, [num_genes, num_points, image_dimensions])
     chromosome_2.expects(:get_parameters).returns(:params)
+    
+    chromosome_1.expects(:fitness).twice.returns(:value)
+    chromosome_2.expects(:fitness).twice.returns(:value)
     
     Calculator.expects(:read_from).times(num_genes).returns(0)
     Calculator.expects(:generate_gene_from).times(num_genes).returns({})
@@ -126,14 +127,37 @@ class CalculatorTest < Test::Unit::TestCase
     chromosome_1.expects(:get_parameters).returns(:chromsome_1)
     chromosome_2.expects(:get_parameters).returns(:chromsome_2)
     
+    chromosome_1.expects(:fitness).never
+    chromosome_2.expects(:fitness).never
+    
+    assert_raise ArgumentError do
+      Calculator.meiosis(chromosome_1, chromosome_2)
+    end
+  end
+    
+  def test_meiosis__missing_fitness_value
+    num_genes  = 100
+    num_points = 10
+    image_dimensions = Point.new(640, 480)
+    chromosome_1 = Chromosome.new(num_genes, num_points, image_dimensions)
+    chromosome_2 = Chromosome.new(num_genes, num_points, image_dimensions)
+    
+    chromosome_1.expects(:get_parameters).returns(:params)
+    chromosome_2.expects(:get_parameters).returns(:params)
+    
+    chromosome_1.expects(:fitness).returns(:value)
+    chromosome_2.expects(:fitness).returns(nil)
+    
     assert_raise ArgumentError do
       Calculator.meiosis(chromosome_1, chromosome_2)
     end
   end
   
   def test_generate_gene_from
-    Calculator.stubs(:rand).returns(stub(:< => false))
-    Trait.any_instance.stubs(:setup_standard_deviation_with).returns(:value)
+    Calculator.stubs(:rand).returns(stub(:< => false)) # Ensures self.mutate(trait) returns the original trait.
+
+    Trait.stubs(:new_standard_deviation_from).with(:fitness).returns(:value)
+    Trait.any_instance.stubs(:setup_standard_deviation_with).returns(:standard_deviation)
     
     options = {
       :trait_x_0 => { :standard_deviation => :value, :default => 1 },
@@ -152,29 +176,27 @@ class CalculatorTest < Test::Unit::TestCase
     }
     
     gene = Gene.new(3, Point.new(640, 480), options)
-    assert_equal options, Calculator.generate_gene_from(gene)
+    assert_equal options, Calculator.generate_gene_from(gene, :fitness)
   end
   
   def test_settings_hash_for
-    trait = mock
-    trait.expects(:standard_deviation).returns(:standard_deviation)
+    Trait.expects(:new_standard_deviation_from).with(:fitness).returns(:new_standard_deviation)
     
-    Calculator.expects(:mutate).with(trait, :mutation_freq).returns(:default)
+    Calculator.expects(:mutate).with(:trait, :mutation_freq).returns(:value)
     
-    expected_hash = { :default => :default, :standard_deviation => :standard_deviation }
-    assert_equal expected_hash, Calculator.settings_hash_for(trait, :mutation_freq)
+    expected_hash = { :default => :value, :standard_deviation => :new_standard_deviation }
+    assert_equal expected_hash, Calculator.settings_hash_for(:trait, :fitness, :mutation_freq)
   end
-      
+        
   def test_settings_hash_for__default_mutation_freq
-    trait = mock
-    trait.expects(:standard_deviation).returns(:standard_deviation)
+    Trait.expects(:new_standard_deviation_from).with(:fitness).returns(:new_standard_deviation)
     
-    Calculator.expects(:mutate).with(trait, Calculator::DEFAULT_MUTATION_FREQ).returns(:default)
+    Calculator.expects(:mutate).with(:trait, Calculator::DEFAULT_MUTATION_FREQ).returns(:value)
     
-    expected_hash = { :default => :default, :standard_deviation => :standard_deviation }
-    assert_equal expected_hash, Calculator.settings_hash_for(trait)
+    expected_hash = { :default => :value, :standard_deviation => :new_standard_deviation }
+    assert_equal expected_hash, Calculator.settings_hash_for(:trait, :fitness)
   end
-    
+
   def test_mutate__returns_normal_trait_value
     trait = Trait.new(:x, (0..255), :default => 100)
     
@@ -221,7 +243,7 @@ class CalculatorTest < Test::Unit::TestCase
   protected
   
   def mutate_distribution_helper
-    trait = Trait.new(:x, (0..20), { :default => 10 })
+    trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25})
     distribution = trait.range.map { 0 }
     
     1000.times do

@@ -19,7 +19,7 @@ class TraitTest < Test::Unit::TestCase
     trait_2 = Trait.new(:y, (0...100), :default => 20)
     
     assert_equal 10, trait_1.x
-    assert_raises NoMethodError do
+    assert_raise NoMethodError do
       trait_1.y
     end
   end
@@ -48,22 +48,6 @@ class TraitTest < Test::Unit::TestCase
     assert_equal 4.5, Trait.new(:test, (0...10), :standard_deviation => 0.5).standard_deviation
   end
   
-  def test_setup_range_with__integer__max_and_min
-    assert_equal 10, Trait.new(:x, (0..10)).range.max
-    assert_equal 9,  Trait.new(:x, (0...10)).range.max
-
-    assert_equal 1,  Trait.new(:x, (1..10)).range.min
-    assert_equal 1,  Trait.new(:x, (1...10)).range.min
-  end  
-  
-  def test_setup_range_with__float__max_and_min
-    assert_equal 1.0, Trait.new(:x, (0.0..1.0)).range.max
-    assert_equal 1.0, Trait.new(:x, (0.0...1.0)).range.max
-
-    assert_equal 0.0, Trait.new(:x, (0.0..1.0)).range.min
-    assert_equal 0.0, Trait.new(:x, (0.0...1.0)).range.min
-  end
-  
   def test_setup_standard_deviation_with__provided
     trait = Trait.new(:x, (0..10), :standard_deviation => 1)
     assert_equal trait.range.max, trait.standard_deviation
@@ -71,7 +55,7 @@ class TraitTest < Test::Unit::TestCase
     
   def test_setup_standard_deviation_with__default
     trait = Trait.new(:x, (0..10))
-    assert_equal Trait::DEFAULT_STANDARD_DEVIATION * trait.range.max, trait.standard_deviation
+    assert_equal Trait::STANDARD_DEVIATION[:default] * trait.range.max, trait.standard_deviation
   end
   
   def test_setup_value_with
@@ -129,5 +113,11 @@ class TraitTest < Test::Unit::TestCase
       assert trait.range === new_value
       assert_equal old_value, trait.value
     end
+  end
+  
+  def test_new_standard_deviation_from
+    # The float.to_s is to ensure comparison works.
+    assert_equal Trait::STANDARD_DEVIATION[:range].max.to_s, Trait.new_standard_deviation_from(0).to_s
+    assert_equal Trait::STANDARD_DEVIATION[:range].min.to_s, Trait.new_standard_deviation_from(1).to_s
   end
 end

@@ -3,7 +3,8 @@
 end
 
 class Chromosome
-  attr_reader :image_dimensions, :genes
+  attr_accessor :fitness
+  attr_reader   :image_dimensions, :genes
   
   def initialize(num_genes, num_points, image_dimensions, options = {})
     options.default = {}

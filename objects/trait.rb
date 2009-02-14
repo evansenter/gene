@@ -5,32 +5,23 @@ end
 class Trait
   include Calculator
   
-  DEFAULT_STANDARD_DEVIATION = 0.1
+  STANDARD_DEVIATION = {
+    :default => 0.1,
+    :range   => add_bounding_methods_to((0.01..0.25))
+  }
   
   attr_reader :value, :range, :standard_deviation
   
   def initialize(name, range, options = {})
-    @range              = setup_range_with(range)
+    @range              = add_bounding_methods_to(range)
     @standard_deviation = setup_standard_deviation_with(options[:standard_deviation])
     @value              = setup_value_with(options[:default])
     
     eval "def self.#{name}; @value; end"
   end
-
-  def setup_range_with(range)
-    returning(range) do |object|
-      def object.max
-        self.end.is_a?(Float) ? self.end : super
-      end
-    
-      def object.min
-        self.begin.is_a?(Float) ? self.begin : super
-      end
-    end
-  end
   
   def setup_standard_deviation_with(standard_deviation)
-    (standard_deviation || DEFAULT_STANDARD_DEVIATION) * @range.max
+    (standard_deviation || STANDARD_DEVIATION[:default]) * @range.max
   end
   
   def setup_value_with(value)
@@ -52,5 +43,10 @@ class Trait
     else
       new_value
     end
+  end
+  
+  def self.new_standard_deviation_from(fitness)
+    deviation_range = STANDARD_DEVIATION[:range].max - STANDARD_DEVIATION[:range].min
+    STANDARD_DEVIATION[:range].max - (deviation_range * fitness)
   end
 end
