@@ -1,0 +1,4 @@
+* Does screen resolution go from (0 to 99) or (1 to 100) - Note: For now, 0 indexed to resolve offset issues.
+* Calculator.generate_value(0) returns a Float, may want to return 0
+* There is no evolution of the standard deviation for individual traits. An offspring inherits the sigma value from the donor gene (Look at TD-Lambda)
+* Caching note (Keep RMSD fitness calculation on the chromosome itself so it doesn't need to be recomputed every iteration)
