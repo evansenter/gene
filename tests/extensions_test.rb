@@ -1,7 +1,4 @@
-require "test/unit"
-require "rubygems"
-require "mocha"
-require "../objects/extensions.rb"
+%w[test/unit rubygems mocha ../objects/extensions.rb].each { |helper| require helper }
 
 class ExtensionsTest < Test::Unit::TestCase
   def test_true

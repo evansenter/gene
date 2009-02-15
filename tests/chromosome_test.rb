@@ -1,7 +1,4 @@
-require "test/unit"
-require "rubygems"
-require "mocha"
-require "../objects/chromosome.rb"
+%w[test/unit rubygems mocha ../objects/chromosome.rb].each { |helper| require helper }
 
 class ChromosomeTest < Test::Unit::TestCase
   def test_true

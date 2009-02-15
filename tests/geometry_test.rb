@@ -1,7 +1,4 @@
-require "test/unit"
-require "rubygems"
-require "mocha"
-require "../objects/geometry.rb"
+%w[test/unit rubygems mocha ../objects/geometry.rb].each { |helper| require helper }
 
 class GeometryTest < Test::Unit::TestCase
   def test_true
