@@ -9,3 +9,10 @@
     If Calculator.meiosis(chromosome_1, chromosome_2) is called and either chromosome is missing a fitness value, an error is raised.
 
 * Move away from testing methods with randomness over many calls, and use a behavior-driven approach instead.
+
+* Pair traits by convex hull for gene point alignment.
+
+* Pair genes by closest pair (Euclidian distance) of center of polygon for gene alignment.
+
+* POSSIBLY: Render genes sorted by alpha so the most transparent polygons are on top.
+    Render order as a separate gene?
