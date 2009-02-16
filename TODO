@@ -17,4 +17,6 @@
 * POSSIBLY: Render genes sorted by alpha so the most transparent polygons are on top.
     Render order as a separate gene?
     
-* Should 3 points at the same position be clockwise or not?
+* Convex hull isn't working, I'm about up on the timebox for it. Try http://en.wikipedia.org/wiki/Gift_wrapping_algorithm next.
+
+* Figure out how geometry.rb will tie into the hierarchy for files.
