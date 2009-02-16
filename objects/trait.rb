@@ -1,6 +1,4 @@
-%w[calculator].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
+require File.join("#{File.dirname(__FILE__)}", "calculator.rb")
 
 class Trait
   include Calculator

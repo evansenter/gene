@@ -1,6 +1,4 @@
-%w[gene].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
+require File.join("#{File.dirname(__FILE__)}", "gene.rb")
 
 class Chromosome
   attr_accessor :fitness

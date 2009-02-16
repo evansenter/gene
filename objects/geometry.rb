@@ -1,6 +1,5 @@
-%w[extensions].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
+require File.join("#{File.dirname(__FILE__)}", "extensions.rb")
+require "matrix"
 
 class Geometry
   # Input: a  simple polyline W with n vertices V[i]
@@ -32,4 +31,12 @@ class Geometry
   # }
   # 
   # Output: D = the ccw convex hull of W.
+
+  def self.clockwise?(point_1, point_2, point_3)
+    Matrix[
+      [point_1.x.value, point_1.y.value, 1],
+      [point_2.x.value, point_2.y.value, 1],
+      [point_3.x.value, point_3.y.value, 1]
+    ].determinant / 2.0
+  end
 end

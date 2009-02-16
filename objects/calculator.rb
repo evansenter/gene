@@ -1,6 +1,4 @@
-%w[extensions].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
+require File.join("#{File.dirname(__FILE__)}", "extensions.rb")
 
 module Calculator
   DEFAULT_XOVER_FREQ    = 0.1
