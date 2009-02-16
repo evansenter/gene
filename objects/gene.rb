@@ -2,17 +2,6 @@
   require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
 end
 
-# Gene
-#   Polygon
-#     Point (many)
-#       Trait (x)
-#       Trait (y)
-#   Color
-#     Trait (r)
-#     Trait (g)
-#     Trait (b)
-#     Trait (a)
-
 class Gene
   include Calculator
   

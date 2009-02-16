@@ -32,11 +32,32 @@ class Geometry
   # 
   # Output: D = the ccw convex hull of W.
 
+  def self.convex_hull(points)
+    deque = initialize_deque(*points.slice!(0..2))
+    
+    while !points.empty?
+      if current_point = point_inside_hull?(points.shift)
+      end
+    end
+  end
+  
+  def self.initialize_deque(point_1, point_2, point_3)
+    deque = [point_1, point_2, point_3]
+    deque[1], deque[2] = deque[2], deque[1] if clockwise?(*deque)
+    deque.insert(0, deque.last)
+  end
+  
+  def self.point_inside_hull?(point, deque)
+    point unless clockwise?(point, *deque[0..1]) && clockwise?(point, *deque[-2..-1])
+  end
+
   def self.clockwise?(point_1, point_2, point_3)
-    Matrix[
+    matrix = Matrix[
       [point_1.x.value, point_1.y.value, 1],
       [point_2.x.value, point_2.y.value, 1],
       [point_3.x.value, point_3.y.value, 1]
-    ].determinant / 2.0
+    ]
+    
+    matrix.determinant / 2.0 > 0
   end
 end

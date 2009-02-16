@@ -16,3 +16,5 @@
 
 * POSSIBLY: Render genes sorted by alpha so the most transparent polygons are on top.
     Render order as a separate gene?
+    
+* Should 3 points at the same position be clockwise or not?
