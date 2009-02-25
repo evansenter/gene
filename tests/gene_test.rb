@@ -1,6 +1,10 @@
 %w[test/unit rubygems mocha ../objects/gene.rb].each { |helper| require helper }
 
 class GeneTest < Test::Unit::TestCase
+  def test_true
+    assert true
+  end
+  
   def setup
     points = 4
     @gene = Gene.new(points, Point.new(100, 100))
@@ -10,10 +14,6 @@ class GeneTest < Test::Unit::TestCase
     assert_raise ArgumentError do
       @gene = Gene.new(0, Point.new(100, 100))
     end
-  end
-  
-  def test_true
-    assert true
   end
 
   def test_polygon_has_extra_methods
