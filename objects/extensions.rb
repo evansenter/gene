@@ -20,3 +20,14 @@ class Symbol
     proc { |*args| args.first.send(self, *args[1..-1]) }
   end
 end
+
+class Object
+  def send_if(condition, method, *args)
+    block = args.shift if args.last.is_a?(Proc) && args.length == 1
+    if condition
+      block ? eval("self.#{method} &block") : self.send(method, *args)
+    else
+      self
+    end
+  end
+end

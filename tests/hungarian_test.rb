@@ -28,7 +28,10 @@ class TraitTest < Test::Unit::TestCase
     assert_equal [1, 1], hungarian.send(:find_uncovered_zero)
   end
   
-  # Write test to ensure non-zero cells are skipped, and a test for the default value
+  def test_find_uncovered_zero__cell_skipped_if_value_nonzero__default_returned
+    hungarian = Hungarian.new([[1, 1], [1, 1]])
+    assert_equal [-1, -1], hungarian.send(:find_uncovered_zero)    
+  end
   
   def test_location_covered
     @hungarian.instance_variable_set(:@covered, {:rows => [false], :columns => [false]})

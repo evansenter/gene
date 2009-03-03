@@ -10,8 +10,8 @@ class Hungarian
   def initialize(matrix)
     @matrix  = matrix
     @length  = @matrix.length
-    @mask    = Array.new(@length) { Array.new(@length, EMPTY) }
-    @covered = { :rows => Array.new(@length, false), :columns => Array.new(@length, false) }
+    @mask    = Array.new(@length) { Array.new(@length, EMPTY) }                               # 2D array of constants (listed above)
+    @covered = { :rows => Array.new(@length, false), :columns => Array.new(@length, false) }  # Boolean arrays
   end
   
   def solve
@@ -30,11 +30,11 @@ class Hungarian
     traverse_indices do |row, column|
       if @matrix[row][column].zero? && !location_covered?(row, column)
         @mask[row][column] = STAR
-        @covered[:rows][row] = @covered[:columns][column] = true
+        cover_cell(row, column)
       end
     end
-    @covered[:rows].map! { false }
-    @covered[:columns].map! { false }
+    
+    reset_covered_hash
   end
   
   def mask_columns
@@ -50,10 +50,30 @@ class Hungarian
   def prime_zeroes
     while (row, column = find_uncovered_zero) != [-1, -1]
       @mask[row][column] = PRIME
-      raise "GO TO STEP 5" if row_mask_values_for(row).all? { |value| value != STAR } #####
-      @covered[:rows][row] = true
-      @covered[:columns][row_mask_values_for(row).index(STAR)] = false
+      
+      if star_loc_in_row = row_mask_values_for(row).index(STAR)
+        return row, column
+      else
+        @covered[:rows][row] = true
+        @covered[:columns][star_loc_in_row] = false
+      end
     end
+  end
+  
+  def augment_path(path_start)
+    """
+    Construct a series of alternating primed and starred zeros as
+    follows. Let Z0 represent the uncovered primed zero found in Step 4.
+    Let Z1 denote the starred zero in the column of Z0 (if any).
+    Let Z2 denote the primed zero in the row of Z1 (there will always
+    be one). Continue until the series terminates at a primed zero
+    that has no starred zero in its column. Unstar each starred zero
+    of the series, star each primed zero of the series, erase all
+    primes and uncover every line in the matrix. Return to Step 3
+    """
+    
+    path = [path_start]
+    
   end
   
   def find_uncovered_zero
@@ -61,6 +81,15 @@ class Hungarian
       return [row, column] if @matrix[row][column].zero? && !location_covered?(row, column)
     end
     [-1, -1]
+  end
+  
+  def cover_cell(row, column)
+    @covered[:rows][row] = @covered[:columns][column] = true
+  end
+  
+  def reset_covered_hash
+    @covered[:rows].map! { false }
+    @covered[:columns].map! { false }
   end
   
   def location_covered?(row, column)

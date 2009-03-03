@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>objects/hungarian.rb</string>
+	<string>objects/munkres.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,19 +21,49 @@
 	<integer>163</integer>
 	<key>metaData</key>
 	<dict>
+		<key>objects/extensions.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>3</integer>
+				<key>line</key>
+				<integer>21</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>17</integer>
+			</dict>
+		</dict>
 		<key>objects/hungarian.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>4</integer>
 				<key>line</key>
-				<integer>20</integer>
+				<integer>75</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>38</integer>
 		</dict>
 		<key>objects/munkres.rb</key>
 		<dict>
@@ -42,21 +72,37 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>236</integer>
+				<integer>141</integer>
 			</dict>
+			<key>columnSelection</key>
+			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>194</integer>
+			<integer>136</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>150</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>141</integer>
+			</dict>
 		</dict>
 		<key>tests/hungarian_test.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>34</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -69,10 +115,11 @@
 		<string>objects/munkres.rb</string>
 		<string>objects/hungarian.rb</string>
 		<string>tests/hungarian_test.rb</string>
+		<string>objects/extensions.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{173, 56}, {1747, 1122}}</string>
+	<string>{{656, 360}, {1264, 818}}</string>
 </dict>
 </plist>
