@@ -1,3 +1,5 @@
+# Written by: Evan Senter
+#
 # - - - - - U S A G E - - - - -
 #
 # hungarian = Hungarian.new(matrix_to_solve)

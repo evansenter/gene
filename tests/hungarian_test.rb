@@ -133,7 +133,8 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_traverse_indices
-    traversal = returning([]) { |array| @hungarian.send(:traverse_indices) { |row, column| array << [row, column] } }
+    traversal = []
+    @hungarian.send(:traverse_indices) { |row, column| traversal << [row, column] }
     assert_equal [[0, 0], [0, 1], [1, 0], [1, 1]], traversal
   end
   
