@@ -1,5 +1,32 @@
 #!/usr/bin/env ruby
 
+# COMPARISON SCRIPT
+#
+# require "munkres.rb"
+# require "hungarian.rb"
+# 
+# m = Munkres.new
+# h = Hungarian.new
+# 
+# 1000.times do
+#   length = rand(25) + 1
+#   array  = Array.new(length) { Array.new(length, rand(1000)) }
+#   
+#   m_sol = m.compute(array)
+#   h_sol = h.solve(array)
+#   
+#   if m_sol != h_sol
+#     p "Array"
+#     p array
+#     p "Munkres"
+#     p m_sol
+#     p "Hungarian"
+#     p h_sol
+#   else
+#     print "."
+#   end
+# end
+
 """
 Introduction
 ============
