@@ -2,12 +2,7 @@ tests = Dir.new(File.dirname(__FILE__)).entries.select do |file_name|
   file_name =~ /^.*_test.rb$/
 end
  
-totals = {
-  :tests      => 0,
-  :assertions => 0,
-  :failures   => 0,
-  :errors     => 0
-}
+totals = { :tests => 0, :assertions => 0, :failures => 0, :errors => 0 }
 
 tests.each do |test|
   results = `ruby #{test}`

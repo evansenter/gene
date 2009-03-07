@@ -81,7 +81,7 @@ class TraitTest < Test::Unit::TestCase
     end
   end
 
-  def test_mutate__integer
+  def test_mutated_value__integer
     1000.times do
       trait = Trait.new(:x, (0..100))
       new_value = trait.mutated_value
@@ -90,7 +90,7 @@ class TraitTest < Test::Unit::TestCase
     end
   end
   
-  def test_mutate__inclusive
+  def test_mutated_value__inclusive
     1000.times do
       trait = Trait.new(:x, (0..100))
       old_value = trait.value
@@ -101,7 +101,7 @@ class TraitTest < Test::Unit::TestCase
     end
   end
   
-  def test_mutate__exclusive
+  def test_mutated_value__exclusive
     1000.times do
       trait = Trait.new(:x, (0...100))
       old_value = trait.value

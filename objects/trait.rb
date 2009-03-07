@@ -23,7 +23,7 @@ class Trait
   end
   
   def setup_value_with(value)
-    if value && !(range.include?(value))
+    if value && !range.include?(value)
       raise(ArgumentError, "Can't generate a trait with a default value (#{value}) outside the allowed range (#{@range})")
     else
       value || Calculator.generate_value(@range.max)
@@ -31,7 +31,7 @@ class Trait
   end
   
   def mutated_value
-    new_value = @value + (@standard_deviation * Calculator.get_uniform_random_variable)
+    new_value = @value + @standard_deviation * Calculator.get_uniform_random_variable
     new_value = new_value.round if @value.is_a?(Fixnum)
     
     if new_value > @range.max
@@ -45,6 +45,6 @@ class Trait
   
   def self.new_standard_deviation_from(fitness)
     deviation_range = STANDARD_DEVIATION[:range].max - STANDARD_DEVIATION[:range].min
-    STANDARD_DEVIATION[:range].max - (deviation_range * fitness)
+    STANDARD_DEVIATION[:range].max - deviation_range * fitness
   end
 end

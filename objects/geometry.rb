@@ -10,6 +10,12 @@ class Geometry
       [point_3.x.value, point_3.y.value, 1]
     ].determinant / 2.0
     
-    area > 0 ? :clockwise : (area == 0 ? :line : :counterclockwise)
+    if area > 0
+      :clockwise
+    elsif area < 0
+      :counterclockwise
+    else
+      :line
+    end
   end
 end
