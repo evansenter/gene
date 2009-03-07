@@ -3,8 +3,6 @@
 end
 
 class Gene
-  include Calculator
-  
   attr_reader :polygon, :color
   
   def initialize(num_points, image_dimensions, options = {})
