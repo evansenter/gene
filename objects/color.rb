@@ -6,11 +6,6 @@ class Color
   end
   
   def to_hash
-    {
-      :r => @r,
-      :g => @g,
-      :b => @b,
-      :a => @a
-    }
+    { :r => @r, :g => @g, :b => @b, :a => @a }
   end
 end
