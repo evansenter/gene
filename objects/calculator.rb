@@ -29,16 +29,11 @@ module Calculator
   end
   
   def self.generate_value(max)
-    if max && max.zero?
-      raise(ArgumentError, "Trying to call Calculator.generate_value(0), which is not supported at this time due to ambiguity of intention")
-    end
-    
-    if max.is_a? Float
-      rand(0)
-    elsif max.is_a? Fixnum
-      rand(max)
-    else
-      raise(ArgumentError, "Can't generate values of type #{max.class} in Calculator.generate_value(max)")
+    case max
+    when 0:      raise(ArgumentError, "Trying to call Calculator.generate_value(0), which is not supported at this time due to ambiguity of intention")
+    when Float:  rand(0)
+    when Fixnum: rand(max)
+    else         raise(ArgumentError, "Can't generate values of type #{max.class} in Calculator.generate_value(max)")
     end
   end
   
@@ -74,8 +69,7 @@ module Calculator
     
     returning({}) do |gene_settings|      
       (0...gene.polygon.num_points).each do |index|
-        gene_settings[:"trait_x_#{index}"] = settings_hash_for(points[index].x, fitness, mutation_freq)
-        gene_settings[:"trait_y_#{index}"] = settings_hash_for(points[index].y, fitness, mutation_freq)
+        [:x, :y].each { |axis| gene_settings[:"trait_#{axis}_#{index}"] = settings_hash_for(points[index].send(axis), fitness, mutation_freq) }
       end
 
       gene.color.to_hash.each do |color, trait|
@@ -96,12 +90,10 @@ module Calculator
   end
   
   def self.read_from(current_sequence, xover_freq = DEFAULT_XOVER_FREQ)
-    # Changes current read sequence randomly with a probability of xover_freq
     rand(0) < xover_freq ? flip(current_sequence) : current_sequence
   end
   
   def self.flip(current_sequence)
-    # XOR flip
     current_sequence ^ 1
   end
 end
