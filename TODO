@@ -1,22 +1,5 @@
-* There is no evolution of the standard deviation for individual traits. An offspring inherits the sigma value from the donor gene (Look at TD-Lambda)
-  
-  PARTIALLY RESOLVED: There is a naive implementation of TD-Lambda that sets the standard deviation between a minimum and maximum value.
-    It is based on the fitness of the chromosome the trait came from (see Trait.new_standard_deviation_from(fitness)).
-
-* Caching note (Keep RMSD fitness calculation on the chromosome itself so it doesn't need to be recomputed every iteration)
-  
-  PARTIALLY RESOLVED: Chromosomes now have a fitness attribute, but it is not assigned anywhere. 
-    If Calculator.meiosis(chromosome_1, chromosome_2) is called and either chromosome is missing a fitness value, an error is raised.
-
 * Move away from testing methods with randomness over many calls, and use a behavior-driven approach instead.
 
-* Pair traits by convex hull for gene point alignment.
-
-* Pair genes by closest pair (Euclidian distance) of center of polygon for gene alignment.
-
 * POSSIBLY: Render genes sorted by alpha so the most transparent polygons are on top.
-    Render order as a separate gene?
-    
-* Convex hull isn't working, I'm about up on the timebox for it. Try http://en.wikipedia.org/wiki/Gift_wrapping_algorithm next.
 
-* Figure out how geometry.rb will tie into the hierarchy for files.
+* Figure out how geometry.rb will tie into the hierarchy for files, and fix the inheritance structure in general.

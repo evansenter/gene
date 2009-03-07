@@ -45,16 +45,63 @@ class TraitTest < Test::Unit::TestCase
     assert_equal :assignment, @hungarian.send(:mask_columns)
   end
 
-  def test_prime_zeroes
-    
+  def test_prime_zeroes__breaks_when_no_uncovered_zeroes
+    @hungarian.expects(:find_uncovered_zero).returns([-1, -1])
+    assert_equal :adjust_matrix, @hungarian.send(:prime_zeroes)
   end
   
-  def test_augment_path
+  def test_prime_zeroes__star_in_row
+    @hungarian.instance_variable_set(:@covered, {:rows => [nil, nil], :columns => [nil, nil]})
     
+    @hungarian.expects(:find_uncovered_zero).twice.returns([0, 0], [-1, -1])
+    @hungarian.expects(:row_mask_values_for).with(0).returns(stub(:index => 0))
+    assert_equal :adjust_matrix, @hungarian.send(:prime_zeroes)
+    
+    expected_hash = {:rows => [true, nil], :columns => [false, nil]}
+    assert_equal expected_hash, @hungarian.instance_variable_get(:@covered)
+  end
+  
+  def test_prime_zeroes__star_not_in_row
+    @hungarian.instance_variable_set(:@covered, {:rows => [nil, nil], :columns => [nil, nil]})
+    
+    @hungarian.expects(:find_uncovered_zero).returns([0, 0])
+    @hungarian.expects(:row_mask_values_for).with(0).returns(stub(:index => nil))
+    assert_equal [:augment_path, 0, 0], @hungarian.send(:prime_zeroes)
+    
+    expected_hash = {:rows => [nil, nil], :columns => [nil, nil]}
+    assert_equal expected_hash, @hungarian.instance_variable_get(:@covered)
+  end
+  
+  def test_augment_path__break_out_on_first_loop
+    path = [0, 0]
+    @hungarian.expects(:column_mask_values_for).with(path[1]).returns(stub(:index => nil))
+    
+    @hungarian.expects(:update_elements_in).with([path])
+    @hungarian.expects(:traverse_indices)
+    @hungarian.expects(:reset_covered_hash)
+    
+    assert_equal :mask_columns, @hungarian.send(:augment_path, *path)
+  end
+  
+  def test_augment_path__loop_once_then_break    
+    path = [0, 0]
+    @hungarian.expects(:column_mask_values_for).twice.with(anything).returns(stub(:index => 1), stub(:index => nil))
+    @hungarian.expects(:row_mask_values_for).with(anything).returns(stub(:index => 1))
+    
+    @hungarian.expects(:update_elements_in).with([path, [1, 0], [1, 1]])
+    @hungarian.expects(:traverse_indices)
+    @hungarian.expects(:reset_covered_hash)
+    
+    assert_equal :mask_columns, @hungarian.send(:augment_path, *path)
   end
   
   def test_adjust_matrix
+    @hungarian.instance_variable_set(:@matrix, [[1, 2], [3, 4]])
+    @hungarian.instance_variable_set(:@covered, {:rows => [false, true], :columns => [false, true]})
     
+    expected_matrix = [[0, 2], [3, 5]]
+    assert_equal :prime_zeroes, @hungarian.send(:adjust_matrix)
+    assert_equal expected_matrix, @hungarian.instance_variable_get(:@matrix)
   end
 
   def test_assignment
