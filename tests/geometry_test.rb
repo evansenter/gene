@@ -13,7 +13,7 @@ class GeometryTest < Test::Unit::TestCase
     point_2 = create_point(50, 0)
     point_3 = create_point(50, 50)
     
-    assert_equal true, Geometry.clockwise?(point_1, point_2, point_3)
+    assert_equal :clockwise, Geometry.clockwise?(point_1, point_2, point_3)
   end
   
   def test_clockwise__points_are_counter_clockwise
@@ -24,7 +24,7 @@ class GeometryTest < Test::Unit::TestCase
     point_2 = create_point(50, 50)
     point_3 = create_point(50, 0)
     
-    assert_equal false, Geometry.clockwise?(point_1, point_2, point_3)
+    assert_equal :counterclockwise, Geometry.clockwise?(point_1, point_2, point_3)
   end
   
   def test_clockwise__three_points_on_a_line_are_not_considered_clockwise
@@ -36,13 +36,13 @@ class GeometryTest < Test::Unit::TestCase
     point_2 = create_point(0, 25)
     point_3 = create_point(0, 50)
 
-    assert_equal false, Geometry.clockwise?(point_1, point_2, point_3)
+    assert_equal :line, Geometry.clockwise?(point_1, point_2, point_3)
   end
     
   def test_clockwise__points_have_same_location
     # Point locations: (1, 2, 3 at same position)
     
-    assert_equal false, Geometry.clockwise?(create_point(0, 0), create_point(0, 0), create_point(0, 0))
+    assert_equal :line, Geometry.clockwise?(create_point(0, 0), create_point(0, 0), create_point(0, 0))
   end
   
   protected
