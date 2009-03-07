@@ -5,12 +5,14 @@ end
 
 def add_bounding_methods_to(range)
   returning(range) do |object|
-    def object.max
-      self.end.is_a?(Float) ? self.end : super
-    end
-  
-    def object.min
-      self.begin.is_a?(Float) ? self.begin : super
+    object.instance_eval do
+      def min
+        self.begin.is_a?(Float) ? self.begin : super
+      end
+      
+      def max
+        self.end.is_a?(Float) ? self.end : super
+      end
     end
   end
 end
@@ -22,6 +24,7 @@ class Symbol
 end
 
 class Object
+  # Not tested.
   def send_if(condition, method, *args)
     block = args.shift if args.last.is_a?(Proc) && args.length == 1
     if condition

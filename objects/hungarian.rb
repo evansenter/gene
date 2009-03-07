@@ -99,10 +99,10 @@ class Hungarian
     # star each primed zero of the series, erase all primes and uncover every line in the matrix, and call mask_columns.
     
     path = [[starting_row, starting_column]]
-    path.instance_eval {
+    path.instance_eval do
       def previous_row;    self.last[0]; end
       def previous_column; self.last[1]; end
-    }
+    end
     
     loop do
       if row_containing_star = column_mask_values_for(path.previous_column).index(STAR)
