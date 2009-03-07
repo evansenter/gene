@@ -7,16 +7,14 @@ class Chromosome
   def initialize(num_genes, num_points, image_dimensions, options = {})
     options.default = {}
         
+    @num_points       = num_points
     @image_dimensions = image_dimensions
-    @genes = (0...num_genes).map do |index|
-      Gene.new(num_points, @image_dimensions, options[:"gene_#{index}"])
-    end
+    @genes = (0...num_genes).map { |index| Gene.new(@num_points, @image_dimensions, options[:"gene_#{index}"]) }
   end
   
   def num_genes; @genes.size; end
   
   def get_parameters
-    sample_gene = @genes.first
-    [num_genes, sample_gene.polygon.num_points, @image_dimensions]
+    [num_genes, @num_points, @image_dimensions]
   end
 end
