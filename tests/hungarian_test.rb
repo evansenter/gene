@@ -33,8 +33,16 @@ class TraitTest < Test::Unit::TestCase
     assert_equal expected_hash, @hungarian.instance_variable_get(:@covered)
   end
   
-  def test_mask_columns
-    
+  def test_mask_columns__not_all_columns_covered
+    @hungarian.expects(:index_range).returns((0..1))
+    @hungarian.expects(:column_mask_values_for).twice.returns(stub(:any? => true), stub(:any? => false))
+    assert_equal :prime_zeroes, @hungarian.send(:mask_columns)
+  end
+
+  def test_mask_columns__all_columns_covered
+    @hungarian.expects(:index_range).returns((0..1))
+    @hungarian.expects(:column_mask_values_for).twice.returns(stub(:any? => true))
+    assert_equal :assignment, @hungarian.send(:mask_columns)
   end
 
   def test_prime_zeroes
