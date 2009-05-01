@@ -156,8 +156,8 @@ class Hungarian
   def update_elements_in(path)    
     path.each do |cell|
       @mask[cell[0]][cell[1]] = case @mask[cell[0]][cell[1]]
-      when STAR: EMPTY
-      when PRIME: STAR
+      when STAR  then EMPTY
+      when PRIME then STAR
       end
     end
   end

@@ -5,44 +5,9 @@ class GeometryTest < Test::Unit::TestCase
     assert true
   end
   
-  def test_clockwise
-    # Point locations: 1  2
-    #                     3
-
-    point_1 = create_point(0,  0)
-    point_2 = create_point(50, 0)
-    point_3 = create_point(50, 50)
-    
-    assert_equal :clockwise, Geometry.clockwise?(point_1, point_2, point_3)
-  end
-  
-  def test_clockwise__points_are_counter_clockwise
-    # Point locations: 1  3
-    #                     2
-    
-    point_1 = create_point(0,  0)
-    point_2 = create_point(50, 50)
-    point_3 = create_point(50, 0)
-    
-    assert_equal :counterclockwise, Geometry.clockwise?(point_1, point_2, point_3)
-  end
-  
-  def test_clockwise__three_points_on_a_line_are_not_considered_clockwise
-    # Point locations: 1
-    #                  2
-    #                  3
-
-    point_1 = create_point(0,  0)
-    point_2 = create_point(0, 25)
-    point_3 = create_point(0, 50)
-
-    assert_equal :line, Geometry.clockwise?(point_1, point_2, point_3)
-  end
-    
-  def test_clockwise__points_have_same_location
-    # Point locations: (1, 2, 3 at same position)
-    
-    assert_equal :line, Geometry.clockwise?(create_point(0, 0), create_point(0, 0), create_point(0, 0))
+  def test_hull__one_point_inside
+    point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50), create_point(45, 45)]
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))
   end
   
   protected
@@ -55,8 +20,6 @@ class GeometryTest < Test::Unit::TestCase
   end
   
   def format_points_in(array)
-    array.map do |point|
-      "(#{point.x.value}, #{point.y.value})"
-    end.join(", ")
+    array.map { |point| [point.x.value, point.y.value] }
   end
 end
