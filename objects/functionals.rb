@@ -38,14 +38,6 @@ module Functional
     end
   end
   alias +@ memoize
-  
-  # array     = [2, 3, 4, 5, 6, 7, 8, 9]
-  # sum       = lambda { |x, y| x + y }
-  # square    = lambda { |x| x * x }
-  # mean      = (sum <= a) / a.size.to_f
-  # deviation = lambda { |x| x - mean }
-  # 
-  # standard_deviation = Math.sqrt((sum <= square * deviation | a) / (a.size - 1))
 end
 
 class Method; include Functional; end

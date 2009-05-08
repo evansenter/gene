@@ -19,7 +19,7 @@ class Gene
       )
     end
 
-    :points[@polygon] = lambda { self }
+    :points[@polygon]     = lambda { self }
     :num_points[@polygon] = lambda { size }
     
     @color = Color.new(

@@ -42,12 +42,6 @@ class Symbol
     eigenclass = (class << object; self; end)
     eigenclass.instance_eval { define_method(symbol, function) }
   end
-  
-  # def ax_b(a, b, *x)
-  #   (:+[b] * :*[a]) | x
-  # end
-  # ax_b(2, 1, 1, 2, 3)
-  # => [3, 5, 7]
 end
 
 class Module

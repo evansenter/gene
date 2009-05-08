@@ -26,9 +26,9 @@ class Hungarian
     setup(matrix) if matrix
     raise "You must provide a matrix to solve." unless @matrix
     
-    method = [:minimize_rows]
-    while method.first != :assignment
-      method = [self.send(*method)].flatten
+    method = :minimize_rows
+    while method != :finished
+      method = self.send(*method)
     end
     
     return assignment
@@ -70,7 +70,7 @@ class Hungarian
       @covered[:columns][index] = true if column_mask_values_for(index).any? { |value| value == STAR }
     end
     
-    return @covered[:columns].all? ? :assignment : :prime_zeroes
+    return @covered[:columns].all? ? :finished : :prime_zeroes
   end
   
   def prime_zeroes

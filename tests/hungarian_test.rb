@@ -42,7 +42,7 @@ class TraitTest < Test::Unit::TestCase
   def test_mask_columns__all_columns_covered
     @hungarian.expects(:index_range).returns((0..1))
     @hungarian.expects(:column_mask_values_for).twice.returns(stub(:any? => true))
-    assert_equal :assignment, @hungarian.send(:mask_columns)
+    assert_equal :finished, @hungarian.send(:mask_columns)
   end
 
   def test_prime_zeroes__breaks_when_no_uncovered_zeroes
