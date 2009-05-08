@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../objects/functionals.rb].each { |helper| require helper }
+%w[test/unit rubygems mocha ../objects/extensions/functionals.rb].each { |helper| require helper }
 
 class FunctionalsTest < Test::Unit::TestCase
   

@@ -1,4 +1,4 @@
-%w[calculator functionals].each do |file|
+%w[calculator functionals geometry hungarian].each do |file|
   require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
 end
 

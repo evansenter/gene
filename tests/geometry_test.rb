@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../objects/geometry.rb ../objects/point.rb ../objects/trait.rb].each { |helper| require helper }
+%w[test/unit rubygems mocha ../objects/extensions/geometry.rb ../objects/point.rb ../objects/trait.rb].each { |helper| require helper }
 
 class GeometryTest < Test::Unit::TestCase
   def test_true
