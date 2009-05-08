@@ -27,7 +27,7 @@ class ChromosomeTest < Test::Unit::TestCase
     end
   end
   
-  def test_initialize__no_gene_options_passes_through_an_empty_hash
+  def test_initialize__no_options_should_pass_through_an_empty_hash_to_gene_initialize
     image_dimensions = Point.new(640, 480)
     num_genes, num_points = 100, 10
     Gene.expects(:new).times(num_genes).with(num_points, image_dimensions, {})
@@ -40,5 +40,40 @@ class ChromosomeTest < Test::Unit::TestCase
     chromosome = Chromosome.new(100, 10, image_dimensions)
     
     assert_equal [100, 10, image_dimensions], chromosome.get_parameters
+  end
+  
+  def test_genes_by_alpha
+    image_dimensions = Point.new(640, 480)
+    
+    gene_options = returning({}) do |hash|
+      hash[:gene_0] = options_for_gene(:trait_a => { :default => 0.5 })
+      hash[:gene_1] = options_for_gene(:trait_a => { :default => 0.0 })
+      hash[:gene_2] = options_for_gene(:trait_a => { :default => 1.0 })
+    end
+
+    chromosome = Chromosome.new(3, 3, image_dimensions, gene_options)
+    
+    assert_equal [0.5, 0.0, 1.0], chromosome.genes.map(&:color).map(&:a).map(&:value)    
+    assert_equal [1.0, 0.5, 0.0], chromosome.genes_by_alpha.map(&:color).map(&:a).map(&:value)
+  end
+  
+  private
+  
+  def options_for_gene(options = {})
+    options = {
+      :trait_x_0 => { :default => 1 },
+      :trait_y_0 => { :default => 1 },
+                      
+      :trait_x_1 => { :default => 100 },
+      :trait_y_1 => { :default => 100 },
+                      
+      :trait_x_2 => { :default => 200 },
+      :trait_y_2 => { :default => 200 },
+                      
+      :trait_r   => { :default => 50 },
+      :trait_g   => { :default => 150 }, 
+      :trait_b   => { :default => 250 },
+      :trait_a   => { :default => 0.5 }
+    }.merge(options)
   end
 end

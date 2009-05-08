@@ -17,4 +17,8 @@ class Chromosome
   def get_parameters
     [num_genes, @num_points, @image_dimensions]
   end
+  
+  def genes_by_alpha
+    @genes.sort { |gene_1, gene_2| gene_2.color.a.value <=> gene_1.color.a.value }
+  end
 end
