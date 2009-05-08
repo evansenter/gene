@@ -18,6 +18,9 @@ class Gene
         Trait.new(:y, (0...image_dimensions.y), options[:"trait_y_#{index}"])
       )
     end
+
+    :points[@polygon] = lambda { self }
+    :num_points[@polygon] = lambda { size }
     
     @color = Color.new(
       Trait.new(:value, (0..255),   options[:trait_r]),
@@ -25,17 +28,7 @@ class Gene
       Trait.new(:value, (0..255),   options[:trait_b]),
       Trait.new(:value, (0.0..1.0), options[:trait_a])
     )
-    
-    add_methods_to_polygon
-    add_methods_to_color
-  end
-  
-  def add_methods_to_polygon
-    def @polygon.points; self; end
-    def @polygon.num_points; self.size; end
-  end
-  
-  def add_methods_to_color
-    def @color.rgb; [self.r, self.g, self.b]; end
+
+    :rgb[@color] = lambda { [r, g, b] }
   end
 end

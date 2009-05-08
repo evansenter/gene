@@ -239,8 +239,8 @@ class CalculatorTest < Test::Unit::TestCase
 
   protected
   
-  def mutate_distribution_helper
-    trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25})
+  def mutation_distribution_helper
+    trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25 })
     distribution = trait.range.map { 0 }
     
     1000.times do

@@ -15,7 +15,7 @@ class Trait
     @standard_deviation = setup_standard_deviation_with(options[:standard_deviation])
     @value              = setup_value_with(options[:default])
     
-    eval "def self.#{name}; @value; end"
+    name[self] = lambda { @value }
   end
   
   def setup_standard_deviation_with(standard_deviation)

@@ -10,9 +10,9 @@ class Chromosome
     @num_points       = num_points
     @image_dimensions = image_dimensions
     @genes = (0...num_genes).map { |index| Gene.new(@num_points, @image_dimensions, options[:"gene_#{index}"]) }
+    
+    :num_genes[self] = lambda { @genes.size }
   end
-  
-  def num_genes; @genes.size; end
   
   def get_parameters
     [num_genes, @num_points, @image_dimensions]
