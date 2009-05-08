@@ -5,9 +5,30 @@ class GeometryTest < Test::Unit::TestCase
     assert true
   end
   
-  def test_hull__one_point_inside
-    point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50), create_point(45, 45)]
+  def test_hull__less_than_three_points
+    point_list = [[], [create_point(0, 0)], [create_point(0, 0), create_point(0, 0)]].each do |point_list|
+      assert_equal point_list, Geometry.hull(point_list)
+    end
+  end
+  
+  def test_hull_simple_case
+    point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50)]
     assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))
+  end
+  
+  def test_hull__one_point_inside
+    point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50), create_point(10, 5)]
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))
+  end
+  
+  def test_hull__three_points_on_a_line
+    point_list = [create_point(0, 0), create_point(25, 0), create_point(50, 0), create_point(50, 50)]
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))    
+  end
+  
+  def test_hull__three_points_on_a_line_with_one_point_inside
+    point_list = [create_point(0, 0), create_point(25, 0), create_point(50, 0), create_point(50, 50), create_point(10, 5)]
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))    
   end
   
   protected

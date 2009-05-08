@@ -1,5 +1,7 @@
 class Geometry
   def self.hull(points)
+    return points unless points.length >= 3
+    
     list_of_points = points.sort_by { |point| point.x.value }
     left_point     = list_of_points.shift
     right_point    = list_of_points.pop
