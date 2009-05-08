@@ -1,5 +1,3 @@
-require File.join("#{File.dirname(__FILE__)}", "extensions.rb")
-
 module Calculator
   DEFAULT_XOVER_FREQ    = 0.1
   DEFAULT_MUTATION_FREQ = 0.25

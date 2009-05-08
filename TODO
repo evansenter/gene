@@ -1,5 +1,5 @@
 * Move away from testing methods with randomness over many calls, and use a behavior-driven approach instead.
 
-* POSSIBLY: Render genes sorted by alpha so the most transparent polygons are on top.
+* Render genes sorted by alpha so the most transparent polygons are on top.
 
 * Figure out how geometry.rb will tie into the hierarchy for files, and fix the inheritance structure in general.

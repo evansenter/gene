@@ -5,6 +5,8 @@ end
 totals = { :tests => 0, :assertions => 0, :failures => 0, :errors => 0 }
 
 tests.each do |test|
+  print "Pulling in #{test}\n"
+  
   results = `ruby #{test}`
   results =~ /(\d+) tests, (\d+) assertions, (\d+) failures, (\d+) errors/
   

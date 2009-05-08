@@ -1,4 +1,4 @@
-require File.join("#{File.dirname(__FILE__)}", "calculator.rb")
+require File.join("#{File.dirname(__FILE__)}", "extensions.rb")
 
 class Trait
   include Calculator
