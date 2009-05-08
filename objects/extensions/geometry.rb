@@ -21,6 +21,21 @@ class Geometry
     lower_hull + upper_hull.reverse[1..-2]
   end
 
+  def self.align_crossover_for(chromosome_1, chromosome_2)
+    distance_map = crossover_map_for(chromosome_1, chromosome_2)
+    optimal_alignment = Hungarian.new(distance_map).solve
+    
+    returning({}) do |alignment_hash|
+      alignment_hash[:chromosome_1] = []
+      alignment_hash[:chromosome_2] = []
+      
+      optimal_alignment.each do |tuple|
+        alignment_hash[:chromosome_1] << tuple.first
+        alignment_hash[:chromosome_2] << tuple.last
+      end
+    end
+  end
+
   private
   
   def self.trim_hull(hull, list, xor_boolean)
@@ -39,5 +54,29 @@ class Geometry
 
   def self.convex?(points, xor_boolean)
     (determinant_function(points[0], points[2])[points[1]] > 0) ^ xor_boolean
+  end
+  
+  def self.crossover_map_for(chromosome_1, chromosome_2)
+    chromosome_1.genes.map do |chromosome_1_gene|
+      chromosome_2.genes.map do |chromosome_2_gene|
+        distance_between(middle_point_of(chromosome_1_gene), middle_point_of(chromosome_2_gene))
+      end
+    end
+  end
+  
+  def self.middle_point_of(gene)
+    sum     = lambda { |a, b| a + b }
+    average = lambda { |axis| (sum <= gene.polygon.points.map(&axis).map(&:value)) / gene.polygon.num_points.to_f }
+    
+    Point.new(average[:x], average[:y])
+  end
+  
+  def self.distance_between(point_1, point_2)
+    square = lambda { |value| value ** 2 }
+    
+    x_difference = point_2.x - point_1.x
+    y_difference = point_2.y - point_1.y
+    
+    Math.sqrt(square[x_difference] + square[y_difference])
   end
 end
