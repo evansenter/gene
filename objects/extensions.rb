@@ -4,8 +4,17 @@ def returning(value)
 end
 
 def add_bounding_methods_to(range)
-  :min[range] = lambda { self.begin }
-  :max[range] = lambda { self.exclude_end? && self.end.is_a?(Integer) ? self.end - 1 : self.end }
+  returning(range) do |object|
+    object.instance_eval do
+      def min
+        self.begin.is_a?(Float) ? self.begin : super
+      end
+      
+      def max
+        self.end.is_a?(Float) ? self.end : super
+      end
+    end
+  end
 end
 
 class Object
