@@ -104,6 +104,12 @@ class CalculatorTest < Test::Unit::TestCase
     chromosome_1.expects(:get_parameters).twice.returns(:params, [num_genes, num_points, image_dimensions])
     chromosome_2.expects(:get_parameters).returns(:params)
     
+    aligned_crossover = { :chromosome_1 => :aligned_chromosome_1, :chromosome_2 => :aligned_chromosome_2 }
+    Geometry.expects(:align_crossover_for).with(chromosome_1, chromosome_2).returns(aligned_crossover)
+    
+    chromosome_1.expects(:genes_from_alignment_map).with(:aligned_chromosome_1).returns(chromosome_1.genes)
+    chromosome_2.expects(:genes_from_alignment_map).with(:aligned_chromosome_2).returns(chromosome_2.genes)
+    
     chromosome_1.expects(:fitness).twice.returns(:value)
     chromosome_2.expects(:fitness).twice.returns(:value)
     
