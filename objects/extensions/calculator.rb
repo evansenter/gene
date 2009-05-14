@@ -44,7 +44,12 @@ module Calculator
       raise(ArgumentError, "Both chromosomes need to have a fitness value")
     end
     
-    genes_for        = chromosomes.map(&:genes)
+    aligned_chromosomes = Geometry.align_crossover_for(chromosome_1, chromosome_2)
+    genes_for = [
+                  chromosome_1.genes_from_alignment_map(aligned_chromosomes[:chromosome_1]),
+                  chromosome_2.genes_from_alignment_map(aligned_chromosomes[:chromosome_2])
+                ]
+                
     fitness_for      = chromosomes.map(&:fitness)
     current_sequence = rand(2)
     xover_freq       = options[:xover_freq]    || DEFAULT_XOVER_FREQ

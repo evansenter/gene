@@ -18,6 +18,10 @@ class Chromosome
     [num_genes, @num_points, @image_dimensions]
   end
   
+  def genes_from_alignment_map(alignment)
+    alignment.map { |index| @genes[index] }
+  end
+  
   def genes_by_alpha
     @genes.sort { |gene_1, gene_2| gene_2.color.a.value <=> gene_1.color.a.value }
   end
