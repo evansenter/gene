@@ -8,9 +8,7 @@ class Gene
   def initialize(num_points, image_dimensions, options = {})
     options.default = {}
     
-    unless num_points >= 3
-      raise(ArgumentError, "You must provide at least 3 points per polygon (#{num_points} #{num_points == 1 ? 'was' : 'were'} requested)")
-    end
+    assert_at_least 3, num_points
     
     @polygon = (0...num_points).map do |index|
       Point.new(

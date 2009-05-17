@@ -49,6 +49,17 @@ class ExtensionsTest < Test::Unit::TestCase
     assert_equal [1, 2, 3], [1, 2, 3].send_if(false, :map, proc { |element| element.succ })
   end
   
+  def test_assert_at_least__raises_error
+    assert_raise ArgumentError do
+      assert_at_least 3, 2
+    end
+
+    assert_nothing_raised do
+      assert_at_least 3, 3
+      assert_at_least 3, 4
+    end
+  end
+  
   def test_symbol__to_proc
     arrays = [Array.new(0), Array.new(1), Array.new(2)]
     assert_equal [0, 1, 2], arrays.map(&:size)

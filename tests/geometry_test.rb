@@ -1,34 +1,42 @@
 %w[test/unit rubygems mocha ../objects/extensions/geometry.rb ../objects/chromosome.rb].each { |helper| require helper }
 
+class TestClass
+  include Geometry
+end
+
 class GeometryTest < Test::Unit::TestCase
   def test_true
     assert true
   end
   
   def test_hull__less_than_three_points
-    point_list = [[], [create_point(0, 0)], [create_point(0, 0), create_point(0, 0)]].each do |point_list|
-      assert_equal point_list, Geometry.hull(point_list)
+    point_list = [[], [create_point(0, 0)], [create_point(0, 0), create_point(0, 0)]]
+    
+    point_list.each do |point_list|
+      assert_raise ArgumentError do
+        assert_equal point_list, TestClass.hull
+      end
     end
   end
   
   def test_hull_simple_case
     point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50)]
-    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(TestClass.hull(point_list))
   end
   
   def test_hull__one_point_inside
     point_list = [create_point(0, 0), create_point(50, 0), create_point(50, 50), create_point(10, 5)]
-    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(TestClass.hull(point_list))
   end
   
   def test_hull__three_points_on_a_line
     point_list = [create_point(0, 0), create_point(25, 0), create_point(50, 0), create_point(50, 50)]
-    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))    
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(TestClass.hull(point_list))    
   end
   
   def test_hull__three_points_on_a_line_with_one_point_inside
     point_list = [create_point(0, 0), create_point(25, 0), create_point(50, 0), create_point(50, 50), create_point(10, 5)]
-    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(Geometry.hull(point_list))    
+    assert_equal [[0, 0], [50, 50], [50, 0]], format_points_in(TestClass.hull(point_list))    
   end
   
   def test_align_crossover_for
@@ -57,7 +65,7 @@ class GeometryTest < Test::Unit::TestCase
     chromosome_1 = Chromosome.new(3, 3, image_dimensions, chromosome_1_options)
     chromosome_2 = Chromosome.new(3, 3, image_dimensions, chromosome_2_options)
 
-    optimal_alignment = Geometry.align_crossover_for(chromosome_1, chromosome_2)
+    optimal_alignment = TestClass.align_crossover_for(chromosome_1, chromosome_2)
     
     assert_equal [0, 1, 2], optimal_alignment[:chromosome_1]
     assert_equal [1, 0, 2], optimal_alignment[:chromosome_2]
@@ -85,13 +93,13 @@ class GeometryTest < Test::Unit::TestCase
     chromosome_1 = Chromosome.new(2, 3, image_dimensions, chromosome_1_options)
     chromosome_2 = Chromosome.new(2, 3, image_dimensions, chromosome_2_options)
 
-    assert_equal [[10, 22.5], [5, 7.5]], Geometry.crossover_map_for(chromosome_1, chromosome_2)
+    assert_equal [[10, 22.5], [5, 7.5]], TestClass.send(:crossover_map_for, chromosome_1, chromosome_2)
   end
   
   def test_middle_point_of
     image_dimensions = Point.new(640, 480)
     gene_options     = gene_options_with_points_at([[0, 0], [30, 0], [0, 15], [30, 15]])
-    middle_point     = Geometry.middle_point_of(Gene.new(4, image_dimensions, gene_options))
+    middle_point     = TestClass.send(:middle_point_of, Gene.new(4, image_dimensions, gene_options))
     
     assert_equal 15, middle_point.x
     assert_equal 7.5, middle_point.y
@@ -101,7 +109,7 @@ class GeometryTest < Test::Unit::TestCase
     point_1 = Point.new(0, 0)
     point_2 = Point.new(3, 4)
     
-    assert_equal 5, Geometry.distance_between(point_1, point_2)
+    assert_equal 5, TestClass.send(:distance_between, point_1, point_2)
   end
   
   protected

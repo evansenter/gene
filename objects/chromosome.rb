@@ -1,6 +1,8 @@
 require File.join("#{File.dirname(__FILE__)}", "gene.rb")
 
 class Chromosome
+  include Geometry
+  
   attr_accessor :fitness
   attr_reader   :image_dimensions, :genes
   

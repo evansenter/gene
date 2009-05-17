@@ -7,3 +7,7 @@
 
 * Note: Geometry.align_crossover_for(chromosome_1, chromosome_2) returns a hash with two arrays of indicies to optimally align two chromsomes
           -- Spatially optimized.
+
+// ----- !!! ----- //          
+* REFACTOR NOTE: The way the /extensions/ files get used seems highly coupled, this needs to be reworked into a more modular system!
+// ----- !!! ----- //

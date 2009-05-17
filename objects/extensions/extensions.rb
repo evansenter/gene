@@ -30,6 +30,12 @@ class Object
       self
     end
   end
+  
+  def assert_at_least(number_required, number_present, message = nil)
+    unless number_present >= number_required
+      raise(ArgumentError, message || "You must provide at least #{number_required} objects (#{number_present} #{number_present == 1 ? 'was' : 'were'} provided)")
+    end
+  end
 end
 
 class Symbol
