@@ -16,3 +16,5 @@
     5) Randomly pair off organisms for mitosis (Use get_normal_random_variable to favor higher fitness organisms?)
     
 * Integrate an image library and plan out the render operation
+
+* Think about using the garbage collector...

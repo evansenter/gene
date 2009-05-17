@@ -46,7 +46,7 @@ class ChromosomeTest < Test::Unit::TestCase
     image_dimensions = Point.new(640, 480)
     chromosome = Chromosome.new(3, 3, image_dimensions)
 
-    assert_equal [chromosome.genes[2], chromosome.genes[0], chromosome.genes[1]], chromosome.genes_from_alignment_map([2, 0, 1])
+    assert_equal [chromosome.genes[2], chromosome.genes[0], chromosome.genes[1]], chromosome.send(:genes_from_alignment_map, [2, 0, 1])
   end
   
   def test_genes_by_alpha
