@@ -1,13 +1,1 @@
 * Update Wikipedia with path to new hungarian.rb
-
-* Render genes sorted by alpha so the most transparent polygons are on top.
-  => Method: chromosome.genes_by_alpha
-  
-* Why is Geometry a class instead of a module?
-
-* Note: Geometry.align_crossover_for(chromosome_1, chromosome_2) returns a hash with two arrays of indicies to optimally align two chromsomes
-          -- Spatially optimized.
-
-// ----- !!! ----- //          
-* REFACTOR NOTE: The way the /extensions/ files get used seems highly coupled, this needs to be reworked into a more modular system!
-// ----- !!! ----- //

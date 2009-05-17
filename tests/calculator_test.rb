@@ -8,6 +8,21 @@ class CalculatorTest < Test::Unit::TestCase
   def test_true
     assert true
   end
+  
+  def test_generate_value__raises_error_when_max_is_nil_or_zero
+    assert_raise ArgumentError do 
+      TestClass.generate_value(nil) 
+    end
+    
+    assert_raise ArgumentError do 
+      TestClass.generate_value(0) 
+    end
+  end
+  
+  def test_generate_value__returns_same_type_as_max    
+    assert TestClass.generate_value(1.0).is_a?(Float)
+    assert TestClass.generate_value(100).is_a?(Fixnum)
+  end
 
   def test_get_normal_random_variable__x
     sum = mock
@@ -81,20 +96,5 @@ class CalculatorTest < Test::Unit::TestCase
     assert_equal 0, TestClass.send(:convert, 1, 0)
     assert_equal 0, TestClass.send(:convert, 0, 0)
     assert_equal 0, TestClass.send(:convert, 0, 1)
-  end
-
-  def test_generate_value__raises_error_when_max_is_nil_or_zero
-    assert_raise ArgumentError do 
-      TestClass.generate_value(nil) 
-    end
-    
-    assert_raise ArgumentError do 
-      TestClass.generate_value(0) 
-    end
-  end
-  
-  def test_generate_value__returns_same_type_as_max    
-    assert TestClass.generate_value(1.0).is_a?(Float)
-    assert TestClass.generate_value(100).is_a?(Fixnum)
   end
 end
