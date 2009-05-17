@@ -64,7 +64,7 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_setup_value_with__no_value
-    Calculator.expects(:generate_value).returns(:value)
+    Trait.expects(:generate_value).returns(:value)
     
     trait = Trait.new(:x, (0..10))
     

@@ -5,7 +5,7 @@ class Trait
   
   STANDARD_DEVIATION = {
     :default => 0.1,
-    :range   => add_bounding_methods_to((0.01..0.25))
+    :range   => add_bounding_methods_to(0.01..0.25)
   }
   
   attr_reader :value, :range, :standard_deviation
@@ -26,12 +26,12 @@ class Trait
     if value && !range.include?(value)
       raise(ArgumentError, "Can't generate a trait with a default value (#{value}) outside the allowed range (#{@range})")
     else
-      value || Calculator.generate_value(@range.max)
+      value || Trait.generate_value(@range.max)
     end
   end
   
   def mutated_value
-    new_value = @value + @standard_deviation * Calculator.get_uniform_random_variable
+    new_value = @value + @standard_deviation * Trait.get_uniform_random_variable
     new_value = new_value.round if @value.is_a?(Fixnum)
     
     if new_value > @range.max
