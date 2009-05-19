@@ -1,6 +1,4 @@
-* Address flog, flay, reek, roodi, rcov
-
-* Update Wikipedia with path to new hungarian.rb
+* Handle issues brought to light with: find objects/ -name *.rb | xargs reek
 
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:
