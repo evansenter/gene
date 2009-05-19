@@ -5,9 +5,7 @@ module Geometry
   
   module ClassMethods
     def hull(points)
-      unless points.length >= 3
-        raise(ArgumentError, "Can not calculate the convex hull unless there are at least 3 points (#{points.size} #{points.size == 1 ? 'was' : 'were'} provided)")
-      end
+      ensure_hullable_from(points)
 
       list_of_points = points.sort_by { |point| point.x.value }
       left_point     = list_of_points.shift
@@ -17,10 +15,7 @@ module Geometry
       lower_list, upper_list = [left_point], [left_point]
       lower_hull, upper_hull = [], []
 
-      until list_of_points.empty?
-        point = list_of_points.shift
-        (determinant[point] < 0 ? lower_list : upper_list) << point
-      end
+      partition_points_from(list_of_points, lower_list, upper_list, determinant)
 
       trim_hull(lower_hull, lower_list << right_point, true)
       trim_hull(upper_hull, upper_list << right_point, false)
@@ -45,6 +40,19 @@ module Geometry
     
     private
     
+    def ensure_hullable_from(points)
+      unless points.length >= 3
+        raise(ArgumentError, "Can not calculate the convex hull unless there are at least 3 points (#{points.size} #{points.size == 1 ? 'was' : 'were'} provided)")
+      end
+    end
+    
+    def partition_points_from(list_of_points, lower_list, upper_list, determinant_lambda)
+      until list_of_points.empty?
+        point = list_of_points.shift
+        (determinant_lambda[point] < 0 ? lower_list : upper_list) << point
+      end
+    end
+    
     def trim_hull(hull, list, xor_boolean)
       until list.empty?
         hull << list.shift
@@ -57,7 +65,11 @@ module Geometry
 
     def determinant_function(point_1, point_2)
       # This is a good candidate for functionals.rb apply_head.
-      lambda { |pivot| ((point_1.x.value - point_2.x.value) * (pivot.y.value - point_2.y.value)) - ((pivot.x.value - point_2.x.value) * (point_1.y.value - point_2.y.value)) }
+      lambda { |pivot| multiply_difference(point_1, point_2, pivot) - multiply_difference(pivot, point_2, point_1) }
+    end
+    
+    def multiply_difference(point_1, point_2, point_3)
+      (point_1.x.value - point_2.x.value) * (point_3.y.value - point_2.y.value)
     end
 
     def convex?(points, xor_boolean)
