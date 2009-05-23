@@ -1,10 +1,6 @@
-tests = Dir.new(File.dirname(__FILE__)).entries.select do |file_name|
-  file_name =~ /^.*_test.rb$/
-end
- 
 totals = { :tests => 0, :assertions => 0, :failures => 0, :errors => 0 }
 
-tests.each do |test|
+Dir.glob("**/*_test.rb").each do |test|
   print "Pulling in #{test}\n"
   
   results = `ruby #{test}`

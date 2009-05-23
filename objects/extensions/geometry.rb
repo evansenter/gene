@@ -5,7 +5,7 @@ module Geometry
   
   module ClassMethods
     def hull(points)
-      ensure_hullable_from(points)
+      ensure_hullable_with(points)
 
       list_of_points = points.sort_by { |point| point.x.value }
       left_point     = list_of_points.shift
@@ -40,7 +40,7 @@ module Geometry
     
     private
     
-    def ensure_hullable_from(points)
+    def ensure_hullable_with(points)
       unless points.length >= 3
         raise(ArgumentError, "Can not calculate the convex hull unless there are at least 3 points (#{points.size} #{points.size == 1 ? 'was' : 'were'} provided)")
       end
