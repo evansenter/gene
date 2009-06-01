@@ -1,5 +1,5 @@
 require "benchmark.rb"
-require "../objects/extensions/hungarian.rb"
+require "../lib/extensions/hungarian.rb"
 
 hungarian = Hungarian.new
 hungarian_total_time = 0

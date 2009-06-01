@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../objects/extensions/extensions.rb].each { |helper| require helper }
+%w[test/unit rubygems mocha ../lib/extensions/extensions.rb].each { |helper| require helper }
 
 class ExtensionsTest < Test::Unit::TestCase
   def test_true

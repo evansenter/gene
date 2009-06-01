@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../objects/gene.rb].each { |helper| require helper }
+%w[test/unit rubygems mocha ../lib/gene.rb].each { |helper| require helper }
 
 class GeneTest < Test::Unit::TestCase
   def test_true
