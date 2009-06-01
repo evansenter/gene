@@ -9,22 +9,37 @@ class ChromosomeTest < Test::Unit::TestCase
     image_dimensions = Point.new(640, 480)
     num_genes, num_points = 100, 10
     chromosome = Chromosome.new(num_genes, num_points, image_dimensions)
+    
+    image_range_x = (0...image_dimensions.x)
+    image_range_y = (0...image_dimensions.y)
+    color_range   = (0...256)
+    alpha_range   = Range.new(0.0, 1.0)
+    
     assert_equal num_genes, chromosome.num_genes
 
     chromosome.genes.each do |gene|      
       assert_equal num_points, gene.polygon.num_points
       
-      gene.polygon.points.each do |point|
-        assert((0...image_dimensions.x) === point.x.value)
-        assert((0...image_dimensions.y) === point.y.value)
-      end
-      
-      gene.color.rgb.each do |vector|
-        assert((0...256) === vector.value)
-      end
-      
-      assert(Range.new(0.0, 1.0) === gene.color.a.value)
+      assert gene.polygon.points.all? { |point| image_range_x.include?(point.x.value) && image_range_y.include?(point.y.value) }
+      assert gene.color.rgb.all? { |vector| color_range.include?(vector.value) }
+      assert alpha_range.include?(gene.color.a.value)
     end
+  end
+  
+  def test_initialize__fitness_implicitly_set_to_default
+    image_dimensions = Point.new(640, 480)
+    num_genes, num_points = 100, 10
+    chromosome = Chromosome.new(num_genes, num_points, image_dimensions)
+    
+    assert_equal Chromosome::DEFAULT_FITNESS, chromosome.fitness
+  end
+  
+  def test_initialize__fitness_explicitly_set
+    image_dimensions = Point.new(640, 480)
+    num_genes, num_points = 100, 10
+    chromosome = Chromosome.new(num_genes, num_points, image_dimensions, :fitness => 0.75)
+    
+    assert_equal 0.75, chromosome.fitness
   end
   
   def test_initialize__no_options_should_pass_through_an_empty_hash_to_gene_initialize
@@ -76,8 +91,6 @@ class ChromosomeTest < Test::Unit::TestCase
       :trait_a   => { :default => 0.5 }
     }.merge(options)
   end
-  
-  protected
   
   def mutation_distribution_helper
     trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25 })
