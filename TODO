@@ -1,6 +1,5 @@
 * Open areas for work:
-  1) Trim out libraries not being used?
-  2) Rethink the instantiation path for chromosomes from a config hash
+  1) Rethink the instantiation path for chromosomes from a config hash
 
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:

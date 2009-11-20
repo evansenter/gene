@@ -20,7 +20,7 @@ class Trait
   
   def setup_value_with(name, default)
     if default && !range.include?(default)
-      raise(ArgumentError, "Can't generate a trait with value (#{@value}) outside the range (#{range})")
+      raise(ArgumentError, "Can't generate a trait with value (#{default}) outside the range (#{range})")
     end
       
     @value = default || Trait.generate_value(range.max)

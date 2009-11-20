@@ -88,14 +88,14 @@ class ChromosomeTest < Test::Unit::TestCase
   
   def mutation_distribution_helper
     trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25 })
-    distribution = trait.range.map { 0 }
+    distribution = trait.range.map { 0.0 }
     
     1000.times do
       value = Chromosome.mutate(trait, 0.25)
       distribution[value] += 1
     end
     
-    sum = distribution.inject(0.0) { |sum, value| sum + value }
+    sum = lambda { |a, b| a + b } <= distribution
     p distribution.map { |value| value / sum * 100 }
   end
 end
