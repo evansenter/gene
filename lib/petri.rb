@@ -1,6 +1,4 @@
-require File.join("#{File.dirname(__FILE__)}", "chromosome.rb")
-
-class Chromosome
+class Petri
   attr_reader :dish
   
   def initialize(num_organisms, num_genes, num_points, image_dimensions)

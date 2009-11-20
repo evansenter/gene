@@ -1,7 +1,6 @@
-%w[test/unit rubygems mocha ../lib/extensions/functionals.rb].each { |helper| require helper }
+require "test_helper"
 
-class FunctionalsTest < Test::Unit::TestCase
-  
+class FunctionalExtensionsTest < Test::Unit::TestCase  
   def test_true
     assert true
   end

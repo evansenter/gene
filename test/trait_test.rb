@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../lib/trait.rb].each { |helper| require helper }
+require "test_helper"
 
 class TraitTest < Test::Unit::TestCase
   def test_true

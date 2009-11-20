@@ -1,7 +1,0 @@
-History.txt
-Manifest.txt
-README.txt
-Rakefile
-bin/gene
-lib/gene.rb
-test/test_gene.rb

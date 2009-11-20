@@ -1,5 +1,4 @@
-require File.join("#{File.dirname(__FILE__)}", "extensions/extensions.rb")
-
+# You can pass a block to Struct.new to define instance methods on instantiated structs.
 Color = Struct.new(:r, :g, :b, :a)
 
 def Color.new(*args, &block)

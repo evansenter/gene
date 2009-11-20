@@ -1,7 +1,3 @@
-%w[gene meiosis].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
-
 class Chromosome
   include Meiosis
   

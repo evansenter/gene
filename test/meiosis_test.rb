@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../lib/chromosome.rb].each { |helper| require helper }
+require "test_helper"
 
 class MeiosisTest < Test::Unit::TestCase
   def test_true

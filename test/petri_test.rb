@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../lib/petri.rb].each { |helper| require helper }
+require "test_helper"
 
 class PetriTest < Test::Unit::TestCase
   def test_true

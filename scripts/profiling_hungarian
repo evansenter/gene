@@ -1,0 +1,768 @@
+Thread ID: 109440
+Total Time: 82.73813
+
+  %total   %self     total      self      wait     child            calls   Name
+--------------------------------------------------------------------------------
+ 100.00%   0.00%     82.74      0.00      0.00     82.74                1     Global#[No method] (benchmark.rb:28}  benchmark.rb:28
+                     82.74      0.00      0.00     82.74              1/1     Hungarian#solve
+--------------------------------------------------------------------------------
+                     82.74      0.00      0.00     82.74              1/1     Global#[No method]
+ 100.00%   0.00%     82.74      0.00      0.00     82.74                1     Hungarian#solve (../lib/extensions/hungarian.rb:25}  ../lib/extensions/hungarian.rb:25
+                     82.71      0.00      0.00     82.71          209/209     Kernel#send
+                      0.00      0.00      0.00      0.00          176/176     Kernel#==
+                      0.00      0.00      0.00      0.00           34/594     Array#==
+                      0.00      0.00      0.00      0.00              1/1     Hungarian#setup
+                      0.02      0.00      0.00      0.02              1/1     Hungarian#assignment
+--------------------------------------------------------------------------------
+                     82.71      0.00      0.00     82.71          209/209     Hungarian#solve
+  99.97%   0.00%     82.71      0.00      0.00     82.71              209     Kernel#send (ruby_runtime:0}  ruby_runtime:0
+                     53.60      0.02      0.00     53.58            86/86     Hungarian#prime_zeroes
+                      4.56      0.00      0.00      4.56            35/35     Hungarian#mask_columns
+                     18.16      0.00      0.00     18.16            52/52     Hungarian#adjust_matrix
+                      0.09      0.00      0.00      0.09              1/1     Hungarian#minimize_rows
+                      0.17      0.00      0.00      0.17              1/1     Hungarian#star_zeroes
+                      6.12      0.00      0.00      6.12            34/34     Hungarian#augment_path
+--------------------------------------------------------------------------------
+                      0.59      0.37      0.00      0.23         632/1471     Enumerable#map
+                      2.43      0.02      0.00      2.41          52/1471     Hungarian#adjust_matrix
+                      0.10      0.06      0.00      0.04         104/1471     Enumerable#select
+                      4.56      0.04      0.00      4.52          35/1471     Hungarian#mask_columns
+                      0.02      0.00      0.00      0.02           1/1471     Enumerable#inject
+                     74.25      0.25      0.00     74.00         647/1471     Hungarian#traverse_indices
+  99.04%   0.89%     81.94      0.73      0.00     81.21             1471     Range#each (ruby_runtime:0}  ruby_runtime:0
+                      0.02      0.01      0.00      0.01          100/732     Array#index
+                      0.03      0.03      0.00      0.00    13305/1050263     Hash#[]
+                      0.00      0.00      0.00      0.00          100/190     Array#<<
+                     73.64     45.02      0.00     28.62      38641/42141     Range#each-1
+                      0.25      0.25      0.00      0.00   136900/9050500     Array#[]
+                      2.41      1.34      0.00      1.07        5200/8956     Array#each
+                      3.39      0.03      0.00      3.36        3500/3579     Hungarian#column_mask_values_for
+                      0.36      0.28      0.00      0.08      38641/43612     Hungarian#index_range
+                      1.12      0.01      0.00      1.11        3500/3500     Enumerable#any?
+                      0.01      0.01      0.00      0.00      2905/151712     Array#[]=
+--------------------------------------------------------------------------------
+                      3.32      2.05      0.00      1.27       3500/42141     Enumerable#map
+                     73.64     45.02      0.00     28.62      38641/42141     Range#each
+  93.01%  56.88%     76.95     47.06      0.00     29.89            42141     Range#each-1 (ruby_runtime:0}  ruby_runtime:0
+                      0.61      0.61      0.00      0.00    340000/577637     Fixnum#==
+                      0.00      0.00      0.00      0.00            52/52     NilClass#nil?
+                      0.22      0.22      0.00      0.00    120355/120355     Kernel#nil?
+                      0.00      0.00      0.00      0.00            66/66     Hungarian#cover_cell
+                      9.47      5.63      0.00      3.85    565545/565545     Hungarian#location_covered?
+                     13.99     13.99      0.00      0.00  7582105/9050500     Array#[]
+                      0.21      0.21      0.00      0.00    120355/120355     Fixnum#<
+                      5.38      5.38      0.00      0.00  2980090/2980090     Fixnum#zero?
+                      0.00      0.00      0.00      0.00       495/151712     Array#[]=
+--------------------------------------------------------------------------------
+                     15.15      0.00      0.00     15.15           52/647     Hungarian#adjust_matrix
+                      0.17      0.00      0.00      0.17            1/647     Hungarian#star_zeroes
+                      5.96      0.00      0.00      5.96           34/647     Hungarian#augment_path
+                     52.98      0.01      0.00     52.97          560/647     Hungarian#find_uncovered_zero
+  89.75%   0.01%     74.26      0.01      0.00     74.25              647     Hungarian#traverse_indices (../lib/extensions/hungarian.rb:200}  ../lib/extensions/hungarian.rb:200
+                      0.01      0.00      0.00      0.00        647/43612     Hungarian#index_range
+                     74.25      0.25      0.00     74.00         647/1471     Range#each
+--------------------------------------------------------------------------------
+                     53.60      0.02      0.00     53.58            86/86     Kernel#send
+  64.78%   0.02%     53.60      0.02      0.00     53.58               86     Hungarian#prime_zeroes (../lib/extensions/hungarian.rb:76}  ../lib/extensions/hungarian.rb:76
+                      0.10      0.05      0.00      0.05          508/732     Array#index
+                      0.00      0.00      0.00      0.00      948/1050263     Hash#[]
+                      0.49      0.00      0.00      0.48          508/553     Hungarian#row_mask_values_for
+                      0.00      0.00      0.00      0.00      508/9050500     Array#[]
+                      0.01      0.00      0.00      0.00          560/594     Array#==
+                     52.98      0.00      0.00     52.98          560/560     Hungarian#find_uncovered_zero
+                      0.00      0.00      0.00      0.00      1456/151712     Array#[]=
+--------------------------------------------------------------------------------
+                     52.98      0.00      0.00     52.98          560/560     Hungarian#prime_zeroes
+  64.04%   0.00%     52.98      0.00      0.00     52.98              560     Hungarian#find_uncovered_zero (../lib/extensions/hungarian.rb:165}  ../lib/extensions/hungarian.rb:165
+                     52.98      0.01      0.00     52.97          560/647     Hungarian#traverse_indices
+--------------------------------------------------------------------------------
+                     18.16      0.00      0.00     18.16            52/52     Kernel#send
+  21.95%   0.00%     18.16      0.00      0.00     18.16               52     Hungarian#adjust_matrix (../lib/extensions/hungarian.rb:125}  ../lib/extensions/hungarian.rb:125
+                      0.05      0.00      0.00      0.05            52/52     Hungarian#indices_of_uncovered_columns
+                      0.05      0.00      0.00      0.05            52/52     Hungarian#indices_of_covered_rows
+                      0.48      0.01      0.00      0.48          52/8956     Array#each
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#index_range
+                     15.15      0.00      0.00     15.15           52/647     Hungarian#traverse_indices
+                      2.43      0.02      0.00      2.41          52/1471     Range#each
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00        5/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        7/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        8/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00      508/9050500     Hungarian#prime_zeroes
+                      0.00      0.00      0.00      0.00        8/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        5/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        4/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        4/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                     13.99     13.99      0.00      0.00  7582105/9050500     Range#each-1
+                      0.00      0.00      0.00      0.00        1/9050500     #<Class:#<Array:0x32f708>>#previous_column
+                      0.00      0.00      0.00      0.00       20/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        4/9050500     Unknown#previous_row
+                      1.88      1.88      0.00      0.00  1035843/9050500     Hungarian#location_covered?
+                      0.00      0.00      0.00      0.00       12/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        7/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        6/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        5/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.53      0.53      0.00      0.00   294930/9050500     Array#each
+                      0.00      0.00      0.00      0.00       13/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        3/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        9/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.25      0.25      0.00      0.00   136900/9050500     Range#each
+                      0.00      0.00      0.00      0.00        9/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00       21/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        1/9050500     Unknown#previous_column
+                      0.00      0.00      0.00      0.00        6/9050500     Unknown#previous_row
+                      0.00      0.00      0.00      0.00        2/9050500     Unknown#previous_row
+  20.12%  20.12%     16.64     16.64      0.00      0.00          9050500     Array#[] (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      9.47      5.63      0.00      3.85    565545/565545     Range#each-1
+  11.45%   6.80%      9.47      5.63      0.00      3.85           565545     Hungarian#location_covered? (../lib/extensions/hungarian.rb:180}  ../lib/extensions/hungarian.rb:180
+                      1.97      1.97      0.00      0.00  1035843/1050263     Hash#[]
+                      1.88      1.88      0.00      0.00  1035843/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      6.12      0.00      0.00      6.12            34/34     Kernel#send
+   7.40%   0.00%      6.12      0.00      0.00      6.12               34     Hungarian#augment_path (../lib/extensions/hungarian.rb:95}  ../lib/extensions/hungarian.rb:95
+                      0.00      0.00      0.00      0.00            34/35     Hungarian#reset_covered_hash
+                      0.01      0.00      0.00      0.01            34/34     Hungarian#update_elements_in
+                      0.00      0.00      0.00      0.00            34/34     Kernel#instance_eval
+                      0.15      0.00      0.00      0.15            34/34     Kernel#loop
+                      5.96      0.00      0.00      5.96           34/647     Hungarian#traverse_indices
+--------------------------------------------------------------------------------
+                      5.38      5.38      0.00      0.00  2980090/2980090     Range#each-1
+   6.51%   6.51%      5.38      5.38      0.00      0.00          2980090     Fixnum#zero? (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      4.56      0.00      0.00      4.56            35/35     Kernel#send
+   5.52%   0.00%      4.56      0.00      0.00      4.56               35     Hungarian#mask_columns (../lib/extensions/hungarian.rb:66}  ../lib/extensions/hungarian.rb:66
+                      0.00      0.00      0.00      0.00       35/1050263     Hash#[]
+                      0.00      0.00      0.00      0.00            35/35     Enumerable#all?
+                      0.00      0.00      0.00      0.00         35/43612     Hungarian#index_range
+                      4.56      0.04      0.00      4.52          35/1471     Range#each
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          35/8956     Hungarian#reset_covered_hash
+                      0.48      0.01      0.00      0.48          52/8956     Hungarian#adjust_matrix
+                      0.00      0.00      0.00      0.00          35/8956     Enumerable#all?
+                      0.04      0.02      0.00      0.02         100/8956     Enumerable#min
+                      0.01      0.00      0.00      0.00          34/8956     Hungarian#update_elements_in
+                      2.41      1.34      0.00      1.07        5200/8956     Range#each
+                      1.11      0.76      0.00      0.34        3500/8956     Enumerable#any?
+   4.88%   2.58%      4.04      2.13      0.00      1.91             8956     Array#each (ruby_runtime:0}  ruby_runtime:0
+                      0.34      0.34      0.00      0.00    195585/577637     Fixnum#==
+                      0.53      0.53      0.00      0.00   294930/9050500     Array#[]
+                      0.00      0.00      0.00      0.00          203/203     Kernel#===
+                      0.00      0.00      0.00      0.00            70/70     Array#fill
+                      0.26      0.26      0.00      0.00    146600/156600     Fixnum#-
+                      0.47      0.32      0.00      0.15          862/863     Array#map!
+                      0.02      0.02      0.00      0.00        9900/9900     Fixnum#<=>
+                      0.27      0.27      0.00      0.00    146724/151712     Array#[]=
+--------------------------------------------------------------------------------
+                      0.52      0.00      0.00      0.52         553/4132     Hungarian#row_mask_values_for
+                      3.41      0.02      0.00      3.39        3579/4132     Hungarian#column_mask_values_for
+   4.74%   0.02%      3.93      0.02      0.00      3.91             4132     Enumerable#map (ruby_runtime:0}  ruby_runtime:0
+                      3.32      2.05      0.00      1.27       3500/42141     Range#each-1
+                      0.59      0.37      0.00      0.23         632/1471     Range#each
+--------------------------------------------------------------------------------
+                      0.08      0.00      0.00      0.08          79/3579     Kernel#loop
+                      3.39      0.03      0.00      3.36        3500/3579     Range#each
+   4.19%   0.03%      3.47      0.03      0.00      3.44             3579     Hungarian#column_mask_values_for (../lib/extensions/hungarian.rb:188}  ../lib/extensions/hungarian.rb:188
+                      3.41      0.02      0.00      3.39        3579/4132     Enumerable#map
+                      0.03      0.03      0.00      0.01       3579/43612     Hungarian#index_range
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00      948/1050263     Hungarian#prime_zeroes
+                      0.00      0.00      0.00      0.00       35/1050263     Hungarian#mask_columns
+                      0.00      0.00      0.00      0.00      132/1050263     Hungarian#cover_cell
+                      1.97      1.97      0.00      0.00  1035843/1050263     Hungarian#location_covered?
+                      0.03      0.03      0.00      0.00    13305/1050263     Range#each
+   2.41%   2.41%      2.00      2.00      0.00      0.00          1050263     Hash#[] (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      1.12      0.01      0.00      1.11        3500/3500     Range#each
+   1.35%   0.02%      1.12      0.01      0.00      1.11             3500     Enumerable#any? (ruby_runtime:0}  ruby_runtime:0
+                      1.11      0.76      0.00      0.34        3500/8956     Array#each
+--------------------------------------------------------------------------------
+                      0.07      0.07      0.00      0.00     41465/577637     Array#index
+                      0.61      0.61      0.00      0.00    340000/577637     Range#each-1
+                      0.00      0.00      0.00      0.00        79/577637     Kernel#===
+                      0.00      0.00      0.00      0.00       508/577637     Array#==
+                      0.34      0.34      0.00      0.00    195585/577637     Array#each
+   1.23%   1.23%      1.02      1.02      0.00      0.00           577637     Fixnum#== (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.09      0.00      0.00      0.09            1/863     Hungarian#minimize_rows
+                      0.47      0.32      0.00      0.15          862/863     Array#each
+   0.69%   0.39%      0.57      0.32      0.00      0.25              863     Array#map! (ruby_runtime:0}  ruby_runtime:0
+                      0.15      0.15      0.00      0.00      86200/86200     Fixnum#+
+                      0.06      0.04      0.00      0.02          100/100     Array#map
+                      0.04      0.00      0.00      0.04          100/100     Enumerable#min
+--------------------------------------------------------------------------------
+                      0.49      0.00      0.00      0.48          508/553     Hungarian#prime_zeroes
+                      0.04      0.00      0.00      0.04           45/553     Kernel#loop
+   0.64%   0.01%      0.53      0.00      0.00      0.52              553     Hungarian#row_mask_values_for (../lib/extensions/hungarian.rb:184}  ../lib/extensions/hungarian.rb:184
+                      0.52      0.00      0.00      0.52         553/4132     Enumerable#map
+                      0.01      0.00      0.00      0.00        553/43612     Hungarian#index_range
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#adjust_matrix
+                      0.00      0.00      0.00      0.00         35/43612     Hungarian#mask_columns
+                      0.01      0.00      0.00      0.00        553/43612     Hungarian#row_mask_values_for
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#indices_of_uncovered_columns
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#indices_of_covered_rows
+                      0.03      0.03      0.00      0.01       3579/43612     Hungarian#column_mask_values_for
+                      0.36      0.28      0.00      0.08      38641/43612     Range#each
+                      0.01      0.00      0.00      0.00        647/43612     Hungarian#traverse_indices
+                      0.00      0.00      0.00      0.00          1/43612     Hungarian#assignment
+   0.49%   0.38%      0.41      0.32      0.00      0.09            43612     Hungarian#index_range (../lib/extensions/hungarian.rb:204}  ../lib/extensions/hungarian.rb:204
+                      0.09      0.09      0.00      0.00      43612/43612     <Class::Object>#allocate
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00      1456/151712     Hungarian#prime_zeroes
+                      0.00      0.00      0.00      0.00       132/151712     Hungarian#cover_cell
+                      0.00      0.00      0.00      0.00       495/151712     Range#each-1
+                      0.27      0.27      0.00      0.00    146724/151712     Array#each
+                      0.01      0.01      0.00      0.00      2905/151712     Range#each
+   0.35%   0.35%      0.29      0.29      0.00      0.00           151712     Array#[]= (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.02      0.02      0.00      0.00     10000/156600     Array#map
+                      0.26      0.26      0.00      0.00    146600/156600     Array#each
+   0.34%   0.34%      0.28      0.28      0.00      0.00           156600     Fixnum#- (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.22      0.22      0.00      0.00    120355/120355     Range#each-1
+   0.27%   0.27%      0.22      0.22      0.00      0.00           120355     Kernel#nil? (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.21      0.21      0.00      0.00    120355/120355     Range#each-1
+   0.26%   0.26%      0.21      0.21      0.00      0.00           120355     Fixnum#< (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.17      0.00      0.00      0.17              1/1     Kernel#send
+   0.21%   0.00%      0.17      0.00      0.00      0.17                1     Hungarian#star_zeroes (../lib/extensions/hungarian.rb:52}  ../lib/extensions/hungarian.rb:52
+                      0.00      0.00      0.00      0.00             1/35     Hungarian#reset_covered_hash
+                      0.17      0.00      0.00      0.17            1/647     Hungarian#traverse_indices
+--------------------------------------------------------------------------------
+                      0.15      0.15      0.00      0.00      86200/86200     Array#map!
+   0.18%   0.18%      0.15      0.15      0.00      0.00            86200     Fixnum#+ (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.15      0.00      0.00      0.15            34/34     Hungarian#augment_path
+   0.18%   0.00%      0.15      0.00      0.00      0.15               34     Kernel#loop (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              7/7     Unknown#previous_column
+                      0.03      0.01      0.00      0.01          124/732     Array#index
+                      0.00      0.00      0.00      0.00              5/5     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              8/8     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              8/8     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              5/5     Unknown#previous_column
+                      0.04      0.00      0.00      0.04           45/553     Hungarian#row_mask_values_for
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00           90/190     Array#<<
+                      0.00      0.00      0.00      0.00              4/4     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              4/4     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            20/20     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              4/4     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              1/1     #<Class:#<Array:0x32f708>>#previous_column
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            12/12     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              7/7     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              5/5     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              6/6     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.08      0.00      0.00      0.08          79/3579     Hungarian#column_mask_values_for
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              3/3     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            13/13     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              9/9     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              9/9     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              6/6     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            21/21     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              1/1     Unknown#previous_column
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+                      0.00      0.00      0.00      0.00              2/2     Unknown#previous_row
+--------------------------------------------------------------------------------
+                      0.10      0.05      0.00      0.05          508/732     Hungarian#prime_zeroes
+                      0.03      0.01      0.00      0.01          124/732     Kernel#loop
+                      0.02      0.01      0.00      0.01          100/732     Range#each
+   0.18%   0.09%      0.15      0.07      0.00      0.07              732     Array#index (ruby_runtime:0}  ruby_runtime:0
+                      0.07      0.07      0.00      0.00     41465/577637     Fixnum#==
+--------------------------------------------------------------------------------
+                      0.05      0.00      0.00      0.05           52/104     Hungarian#indices_of_uncovered_columns
+                      0.05      0.00      0.00      0.05           52/104     Hungarian#indices_of_covered_rows
+   0.12%   0.00%      0.10      0.00      0.00      0.10              104     Enumerable#select (ruby_runtime:0}  ruby_runtime:0
+                      0.10      0.06      0.00      0.04         104/1471     Range#each
+--------------------------------------------------------------------------------
+                      0.09      0.00      0.00      0.09              1/1     Kernel#send
+   0.11%   0.00%      0.09      0.00      0.00      0.09                1     Hungarian#minimize_rows (../lib/extensions/hungarian.rb:41}  ../lib/extensions/hungarian.rb:41
+                      0.09      0.00      0.00      0.09            1/863     Array#map!
+--------------------------------------------------------------------------------
+                      0.09      0.09      0.00      0.00      43612/43612     Hungarian#index_range
+   0.11%   0.11%      0.09      0.09      0.00      0.00            43612     <Class::Object>#allocate (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.06      0.04      0.00      0.02          100/100     Array#map!
+   0.07%   0.05%      0.06      0.04      0.00      0.02              100     Array#map (ruby_runtime:0}  ruby_runtime:0
+                      0.02      0.02      0.00      0.00     10000/156600     Fixnum#-
+--------------------------------------------------------------------------------
+                      0.05      0.00      0.00      0.05            52/52     Hungarian#adjust_matrix
+   0.06%   0.00%      0.05      0.00      0.00      0.05               52     Hungarian#indices_of_uncovered_columns (../lib/extensions/hungarian.rb:196}  ../lib/extensions/hungarian.rb:196
+                      0.05      0.00      0.00      0.05           52/104     Enumerable#select
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#index_range
+--------------------------------------------------------------------------------
+                      0.05      0.00      0.00      0.05            52/52     Hungarian#adjust_matrix
+   0.06%   0.00%      0.05      0.00      0.00      0.05               52     Hungarian#indices_of_covered_rows (../lib/extensions/hungarian.rb:192}  ../lib/extensions/hungarian.rb:192
+                      0.05      0.00      0.00      0.05           52/104     Enumerable#select
+                      0.00      0.00      0.00      0.00         52/43612     Hungarian#index_range
+--------------------------------------------------------------------------------
+                      0.04      0.00      0.00      0.04          100/100     Array#map!
+   0.05%   0.00%      0.04      0.00      0.00      0.04              100     Enumerable#min (ruby_runtime:0}  ruby_runtime:0
+                      0.04      0.02      0.00      0.02         100/8956     Array#each
+--------------------------------------------------------------------------------
+                      0.02      0.00      0.00      0.02              1/1     Hungarian#solve
+   0.02%   0.00%      0.02      0.00      0.00      0.02                1     Hungarian#assignment (../lib/extensions/hungarian.rb:152}  ../lib/extensions/hungarian.rb:152
+                      0.02      0.00      0.00      0.02              1/1     Enumerable#inject
+                      0.00      0.00      0.00      0.00          1/43612     Hungarian#index_range
+--------------------------------------------------------------------------------
+                      0.02      0.00      0.00      0.02              1/1     Hungarian#assignment
+   0.02%   0.00%      0.02      0.00      0.00      0.02                1     Enumerable#inject (ruby_runtime:0}  ruby_runtime:0
+                      0.02      0.00      0.00      0.02           1/1471     Range#each
+--------------------------------------------------------------------------------
+                      0.02      0.02      0.00      0.00        9900/9900     Array#each
+   0.02%   0.02%      0.02      0.02      0.00      0.00             9900     Fixnum#<=> (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00           34/594     Hungarian#solve
+                      0.01      0.00      0.00      0.00          560/594     Hungarian#prime_zeroes
+   0.01%   0.01%      0.01      0.00      0.00      0.00              594     Array#== (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00       508/577637     Fixnum#==
+--------------------------------------------------------------------------------
+                      0.01      0.00      0.00      0.01            34/34     Hungarian#augment_path
+   0.01%   0.00%      0.01      0.00      0.00      0.01               34     Hungarian#update_elements_in (../lib/extensions/hungarian.rb:156}  ../lib/extensions/hungarian.rb:156
+                      0.01      0.00      0.00      0.00          34/8956     Array#each
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Hungarian#solve
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Hungarian#setup (../lib/extensions/hungarian.rb:145}  ../lib/extensions/hungarian.rb:145
+                      0.00      0.00      0.00      0.00              3/3     Class#new
+                      0.00      0.00      0.00      0.00              1/1     Array#length
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Hungarian#setup
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Class#new (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00            3/103     <Class::Array>#allocate
+                      0.00      0.00      0.00      0.00              3/3     Array#initialize
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Class#new
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Array#initialize (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00          100/100     Class#new-1
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            34/34     Hungarian#augment_path
+   0.00%   0.00%      0.00      0.00      0.00      0.00               34     Kernel#instance_eval (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00            68/68     Kernel#singleton_method_added
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            66/66     Range#each-1
+   0.00%   0.00%      0.00      0.00      0.00      0.00               66     Hungarian#cover_cell (../lib/extensions/hungarian.rb:172}  ../lib/extensions/hungarian.rb:172
+                      0.00      0.00      0.00      0.00      132/1050263     Hash#[]
+                      0.00      0.00      0.00      0.00       132/151712     Array#[]=
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00             1/35     Hungarian#star_zeroes
+                      0.00      0.00      0.00      0.00            34/35     Hungarian#augment_path
+   0.00%   0.00%      0.00      0.00      0.00      0.00               35     Hungarian#reset_covered_hash (../lib/extensions/hungarian.rb:176}  ../lib/extensions/hungarian.rb:176
+                      0.00      0.00      0.00      0.00            35/35     Hash#values
+                      0.00      0.00      0.00      0.00          35/8956     Array#each
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          100/100     Array#initialize
+   0.00%   0.00%      0.00      0.00      0.00      0.00              100     Class#new-1 (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00          100/103     <Class::Array>#allocate
+                      0.00      0.00      0.00      0.00          100/100     Array#initialize-1
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          203/203     Array#each
+   0.00%   0.00%      0.00      0.00      0.00      0.00              203     Kernel#=== (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00        79/577637     Fixnum#==
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          176/176     Hungarian#solve
+   0.00%   0.00%      0.00      0.00      0.00      0.00              176     Kernel#== (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            5/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            7/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            8/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            8/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            5/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            4/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            4/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     #<Class:#<Array:0x32f708>>#previous_column
+                      0.00      0.00      0.00      0.00           20/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            4/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00           12/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            7/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            6/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            5/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00           13/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            3/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            9/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            9/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00           21/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            1/214     Unknown#previous_column
+                      0.00      0.00      0.00      0.00            6/214     Unknown#previous_row
+                      0.00      0.00      0.00      0.00            2/214     Unknown#previous_row
+   0.00%   0.00%      0.00      0.00      0.00      0.00              214     Array#last (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00           90/190     Kernel#loop
+                      0.00      0.00      0.00      0.00          100/190     Range#each
+   0.00%   0.00%      0.00      0.00      0.00      0.00              190     Array#<< (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            35/35     Hungarian#mask_columns
+   0.00%   0.00%      0.00      0.00      0.00      0.00               35     Enumerable#all? (ruby_runtime:0}  ruby_runtime:0
+                      0.00      0.00      0.00      0.00          35/8956     Array#each
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            70/70     Array#each
+   0.00%   0.00%      0.00      0.00      0.00      0.00               70     Array#fill (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          100/100     Class#new-1
+   0.00%   0.00%      0.00      0.00      0.00      0.00              100     Array#initialize-1 (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            21/21     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00               21     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00           21/214     Array#last
+                      0.00      0.00      0.00      0.00       21/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            20/20     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00               20     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00           20/214     Array#last
+                      0.00      0.00      0.00      0.00       20/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00          100/103     Class#new-1
+                      0.00      0.00      0.00      0.00            3/103     Class#new
+   0.00%   0.00%      0.00      0.00      0.00      0.00              103     <Class::Array>#allocate (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            35/35     Hungarian#reset_covered_hash
+   0.00%   0.00%      0.00      0.00      0.00      0.00               35     Hash#values (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            68/68     Kernel#instance_eval
+   0.00%   0.00%      0.00      0.00      0.00      0.00               68     Kernel#singleton_method_added (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            13/13     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00               13     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00           13/214     Array#last
+                      0.00      0.00      0.00      0.00       13/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            12/12     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00               12     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00           12/214     Array#last
+                      0.00      0.00      0.00      0.00       12/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00            52/52     Range#each-1
+   0.00%   0.00%      0.00      0.00      0.00      0.00               52     NilClass#nil? (ruby_runtime:0}  ruby_runtime:0
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              9/9     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                9     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            9/214     Array#last
+                      0.00      0.00      0.00      0.00        9/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              9/9     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                9     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            9/214     Array#last
+                      0.00      0.00      0.00      0.00        9/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              8/8     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                8     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            8/214     Array#last
+                      0.00      0.00      0.00      0.00        8/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              8/8     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                8     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            8/214     Array#last
+                      0.00      0.00      0.00      0.00        8/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              7/7     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                7     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            7/214     Array#last
+                      0.00      0.00      0.00      0.00        7/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              7/7     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                7     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            7/214     Array#last
+                      0.00      0.00      0.00      0.00        7/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              6/6     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                6     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            6/214     Array#last
+                      0.00      0.00      0.00      0.00        6/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              6/6     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                6     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            6/214     Array#last
+                      0.00      0.00      0.00      0.00        6/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              5/5     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                5     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            5/214     Array#last
+                      0.00      0.00      0.00      0.00        5/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              5/5     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                5     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            5/214     Array#last
+                      0.00      0.00      0.00      0.00        5/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              5/5     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                5     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            5/214     Array#last
+                      0.00      0.00      0.00      0.00        5/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              4/4     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                4     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            4/214     Array#last
+                      0.00      0.00      0.00      0.00        4/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              4/4     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                4     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            4/214     Array#last
+                      0.00      0.00      0.00      0.00        4/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              4/4     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                4     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            4/214     Array#last
+                      0.00      0.00      0.00      0.00        4/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              3/3     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                3     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            3/214     Array#last
+                      0.00      0.00      0.00      0.00        3/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              2/2     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                2     Unknown#previous_row (../lib/extensions/hungarian.rb:103}  ../lib/extensions/hungarian.rb:103
+                      0.00      0.00      0.00      0.00            2/214     Array#last
+                      0.00      0.00      0.00      0.00        2/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     #<Class:#<Array:0x32f708>>#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Kernel#loop
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Unknown#previous_column (../lib/extensions/hungarian.rb:104}  ../lib/extensions/hungarian.rb:104
+                      0.00      0.00      0.00      0.00            1/214     Array#last
+                      0.00      0.00      0.00      0.00        1/9050500     Array#[]
+--------------------------------------------------------------------------------
+                      0.00      0.00      0.00      0.00              1/1     Hungarian#setup
+   0.00%   0.00%      0.00      0.00      0.00      0.00                1     Array#length (ruby_runtime:0}  ruby_runtime:0
+
+

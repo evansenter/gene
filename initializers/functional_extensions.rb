@@ -1,4 +1,4 @@
-module Functional
+module FunctionalExtensions
   def apply(enum)
     enum.map &self
   end
@@ -40,5 +40,5 @@ module Functional
   alias +@ memoize
 end
 
-class Method; include Functional; end
-class Proc; include Functional; end
+class Method; include FunctionalExtensions; end
+class Proc; include FunctionalExtensions; end

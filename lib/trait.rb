@@ -1,33 +1,31 @@
-require File.join("#{File.dirname(__FILE__)}", "extensions/extensions.rb")
-
 class Trait
   include Calculator
   
   STANDARD_DEVIATION = {
     :default => 0.1,
-    :range   => add_bounding_methods_to(0.01..0.25)
+    :range   => 0.01..0.25
   }
   
   attr_reader :value, :range, :standard_deviation
   
   def initialize(name, range, options = {})
-    @range              = add_bounding_methods_to(range)
-    @standard_deviation = setup_standard_deviation_with(options[:standard_deviation])
-    @value              = setup_value_with(options[:default])
-    
-    name[self] = lambda { @value }
+    @range = range
+    setup_standard_deviation_with(options[:standard_deviation])
+    setup_value_with(name, options[:default])
   end
   
-  def setup_standard_deviation_with(standard_deviation)
-    (standard_deviation || STANDARD_DEVIATION[:default]) * @range.max
+  def setup_standard_deviation_with(deviation)
+    @standard_deviation = (deviation || STANDARD_DEVIATION[:default]) * @range.max
   end
   
-  def setup_value_with(value)
-    if value && !range.include?(value)
+  def setup_value_with(name, default)
+    @value = if default && !range.include?(default)
       raise(ArgumentError, "Can't generate a trait with a default value (#{value}) outside the allowed range (#{@range})")
     else
-      value || Trait.generate_value(@range.max)
+      default || Trait.generate_value(@range.max)
     end
+    
+    name[self] = lambda { @value }
   end
   
   def mutated_value
@@ -44,6 +42,7 @@ class Trait
   end
   
   def self.new_standard_deviation_from(fitness)
+    # Tighten the deviation from max to min linearly as the fitness increases.
     deviation_range = STANDARD_DEVIATION[:range].max - STANDARD_DEVIATION[:range].min
     STANDARD_DEVIATION[:range].max - deviation_range * fitness
   end

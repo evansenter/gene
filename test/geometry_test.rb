@@ -1,4 +1,4 @@
-%w[test/unit rubygems mocha ../lib/extensions/geometry.rb ../lib/chromosome.rb].each { |helper| require helper }
+require "test_helper"
 
 class TestClass
   include Geometry
