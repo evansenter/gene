@@ -81,35 +81,26 @@ class TraitTest < Test::Unit::TestCase
     end
   end
 
-  def test_mutated_value__integer
-    1000.times do
-      trait = Trait.new(:x, (0..100))
-      new_value = trait.mutated_value
-      
-      assert_equal Fixnum, new_value.class
-    end
-  end
-  
   def test_mutated_value__inclusive
-    1000.times do
-      trait = Trait.new(:x, (0..100))
-      old_value = trait.value
-      new_value = trait.mutated_value
-      
-      assert trait.range === new_value
-      assert_equal old_value, trait.value
-    end
+    trait = Trait.new(:x, (0..100))    
+    Trait.stubs(:get_normal_random_variable).returns(1)
+    
+    trait.instance_variable_set(:@standard_deviation, 1000)
+    assert_equal 100, trait.mutated_value
+    
+    trait.instance_variable_set(:@standard_deviation, -1000)
+    assert_equal 0, trait.mutated_value
+    
+    trait.instance_variable_set(:@standard_deviation, 0)
+    assert_equal trait.value, trait.mutated_value
   end
   
   def test_mutated_value__exclusive
-    1000.times do
-      trait = Trait.new(:x, (0...100))
-      old_value = trait.value
-      new_value = trait.mutated_value
-      
-      assert trait.range === new_value
-      assert_equal old_value, trait.value
-    end
+    trait = Trait.new(:x, (0...100))    
+    Trait.stubs(:get_normal_random_variable).returns(1)
+    
+    trait.instance_variable_set(:@standard_deviation, 1000)
+    assert_equal 99, trait.mutated_value
   end
   
   def test_new_standard_deviation_from

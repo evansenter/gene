@@ -15,27 +15,26 @@ class Trait
   end
   
   def setup_standard_deviation_with(deviation)
-    @standard_deviation = (deviation || STANDARD_DEVIATION[:default]) * @range.max
+    @standard_deviation = (deviation || STANDARD_DEVIATION[:default]) * range.max
   end
   
   def setup_value_with(name, default)
-    @value = if default && !range.include?(default)
-      raise(ArgumentError, "Can't generate a trait with a default value (#{value}) outside the allowed range (#{@range})")
-    else
-      default || Trait.generate_value(@range.max)
+    if default && !range.include?(default)
+      raise(ArgumentError, "Can't generate a trait with value (#{@value}) outside the range (#{range})")
     end
-    
+      
+    @value = default || Trait.generate_value(range.max)
     name[self] = lambda { @value }
   end
   
   def mutated_value
-    new_value = @value + @standard_deviation * Trait.get_uniform_random_variable
-    new_value = new_value.round if @value.is_a?(Fixnum)
+    new_value = value + standard_deviation * Trait.get_normal_random_variable
+    new_value = new_value.round if value.is_a?(Fixnum)
     
-    if new_value > @range.max
-      @range.max
-    elsif new_value < @range.min
-      @range.min
+    if new_value > range.max
+      range.max
+    elsif new_value < range.min
+      range.min
     else
       new_value
     end

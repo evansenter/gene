@@ -1,8 +1,6 @@
 * Open areas for work:
-  1) Finish converting tests for generator.rb
-  2) Get rid of tests that are doing massive iterations
-  3) Trim out libraries not being used?
-  4) Rethink the instantiation path for chromosomes from a config hash
+  1) Trim out libraries not being used?
+  2) Rethink the instantiation path for chromosomes from a config hash
 
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:
