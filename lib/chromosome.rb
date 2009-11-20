@@ -12,6 +12,8 @@ class Chromosome
     @image_dimensions = image_dimensions
     @fitness          = options[:fitness] || DEFAULT_FITNESS
     @genes            = num_genes.times.map { |index| Gene.new(num_points, image_dimensions, options[:"gene_#{index}"] || {}) }
+    
+    yield self if block_given?
   end
   
   def get_parameters
@@ -24,5 +26,15 @@ class Chromosome
   
   def genes_from_alignment_map(alignment)
     alignment.map { |index| genes[index] }
+  end
+  
+  private
+  
+  def method_missing(name, *args)
+    if name.to_s =~ /gene_(\d+)=/ && (0...num_genes) === (index = $1.to_i)
+      genes[index] = *args
+    else
+      super
+    end
   end
 end

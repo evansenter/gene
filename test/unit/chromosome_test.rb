@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class ChromosomeTest < Test::Unit::TestCase
   def setup
-    @num_genes        = 100
-    @num_points       = 10
+    @num_genes        = 50
+    @num_points       = 3
     @image_dimensions = Point.new(640, 480)
     @chromosome       = Chromosome.new(@num_genes, @num_points, @image_dimensions)
   end
@@ -27,6 +27,26 @@ class ChromosomeTest < Test::Unit::TestCase
     end
   end
   
+  def test_initialize__with_block
+    custom_gene_0 = Gene.new(@num_points, @image_dimensions)
+    custom_gene_1 = Gene.new(@num_points, @image_dimensions)
+    
+    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) do |config|
+      config.gene_0 = custom_gene_0
+      config.gene_1 = custom_gene_1
+    end
+    
+    lambda { |index| assert chromosome.genes[index].is_a?(Gene) } | chromosome.num_genes.times
+    assert_equal custom_gene_0, chromosome.genes[0]
+    assert_equal custom_gene_1, chromosome.genes[1]
+    
+    assert_raise NoMethodError do
+      chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) do |config|
+        config.rawr!
+      end
+    end
+  end
+  
   def test_initialize__fitness_implicitly_set_to_default
     assert_equal Chromosome::DEFAULT_FITNESS, @chromosome.fitness
   end
@@ -44,7 +64,7 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   def test_get_parameters
-    assert_equal [100, 10, @image_dimensions], @chromosome.get_parameters
+    assert_equal [50, 3, @image_dimensions], @chromosome.get_parameters
   end
   
   def test_genes_by_alpha
