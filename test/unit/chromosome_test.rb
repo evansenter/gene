@@ -1,24 +1,25 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class ChromosomeTest < Test::Unit::TestCase
+  def setup
+    @num_genes        = 100
+    @num_points       = 10
+    @image_dimensions = Point.new(640, 480)
+    @chromosome       = Chromosome.new(@num_genes, @num_points, @image_dimensions)
+  end
+  
   def test_true
     assert true
   end
 
   def test_initialize
-    image_dimensions = Point.new(640, 480)
-    num_genes, num_points = 100, 10
-    chromosome = Chromosome.new(num_genes, num_points, image_dimensions)
-    
-    image_range_x = (0...image_dimensions.x)
-    image_range_y = (0...image_dimensions.y)
+    image_range_x = (0...@image_dimensions.x)
+    image_range_y = (0...@image_dimensions.y)
     color_range   = (0...256)
-    alpha_range   = Range.new(0.0, 1.0)
-    
-    assert_equal num_genes, chromosome.num_genes
+    alpha_range   = (0.0..1.0)    
 
-    chromosome.genes.each do |gene|      
-      assert_equal num_points, gene.polygon.num_points
+    @chromosome.genes.each do |gene|      
+      assert_equal @num_points, gene.polygon.num_points
       
       assert gene.polygon.points.all? { |point| image_range_x.include?(point.x.value) && image_range_y.include?(point.y.value) }
       assert gene.color.rgb.all? { |vector| color_range.include?(vector.value) }
@@ -27,49 +28,42 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   def test_initialize__fitness_implicitly_set_to_default
-    image_dimensions = Point.new(640, 480)
-    num_genes, num_points = 100, 10
-    chromosome = Chromosome.new(num_genes, num_points, image_dimensions)
-    
-    assert_equal Chromosome::DEFAULT_FITNESS, chromosome.fitness
+    assert_equal Chromosome::DEFAULT_FITNESS, @chromosome.fitness
   end
   
   def test_initialize__fitness_explicitly_set
-    image_dimensions = Point.new(640, 480)
-    num_genes, num_points = 100, 10
-    chromosome = Chromosome.new(num_genes, num_points, image_dimensions, :fitness => 0.75)
+    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions, :fitness => 0.75)
     
     assert_equal 0.75, chromosome.fitness
   end
   
   def test_initialize__no_options_should_pass_through_an_empty_hash_to_gene_initialize
-    image_dimensions = Point.new(640, 480)
-    num_genes, num_points = 100, 10
-    Gene.expects(:new).times(num_genes).with(num_points, image_dimensions, {})
+    Gene.expects(:new).times(@num_genes).with(@num_points, @image_dimensions, {})
     
-    Chromosome.new(num_genes, num_points, image_dimensions)
+    Chromosome.new(@num_genes, @num_points, @image_dimensions)
   end
   
   def test_get_parameters
-    image_dimensions = Point.new(640, 480)
-    chromosome = Chromosome.new(100, 10, image_dimensions)
-    
-    assert_equal [100, 10, image_dimensions], chromosome.get_parameters
+    assert_equal [100, 10, @image_dimensions], @chromosome.get_parameters
   end
   
   def test_genes_by_alpha
-    image_dimensions = Point.new(640, 480)
-    
     gene_options = returning({}) do |hash|
       hash[:gene_0] = options_for_gene(:trait_a => { :default => 0.5 })
       hash[:gene_1] = options_for_gene(:trait_a => { :default => 0.0 })
       hash[:gene_2] = options_for_gene(:trait_a => { :default => 1.0 })
     end
 
-    chromosome = Chromosome.new(3, 3, image_dimensions, gene_options)
+    chromosome = Chromosome.new(3, 3, @image_dimensions, gene_options)
     
     assert_equal [0.5, 0.0, 1.0], chromosome.genes.map(&:color).map(&:a).map(&:value)    
     assert_equal [1.0, 0.5, 0.0], chromosome.genes_by_alpha.map(&:color).map(&:a).map(&:value)
+  end
+  
+  def test_genes_from_alignment_map
+    chromosome = Chromosome.new(3, 3, @image_dimensions)
+  
+    assert_equal [chromosome.genes[2], chromosome.genes[0], chromosome.genes[1]], chromosome.genes_from_alignment_map([2, 0, 1])
   end
   
   private

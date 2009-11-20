@@ -1,12 +1,14 @@
 class Generator
+  include Aligner
+  
   attr_accessor :current_sequence
   attr_reader   :chromosomes, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
   
   DEFAULT_XOVER_FREQ    = 0.1
   DEFAULT_MUTATION_FREQ = 0.25
   
-  def initialize(chromosome_1, chromosome_2, options = {})
-    @chromosomes = chromosome_1, chromosome_2
+  def initialize(chromosome_1, chromosome_2, options = {})    
+    @chromosomes = (@chromosome_1, @chromosome_2 = chromosome_1, chromosome_2)
     validate_generator
     
     @gene_map         = align_chromosomes
@@ -23,22 +25,21 @@ class Generator
   private
   
   def validate_generator
-    if chromosomes.first.get_parameters != chromosomes.last.get_parameters
+    if @chromosome_1.get_parameters != @chromosome_2.get_parameters
       raise(ArgumentError, "The two chromosomes don't have matching parameters")
     elsif !chromosomes.all?(&:fitness)
       raise(ArgumentError, "Both chromosomes need to have a fitness value")
     end
     
-    @num_genes, @num_points, @image_dimensions = chromosomes.first.get_parameters
+    @num_genes, @num_points, @image_dimensions = @chromosome_1.get_parameters
   end
   
   def align_chromosomes
-    # I don't think this is actually working... the Geometry module only works when mixed in.
-    aligned_chromosomes = Geometry.align_crossover_for(chromosomes)
+    alignment_for = align_crossover
 
     [
-      chromosomes.first.genes_from_alignment_map(aligned_chromosomes[:chromosome_1]),
-      chromosomes.last.genes_from_alignment_map(aligned_chromosomes[:chromosome_2])
+      @chromosome_1.genes_from_alignment_map(alignment_for[:chromosome_1]),
+      @chromosome_2.genes_from_alignment_map(alignment_for[:chromosome_2])
     ]
   end
   
@@ -50,8 +51,8 @@ class Generator
     end
   end
   
-  def generate_gene_at(index)
-    gene = gene_map[set_read_sequence][index]
+  def generate_gene_at(index)  
+    gene = gene_map[read_sequence][index]
 
     returning({}) do |gene_settings|      
       num_points.times.each do |index|
@@ -77,7 +78,7 @@ class Generator
     rand(0) < mutation_freq ? trait.mutated_value : trait.value
   end
   
-  def set_read_sequence
-    current_sequence ^= 1 if rand(0) < xover_freq
+  def read_sequence
+    rand(0) < xover_freq ? self.current_sequence ^= 1 : current_sequence
   end
 end

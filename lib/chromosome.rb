@@ -1,4 +1,6 @@
-class Chromosome  
+class Chromosome
+  include Geometry
+  
   attr_accessor :fitness
   attr_reader   :num_genes, :num_points, :image_dimensions, :genes
   

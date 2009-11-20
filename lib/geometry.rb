@@ -1,9 +1,9 @@
 module Geometry
   def self.included(base)
-    base.extend ClassMethods
+    base.instance_eval { include InstanceMethods }
   end
   
-  module ClassMethods
+  module InstanceMethods
     def hull(points)
       ensure_hullable_with(points)
 
@@ -21,18 +21,6 @@ module Geometry
       trim_hull(upper_hull, upper_list << right_point, false)
 
       lower_hull + upper_hull.reverse[1..-2]
-    end
-    
-    def align_crossover_for(chromosome_1, chromosome_2)
-      distance_map      = crossover_map_for(chromosome_1, chromosome_2)
-      optimal_alignment = Hungarian.new(distance_map).solve
-
-      returning({ :chromosome_1 => [], :chromosome_2 => [] }) do |alignment_hash|
-        optimal_alignment.each do |tuple|
-          alignment_hash[:chromosome_1] << tuple.first
-          alignment_hash[:chromosome_2] << tuple.last
-        end
-      end
     end
     
     private
@@ -69,26 +57,6 @@ module Geometry
 
     def convex?(points, xor_boolean)
       (determinant_function(points[0], points[2])[points[1]] > 0) ^ xor_boolean
-    end
-    
-    def crossover_map_for(chromosome_1, chromosome_2)
-      chromosome_1.genes.map do |chromosome_1_gene|
-        chromosome_2.genes.map do |chromosome_2_gene|
-          distance_between(middle_point_of(chromosome_1_gene), middle_point_of(chromosome_2_gene))
-        end
-      end
-    end
-
-    def middle_point_of(gene)
-      sum     = lambda { |a, b| a + b }
-      average = lambda { |axis| (sum <= gene.polygon.points.map(&axis).map(&:value)) / gene.polygon.num_points.to_f }
-
-      Point.new(average[:x], average[:y])
-    end
-
-    def distance_between(point_1, point_2)
-      square = lambda { |value| value ** 2 }
-      Math.sqrt(square[point_2.x - point_1.x] + square[point_2.y - point_1.y])
     end
   end
 end
