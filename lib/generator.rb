@@ -60,7 +60,7 @@ class Generator
         end
       end
 
-      gene.color.to_hash.each do |color, trait|
+      gene.color.each_pair do |color, trait|
         gene_settings[:"trait_#{color}"] = settings_hash_for(trait)
       end
     end
