@@ -24,7 +24,7 @@ class Hungarian
     
   def solve(matrix = nil)
     setup(matrix) if matrix
-    raise "You must provide a matrix to solve." unless @matrix
+    raise(ArgumentError, "You must provide a matrix to solve.") unless @matrix
     
     method = :minimize_rows
     while method != :finished

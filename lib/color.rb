@@ -1,9 +1,8 @@
-# You can pass a block to Struct.new to define instance methods on instantiated structs.
-Color = Struct.new(:r, :g, :b, :a)
-
-def Color.new(*args, &block)
-  returning(object = allocate) do |color|
-    color.send(:initialize, *args, &block)
-    :to_hash[color] = lambda { { :r => r, :g => g, :b => b, :a => a } }
+Color = Struct.new(:r, :g, :b, :a) do
+  def to_hash
+    each_pair.inject({}) do |hash, key_value|
+      attr, value = key_value
+      returning(hash) { |hash| hash[attr] = value }      
+    end
   end
 end

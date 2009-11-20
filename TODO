@@ -1,4 +1,4 @@
-* Handle issues brought to light with: find objects/ -name *.rb | xargs reek
+* Handle issues brought to light with the Reek tool
 
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:
