@@ -14,7 +14,7 @@ class GeometryTest < Test::Unit::TestCase
     
     point_list.each do |point_list|
       assert_raise ArgumentError do
-        assert_equal point_list, TestClass.hull
+        TestClass.hull(point_list)
       end
     end
   end

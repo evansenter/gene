@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-class MeiosisTest < Test::Unit::TestCase
+class GeneratorTest < Test::Unit::TestCase
   def test_true
     assert true
   end
@@ -97,7 +97,7 @@ class MeiosisTest < Test::Unit::TestCase
     }
   
     gene = Gene.new(3, Point.new(640, 480), options)
-    assert_equal options, Chromosome.send(:generate_gene_from, gene, :fitness)
+    assert_equal options, Chromosome.send(:generate_gene_from, gene, :fitness, Chromosome.default_mutation_freq)
   end
 
   def test_settings_hash_for
@@ -115,7 +115,7 @@ class MeiosisTest < Test::Unit::TestCase
     Chromosome.expects(:mutate).with(:trait, Chromosome::DEFAULT_MUTATION_FREQ).returns(:value)
   
     expected_hash = { :default => :value, :standard_deviation => :new_standard_deviation }
-    assert_equal expected_hash, Chromosome.send(:settings_hash_for, :trait, :fitness)
+    assert_equal expected_hash, Chromosome.send(:settings_hash_for, :trait, :fitness, Chromosome.default_mutation_freq)
   end
 
   def test_mutate__returns_normal_trait_value
@@ -136,7 +136,7 @@ class MeiosisTest < Test::Unit::TestCase
     random_value.expects(:<).with(Chromosome::DEFAULT_MUTATION_FREQ).returns(true)
     Chromosome.expects(:rand).with(0).returns(random_value)
   
-    assert_equal :random_value, Chromosome.send(:mutate, trait)
+    assert_equal :random_value, Chromosome.send(:mutate, trait, Chromosome.default_mutation_freq)
   end
 
   def test_read_from__returns_current_sequence    
@@ -153,7 +153,7 @@ class MeiosisTest < Test::Unit::TestCase
     Chromosome.expects(:rand).with(0).returns(random_value)
     Chromosome.expects(:flip).with(:current_sequence).returns(:alternate_sequence)
   
-    assert_equal :alternate_sequence, Chromosome.send(:read_from, :current_sequence)
+    assert_equal :alternate_sequence, Chromosome.send(:read_from, :current_sequence, Chromosome.default_xover_freq)
   end
 
   def test_flip

@@ -24,13 +24,10 @@ module Geometry
     end
     
     def align_crossover_for(chromosome_1, chromosome_2)
-      distance_map = crossover_map_for(chromosome_1, chromosome_2)
+      distance_map      = crossover_map_for(chromosome_1, chromosome_2)
       optimal_alignment = Hungarian.new(distance_map).solve
 
-      returning({}) do |alignment_hash|
-        alignment_hash[:chromosome_1] = []
-        alignment_hash[:chromosome_2] = []
-
+      returning({ :chromosome_1 => [], :chromosome_2 => [] }) do |alignment_hash|
         optimal_alignment.each do |tuple|
           alignment_hash[:chromosome_1] << tuple.first
           alignment_hash[:chromosome_2] << tuple.last
@@ -41,9 +38,7 @@ module Geometry
     private
     
     def ensure_hullable_with(points)
-      unless points.length >= 3
-        raise(ArgumentError, "Can not calculate the convex hull unless there are at least 3 points (#{points.size} #{points.size == 1 ? 'was' : 'were'} provided)")
-      end
+      assert_at_least 3, points.length, "Can not calculate the convex hull unless there are at least 3 points (#{points.size} #{points.size == 1 ? 'was' : 'were'} provided)"
     end
     
     def partition_points_from(list_of_points, lower_list, upper_list, determinant_lambda)
@@ -93,11 +88,7 @@ module Geometry
 
     def distance_between(point_1, point_2)
       square = lambda { |value| value ** 2 }
-
-      x_difference = point_2.x - point_1.x
-      y_difference = point_2.y - point_1.y
-
-      Math.sqrt(square[x_difference] + square[y_difference])
+      Math.sqrt(square[point_2.x - point_1.x] + square[point_2.y - point_1.y])
     end
   end
 end

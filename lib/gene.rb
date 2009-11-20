@@ -1,7 +1,3 @@
-%w[trait point color].each do |file|
-  require File.join("#{File.dirname(__FILE__)}", "#{file}.rb")
-end
-
 class Gene
   attr_reader :polygon, :color
   
@@ -10,7 +6,7 @@ class Gene
     
     options.default = {}    
     
-    @polygon = (0...num_points).map do |index|
+    @polygon = num_points.times.map do |index|
       Point.new(
         Trait.new(:x, (0...image_dimensions.x), options[:"trait_x_#{index}"]),
         Trait.new(:y, (0...image_dimensions.y), options[:"trait_y_#{index}"])
@@ -28,9 +24,9 @@ class Gene
   end
   
   def initialize_singleton_methods_for_polygon_and_color
-    :points[@polygon]     = lambda { self }
-    :num_points[@polygon] = lambda { size }
+    :points[polygon]     = lambda { self }
+    :num_points[polygon] = lambda { size }
     
-    :rgb[@color] = lambda { [r, g, b] }
+    :rgb[color] = lambda { [r, g, b] }
   end
 end
