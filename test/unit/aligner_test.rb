@@ -8,7 +8,8 @@ end
 
 class AlignerTest < Test::Unit::TestCase
   def setup
-    @test_class = TestClass.new
+    @test_class       = TestClass.new
+    @image_dimensions = Point.new(640, 480)
   end
   
   def test_true
@@ -16,23 +17,17 @@ class AlignerTest < Test::Unit::TestCase
   end
 
   def test_align_crossover_for
-    image_dimensions = Point.new(640, 480)
-    
-    chromosome_1_options = {
-      :gene_0 => gene_options_with_points_at(Array.new(3, [0, 0])),
-      :gene_1 => gene_options_with_points_at(Array.new(3, [10, 0])),
-      :gene_2 => gene_options_with_points_at(Array.new(3, [20, 0]))
-    }
-    
-    chromosome_2_options = {
-      :gene_0 => gene_options_with_points_at(Array.new(3, [10, 0])),
-      :gene_1 => gene_options_with_points_at(Array.new(3, [20, 0])),
-      :gene_2 => gene_options_with_points_at(Array.new(3, [30, 0]))
-    }
-    
     @test_class.chromosomes = [
-      Chromosome.new(3, 3, image_dimensions, chromosome_1_options),
-      Chromosome.new(3, 3, image_dimensions, chromosome_2_options)
+      Chromosome.new(3, 3, @image_dimensions) do
+        gene_0 &three_points_at(0, 0)
+        gene_1 &three_points_at(10, 0)
+        gene_2 &three_points_at(20, 0)
+      end,
+      Chromosome.new(3, 3, @image_dimensions) do
+        gene_0 &three_points_at(10, 0)
+        gene_1 &three_points_at(20, 0)
+        gene_2 &three_points_at(30, 0)
+      end
     ]
 
     optimal_alignment = @test_class.align_crossover
@@ -42,30 +37,36 @@ class AlignerTest < Test::Unit::TestCase
   end
   
   def test_crossover_map
-    image_dimensions = Point.new(640, 480)
-    
-    chromosome_1_options = {
-      :gene_0 => gene_options_with_points_at(Array.new(3, [0, 0])),
-      :gene_1 => gene_options_with_points_at(Array.new(3, [15, 0]))
-    }
-    
-    chromosome_2_options = {
-      :gene_0 => gene_options_with_points_at(Array.new(3, [10, 0])),
-      :gene_1 => gene_options_with_points_at(Array.new(3, [22.5, 0]))
-    }
-    
     @test_class.chromosomes = [
-      Chromosome.new(2, 3, image_dimensions, chromosome_1_options),
-      Chromosome.new(2, 3, image_dimensions, chromosome_2_options)
+      Chromosome.new(2, 3, @image_dimensions) do
+        gene_0 &three_points_at(0, 0)
+        gene_1 &three_points_at(15, 0)
+      end,
+      Chromosome.new(2, 3, @image_dimensions) do
+        gene_0 &three_points_at(10, 0)
+        gene_1 &three_points_at(22.5, 0)
+      end
     ]
 
     assert_equal [[10, 22.5], [5, 7.5]], @test_class.send(:crossover_map)
   end
   
   def test_middle_point_of
-    image_dimensions = Point.new(640, 480)
-    gene_options     = gene_options_with_points_at([[0, 0], [30, 0], [0, 15], [30, 15]])
-    middle_point     = @test_class.send(:middle_point_of, (Gene.new(4, image_dimensions, gene_options)))
+    gene = Gene.new(4, @image_dimensions) do
+      trait_x_0 { set_value 0 }
+      trait_y_0 { set_value 0 }
+      
+      trait_x_1 { set_value 30 }
+      trait_y_1 { set_value 0 }
+      
+      trait_x_2 { set_value 0 }
+      trait_y_2 { set_value 15 }
+      
+      trait_x_3 { set_value 30 }
+      trait_y_3 { set_value 15 }
+    end
+    
+    middle_point = @test_class.send(:middle_point_of, gene)
     
     assert_equal 15, middle_point.x
     assert_equal 7.5, middle_point.y
@@ -80,12 +81,16 @@ class AlignerTest < Test::Unit::TestCase
   
   protected
   
-  def gene_options_with_points_at(list)
-    returning({}) do |gene_options|
-      list.each_with_index do |tuple, index|
-        gene_options[:"trait_x_#{index}"] = { :default => tuple.first }
-        gene_options[:"trait_y_#{index}"] = { :default => tuple.last }
-      end
+  def three_points_at(x, y)
+    lambda do
+      trait_x_0 { set_value x }
+      trait_y_0 { set_value y }
+      
+      trait_x_1 { set_value x }
+      trait_y_1 { set_value y }
+      
+      trait_x_2 { set_value x }
+      trait_y_2 { set_value y }
     end
   end
 end

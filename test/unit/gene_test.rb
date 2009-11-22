@@ -58,4 +58,39 @@ class GeneTest < Test::Unit::TestCase
       assert((0...256) === vector.value)
     end
   end
+  
+  def test_initialize__with_block
+    gene = Gene.new(3, Point.new(640, 480)) do
+      trait_x_1 do
+        set_value 100
+      end
+      trait_x_2 do
+        set_value 100
+      end
+      trait_y_2 do
+        set_value 100
+      end
+      trait_r do
+        set_value 100
+      end
+    end
+    
+    lambda do |index|
+      assert gene.polygon[index].x.is_a?(Trait)
+      assert gene.polygon[index].y.is_a?(Trait)
+    end | gene.num_points.times
+    
+    lambda do |trait_name|
+      assert gene.color.send(trait_name).is_a?(Trait)
+    end | %w[r g b a]
+    
+    assert_equal 100, gene.polygon[1].x.value
+    assert_equal 100, gene.polygon[2].x.value
+    assert_equal 100, gene.polygon[2].y.value
+    assert_equal 100, gene.color.r.value
+    
+    assert_raise NoMethodError do
+      Gene.new(3, Point.new(640, 480)) { rawr! }
+    end
+  end
 end

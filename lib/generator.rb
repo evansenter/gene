@@ -1,28 +1,31 @@
 class Generator
-  include Aligner
-  
-  attr_accessor :current_sequence
-  attr_reader   :chromosomes, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
+  include Aligner, Dsl
   
   DEFAULT_XOVER_FREQ    = 0.1
   DEFAULT_MUTATION_FREQ = 0.25
   
-  def initialize(chromosome_1, chromosome_2, options = {})    
+  attr_accessor :current_sequence
+  attr_reader   :chromosomes, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
+  
+  def initialize(chromosome_1, chromosome_2)
     @chromosomes = (@chromosome_1, @chromosome_2 = chromosome_1, chromosome_2)
     validate_generator
     
     @gene_map         = align_chromosomes
     @fitness_map      = chromosomes.map(&:fitness)
     @current_sequence = rand(2)
-    @xover_freq       = options[:xover_freq]    || DEFAULT_XOVER_FREQ
-    @mutation_freq    = options[:mutation_freq] || DEFAULT_MUTATION_FREQ
   end
   
   def combine
-    Chromosome.new(num_genes, num_points, image_dimensions, generate_chromosome_settings)
+    Chromosome.new(num_genes, num_points, image_dimensions) { generate_configuration }
   end
   
   private
+  
+  def finish_init
+    @xover_freq    ||= DEFAULT_XOVER_FREQ
+    @mutation_freq ||= DEFAULT_MUTATION_FREQ
+  end
   
   def validate_generator
     if @chromosome_1.get_parameters != @chromosome_2.get_parameters
@@ -43,35 +46,33 @@ class Generator
     ]
   end
   
-  def generate_chromosome_settings
-    returning({}) do |chromosome_settings|
+  def generate_configuration
+    lambda do
       num_genes.times.each do |index|
-        chromosome_settings[:"gene_#{index}"] = generate_gene_at(index)
+        send(:"gene_#{index}", new_gene_from(gene_map[read_sequence][index]))
       end
     end
   end
   
-  def generate_gene_at(index)  
-    gene = gene_map[read_sequence][index]
-
-    returning({}) do |gene_settings|      
+  def new_gene_from(model_gene)  
+    lambda do
       num_points.times.each do |index|
         [:x, :y].each do |axis| 
-          gene_settings[:"trait_#{axis}_#{index}"] = settings_hash_for(gene.polygon.points[index].send(axis))
+          send(:"trait_#{axis}_#{index}", new_trait_from(model_gene.polygon.points[index].send(axis)))
         end
       end
 
-      gene.color.each_pair do |color, trait|
-        gene_settings[:"trait_#{color}"] = settings_hash_for(trait)
+      model_gene.color.each_pair do |color, model_trait|
+        gene.send(:"trait_#{color}", new_trait_from(model_trait))
       end
     end
   end
   
-  def settings_hash_for(trait)
-    {
-      :default            => mutate(trait),
-      :standard_deviation => Trait.new_standard_deviation_from(fitness_map[current_sequence])
-    }
+  def new_trait_from(model_trait)
+    lambda do
+      set_value mutate(model_trait)
+      deviate_from fitness_map[current_sequence]
+    end
   end
   
   def mutate(trait)
@@ -80,5 +81,15 @@ class Generator
   
   def read_sequence
     rand(0) < xover_freq ? self.current_sequence ^= 1 : current_sequence
+  end
+  
+  def method_missing(name, *args, &block)
+    method_name = name.to_s
+    
+    if method_name.match(/^set_xover_freq$/) && args.first.is_a?(Float)
+      @xover_freq = args.first
+    elsif method_name.match(/^set_mutation_freq$/) && args.first.is_a?(Float)
+      @mutation_freq = args.first
+    end
   end
 end

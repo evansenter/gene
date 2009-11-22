@@ -28,22 +28,15 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   def test_initialize__with_block
-    custom_gene_0 = Gene.new(@num_points, @image_dimensions)
-    custom_gene_1 = Gene.new(@num_points, @image_dimensions)
-    
-    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) do |config|
-      config.gene_0 = custom_gene_0
-      config.gene_1 = custom_gene_1
+    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) do
+      set_fitness 1
     end
     
     lambda { |index| assert chromosome.genes[index].is_a?(Gene) } | chromosome.num_genes.times
-    assert_equal custom_gene_0, chromosome.genes[0]
-    assert_equal custom_gene_1, chromosome.genes[1]
+    assert_equal 1, chromosome.fitness
     
     assert_raise NoMethodError do
-      chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) do |config|
-        config.rawr!
-      end
+      Chromosome.new(@num_genes, @num_points, @image_dimensions) { rawr! }
     end
   end
   
@@ -52,15 +45,9 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   def test_initialize__fitness_explicitly_set
-    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions, :fitness => 0.75)
+    chromosome = Chromosome.new(@num_genes, @num_points, @image_dimensions) { set_fitness 0.75 }
     
     assert_equal 0.75, chromosome.fitness
-  end
-  
-  def test_initialize__no_options_should_pass_through_an_empty_hash_to_gene_initialize
-    Gene.expects(:new).times(@num_genes).with(@num_points, @image_dimensions, {})
-    
-    Chromosome.new(@num_genes, @num_points, @image_dimensions)
   end
   
   def test_get_parameters
@@ -68,13 +55,23 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   def test_genes_by_alpha
-    gene_options = returning({}) do |hash|
-      hash[:gene_0] = options_for_gene(:trait_a => { :default => 0.5 })
-      hash[:gene_1] = options_for_gene(:trait_a => { :default => 0.0 })
-      hash[:gene_2] = options_for_gene(:trait_a => { :default => 1.0 })
+    chromosome = Chromosome.new(3, 3, @image_dimensions) do
+      gene_0 do
+        trait_a do
+          set_value 0.5
+        end
+      end
+      gene_1 do
+        trait_a do
+          set_value 0.0
+        end
+      end
+      gene_2 do
+        trait_a do
+          set_value 1.0
+        end
+      end
     end
-
-    chromosome = Chromosome.new(3, 3, @image_dimensions, gene_options)
     
     assert_equal [0.5, 0.0, 1.0], chromosome.genes.map(&:color).map(&:a).map(&:value)    
     assert_equal [1.0, 0.5, 0.0], chromosome.genes_by_alpha.map(&:color).map(&:a).map(&:value)
@@ -87,24 +84,6 @@ class ChromosomeTest < Test::Unit::TestCase
   end
   
   private
-  
-  def options_for_gene(options = {})
-    options = {
-      :trait_x_0 => { :default => 1 },
-      :trait_y_0 => { :default => 1 },
-                      
-      :trait_x_1 => { :default => 100 },
-      :trait_y_1 => { :default => 100 },
-                      
-      :trait_x_2 => { :default => 200 },
-      :trait_y_2 => { :default => 200 },
-                      
-      :trait_r   => { :default => 50 },
-      :trait_g   => { :default => 150 }, 
-      :trait_b   => { :default => 250 },
-      :trait_a   => { :default => 0.5 }
-    }.merge(options)
-  end
   
   def mutation_distribution_helper
     trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25 })

@@ -14,20 +14,21 @@ class GeneratorTest < Test::Unit::TestCase
     assert true
   end
   
-  def test_combine
-    assert_equal Chromosome, @generator.combine.class
+  def test_initialize__with_block
+    assert_equal Generator::DEFAULT_XOVER_FREQ,    @generator.xover_freq
+    assert_equal Generator::DEFAULT_MUTATION_FREQ, @generator.mutation_freq
+    
+    generator = Generator.new(@chromosome_1, @chromosome_2) do
+      set_xover_freq    1.0
+      set_mutation_freq 1.0
+    end
+    
+    assert_equal 1.0, generator.xover_freq
+    assert_equal 1.0, generator.mutation_freq
   end
   
-  def test_generate_chromosome_settings
-    @num_genes.times.each { |index| @generator.expects(:generate_gene_at).with(index).returns(index) }
-    
-    expected_settings = returning({}) do |settings_for|
-      @num_genes.times.each do |index|
-        settings_for[:"gene_#{index}"] = index
-      end
-    end
-
-    assert_equal expected_settings, @generator.send(:generate_chromosome_settings)
+  def test_combine
+    assert_equal Chromosome, @generator.combine.class
   end
   
   def test_validate_meiosis_for__chromosomes_dont_match
@@ -52,44 +53,6 @@ class GeneratorTest < Test::Unit::TestCase
     assert_raise ArgumentError do
       @generator.send(:validate_generator)
     end
-  end
-  
-  def test_generate_gene_at
-    @generator.expects(:read_sequence).returns(0)
-    @generator.instance_variable_set(:@mutation_freq, 0)
-    
-    Trait.stubs(:new_standard_deviation_from).with(anything).returns(:value)
-    Trait.any_instance.stubs(:setup_standard_deviation_with)
-    
-    gene_config = {
-      :trait_x_0 => { :standard_deviation => :value, :default => 1 },
-      :trait_y_0 => { :standard_deviation => :value, :default => 1 },
-      
-      :trait_x_1 => { :standard_deviation => :value, :default => 100 },
-      :trait_y_1 => { :standard_deviation => :value, :default => 100 },
-      
-      :trait_x_2 => { :standard_deviation => :value, :default => 200 },
-      :trait_y_2 => { :standard_deviation => :value, :default => 200 },
-      
-      :trait_r   => { :standard_deviation => :value, :default => 50 },
-      :trait_g   => { :standard_deviation => :value, :default => 150 }, 
-      :trait_b   => { :standard_deviation => :value, :default => 250 },
-      :trait_a   => { :standard_deviation => :value, :default => 0.5 }
-    }
-      
-    gene = Gene.new(3, Point.new(640, 480), gene_config)
-    
-    @generator.instance_variable_set(:@gene_map, [[gene]])
-    
-    assert_equal gene_config, @generator.send(:generate_gene_at, 0)
-  end
-  
-  def test_settings_hash_for
-    @generator.expects(:mutate).with(:trait).returns(:value)
-    Trait.expects(:new_standard_deviation_from).with(@generator.fitness_map[@generator.current_sequence]).returns(:deviation)
-  
-    expected_hash = { :default => :value, :standard_deviation => :deviation }
-    assert_equal expected_hash, @generator.send(:settings_hash_for, :trait)
   end
   
   def test_mutate__returns_normal_trait_value

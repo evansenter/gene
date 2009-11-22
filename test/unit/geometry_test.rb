@@ -47,8 +47,8 @@ class GeometryTest < Test::Unit::TestCase
   
   def create_point(x, y)
     Point.new(
-      Trait.new(:x, (0...100), :default => x),
-      Trait.new(:y, (0...100), :default => y)
+      Trait.new(:x, (0...100)) { set_value x },
+      Trait.new(:y, (0...100)) { set_value y }
     )
   end
   
