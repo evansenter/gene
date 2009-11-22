@@ -53,17 +53,10 @@ class AlignerTest < Test::Unit::TestCase
   
   def test_middle_point_of
     gene = Gene.new(4, @image_dimensions) do
-      trait_x_0 { set_value 0 }
-      trait_y_0 { set_value 0 }
-      
-      trait_x_1 { set_value 30 }
-      trait_y_1 { set_value 0 }
-      
-      trait_x_2 { set_value 0 }
-      trait_y_2 { set_value 15 }
-      
-      trait_x_3 { set_value 30 }
-      trait_y_3 { set_value 15 }
+      point_0 0, 0
+      point_1 30, 0
+      point_2 0, 15
+      point_3 30, 15
     end
     
     middle_point = @test_class.send(:middle_point_of, gene)
@@ -83,14 +76,9 @@ class AlignerTest < Test::Unit::TestCase
   
   def three_points_at(x, y)
     lambda do
-      trait_x_0 { set_value x }
-      trait_y_0 { set_value y }
-      
-      trait_x_1 { set_value x }
-      trait_y_1 { set_value y }
-      
-      trait_x_2 { set_value x }
-      trait_y_2 { set_value y }
+      point_0 x, y
+      point_1 x, y
+      point_2 x, y
     end
   end
 end

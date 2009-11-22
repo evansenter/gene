@@ -12,8 +12,8 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_initialize__method_aliases_are_singleton_methods
-    trait_1 = Trait.new(:x, (0...100)) { set_value 10 }
-    trait_2 = Trait.new(:y, (0...100)) { set_value 20 }
+    trait_1 = Trait.new(:x, 0...100) { set_value 10 }
+    trait_2 = Trait.new(:y, 0...100) { set_value 20 }
     
     assert_equal 10, trait_1.x
     
@@ -23,8 +23,8 @@ class TraitTest < Test::Unit::TestCase
   end
     
   def test_initialize__value_namespace_doesnt_overlap_in_instances
-    trait_1 = Trait.new(:x, (0...100)) { set_value 10 }
-    trait_2 = Trait.new(:x, (0...100)) { set_value 20 }
+    trait_1 = Trait.new(:x, 0...100) { set_value 10 }
+    trait_2 = Trait.new(:x, 0...100) { set_value 20 }
     
     assert_equal 10, trait_1.x
     assert_equal 20, trait_2.x
@@ -32,32 +32,32 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_named_value_and_value_return_the_same_thing
-    trait_1 = Trait.new(:x, (0...100)) { set_value 10 }
+    trait_1 = Trait.new(:x, 0...100) { set_value 10 }
     assert_equal trait_1.x, trait_1.value
   end
 
   def test_standard_deviation__default
-    assert_equal 1.0, Trait.new(:test, (0..10)).standard_deviation
-    assert_equal 0.9, Trait.new(:test, (0...10)).standard_deviation
+    assert_equal 1.0, Trait.new(:test, 0..10).standard_deviation
+    assert_equal 0.9, Trait.new(:test, 0...10).standard_deviation
   end
 
   def test_standard_deviation__provided
-    assert_equal 5.0, Trait.new(:test, (0..10)) { deviation 0.5 }.standard_deviation
-    assert_equal 4.5, Trait.new(:test, (0...10)) { deviation 0.5 }.standard_deviation
+    assert_equal 5.0, Trait.new(:test, 0..10) { deviation 0.5 }.standard_deviation
+    assert_equal 4.5, Trait.new(:test, 0...10) { deviation 0.5 }.standard_deviation
   end
   
   def test_setup_standard_deviation_with__provided
-    trait = Trait.new(:x, (0..10)) { deviation 1 }
+    trait = Trait.new(:x, 0..10) { deviation 1 }
     assert_equal trait.range.max, trait.standard_deviation
   end
     
   def test_setup_standard_deviation_with__default
-    trait = Trait.new(:x, (0..10))
+    trait = Trait.new(:x, 0..10)
     assert_equal Trait::STANDARD_DEVIATION[:default] * trait.range.max, trait.standard_deviation
   end
   
   def test_setup_value_with
-    trait = Trait.new(:x, (0..10)) { set_value :value }
+    trait = Trait.new(:x, 0..10) { set_value :value }
     
     assert_equal :value, trait.value
   end
@@ -65,18 +65,18 @@ class TraitTest < Test::Unit::TestCase
   def test_setup_value_with__no_value
     Trait.expects(:generate_value).returns(:value)
     
-    trait = Trait.new(:x, (0..10))
+    trait = Trait.new(:x, 0..10)
     
     assert_equal :value, trait.value
   end
   
   def test_setup_value_with__raises_error_if_out_of_range
     assert_raise ArgumentError do
-      Trait.new(:x, (0..10), :default => 100)
+      Trait.new(:x, 0..10, :default => 100)
     end
     
     assert_raise ArgumentError do
-      Trait.new(:x, (0..10), :default => -100)
+      Trait.new(:x, 0..10, :default => -100)
     end
   end
 

@@ -201,5 +201,5 @@ class Hungarian
     index_range.each { |row| index_range.each { |column| yield row, column } }
   end
   
-  def index_range; (0...@length); end
+  def index_range; 0...@length; end
 end

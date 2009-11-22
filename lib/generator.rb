@@ -58,7 +58,7 @@ class Generator
     lambda do
       num_points.times.each do |index|
         [:x, :y].each do |axis| 
-          send(:"trait_#{axis}_#{index}", &new_trait_from(model_gene.polygon.points[index].send(axis)))
+          send(:"point_#{index}_#{axis}", &new_trait_from(model_gene.polygon.points[index].send(axis)))
         end
       end
 

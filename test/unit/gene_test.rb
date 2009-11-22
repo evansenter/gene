@@ -55,24 +55,17 @@ class GeneTest < Test::Unit::TestCase
     end
  
     gene.color.rgb.each do |vector|
-      assert((0...256) === vector.value)
+      assert((0..255) === vector.value)
     end
   end
   
   def test_initialize__with_block
     gene = Gene.new(3, Point.new(640, 480)) do
-      trait_x_1 do
-        set_value 100
-      end
-      trait_x_2 do
-        set_value 100
-      end
-      trait_y_2 do
-        set_value 100
-      end
-      trait_r do
-        set_value 100
-      end
+      point_1_x { set_value 100 }
+      
+      point_2 100, 100
+      
+      trait_r { set_value 100 }
     end
     
     lambda do |index|

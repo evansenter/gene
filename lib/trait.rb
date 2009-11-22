@@ -1,5 +1,5 @@
 class Trait
-  include Calculator
+  include Dsl, Calculator
   
   STANDARD_DEVIATION = {
     :default => 0.1,
@@ -8,17 +8,9 @@ class Trait
   
   attr_reader :name, :value, :range, :standard_deviation
   
-  def initialize(name, range, &block)
+  def initialize(name, range)
     @name  = name
     @range = range
-
-    if block_given?
-      @original_self = block.binding.eval("self")
-      instance_eval(&block)
-    end
-  ensure
-    fill_out_value
-    fill_out_deviation
   end
   
   def mutated_value
@@ -36,6 +28,11 @@ class Trait
   
   private
   
+  def finish_init
+    fill_out_value
+    fill_out_deviation
+  end
+  
   def fill_out_value    
     @value   ||= Trait.generate_value(range.max)
     name[self] = lambda { @value }
@@ -51,18 +48,10 @@ class Trait
   end
   
   def method_missing(name, *args, &block)
-    method_name = name.to_s
-    
-    if method_name.match(/^set_value$/)
-      @value = args.first      
-    elsif method_name.match(/^deviation$/)
-      @standard_deviation = args.first * range.max
-    elsif method_name.match(/^deviate_from$/)
-      @standard_deviation = new_standard_deviation_from(args.first)
-    elsif @original_self
-      @original_self.send(name, *args, &block)
-    else
-      super
-    end
+    case name.to_s
+    when /^set_value$/:    @value              = args.first
+    when /^deviation$/:    @standard_deviation = args.first * range.max
+    when /^deviate_from$/: @standard_deviation = new_standard_deviation_from(args.first)
+    else :_super end
   end
 end

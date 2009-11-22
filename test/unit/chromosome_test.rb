@@ -13,10 +13,10 @@ class ChromosomeTest < Test::Unit::TestCase
   end
 
   def test_initialize
-    image_range_x = (0...@image_dimensions.x)
-    image_range_y = (0...@image_dimensions.y)
-    color_range   = (0...256)
-    alpha_range   = (0.0..1.0)    
+    image_range_x = 0...@image_dimensions.x
+    image_range_y = 0...@image_dimensions.y
+    color_range   = 0..255
+    alpha_range   = 0.0..1.0
 
     @chromosome.genes.each do |gene|      
       assert_equal @num_points, gene.polygon.num_points

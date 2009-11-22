@@ -191,6 +191,6 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_index_range
-    assert_equal (0...2), @hungarian.send(:index_range)
+    assert_equal 0...2, @hungarian.send(:index_range)
   end
 end

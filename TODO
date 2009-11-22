@@ -1,6 +1,5 @@
-* Test and integrate Dsl into pertinent classes
+* Test Dsl
 * Reflesh test coverage in Generator
-* Make a helper like point_0 to set both x and y as an alternative to trait_x_0 and trait_y_0
 
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:
