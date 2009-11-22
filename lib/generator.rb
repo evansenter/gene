@@ -1,5 +1,5 @@
 class Generator
-  include Aligner, Dsl
+  include Dsl, Aligner
   
   DEFAULT_XOVER_FREQ    = 0.1
   DEFAULT_MUTATION_FREQ = 0.25

@@ -1,23 +1,15 @@
 class Chromosome
-  include Geometry
+  include Dsl, Geometry
   
   DEFAULT_FITNESS = 0.5
   
   attr_accessor :fitness
   attr_reader   :num_genes, :num_points, :image_dimensions, :genes
   
-  def initialize(num_genes, num_points, image_dimensions, &block)        
+  def initialize(num_genes, num_points, image_dimensions)        
     @num_genes        = num_genes
     @num_points       = num_points
     @image_dimensions = image_dimensions
-    
-    if block_given?
-      @original_self = block.binding.eval("self")
-      instance_eval(&block)
-    end
-  ensure
-    @fitness ||= DEFAULT_FITNESS
-    fill_out_genes
   end
   
   def get_parameters
@@ -34,21 +26,20 @@ class Chromosome
   
   private
   
+  def finish_init
+    @fitness ||= DEFAULT_FITNESS
+    fill_out_genes
+  end
+  
   def fill_out_genes
     @genes = num_genes.times.map { |index| (@genes ||= [])[index] || Gene.new(num_points, image_dimensions) }
   end
   
   def method_missing(name, *args, &block)
-    method_name = name.to_s
-    
-    if method_name.match(/^gene_(\d+)$/) && (0...num_genes).include?($1.to_i) && block_given?
-      (@genes ||= [])[$1.to_i] = Gene.new(num_points, image_dimensions, &block)
-    elsif method_name.match(/^set_fitness$/) && (0..1).include?(args.first)
-      @fitness = args.first
-    elsif @original_self
-      @original_self.send(name, *args, &block)
-    else
-      super
+    case name.to_s
+    when /gene_(\d+)/: (@genes ||= [])[$1.to_i] = Gene.new(num_points, image_dimensions, &block)
+    when "set_fitness": @fitness = args.first
+    else :_super
     end
   end
 end
