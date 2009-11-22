@@ -57,8 +57,6 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_setup_value_with
-    Range.any_instance.expects(:include?).returns(true)
-    
     trait = Trait.new(:x, (0..10)) { set_value :value }
     
     assert_equal :value, trait.value

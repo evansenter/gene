@@ -50,14 +50,14 @@ class Trait
     STANDARD_DEVIATION[:range].max - deviation_range * fitness
   end
   
-  def method_missing(name, *args, &block) 
+  def method_missing(name, *args, &block)
     method_name = name.to_s
     
-    if method_name.match(/^set_value$/) && range.include?(args.first)
+    if method_name.match(/^set_value$/)
       @value = args.first      
     elsif method_name.match(/^deviation$/)
       @standard_deviation = args.first * range.max
-    elsif method_name.match(/^deviate_from$/) && STANDARD_DEVIATION[:range].include?(args.first)
+    elsif method_name.match(/^deviate_from$/)
       @standard_deviation = new_standard_deviation_from(args.first)
     elsif @original_self
       @original_self.send(name, *args, &block)

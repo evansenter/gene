@@ -25,6 +25,12 @@ class GeneratorTest < Test::Unit::TestCase
     
     assert_equal 1.0, generator.xover_freq
     assert_equal 1.0, generator.mutation_freq
+    
+    assert_raise NoMethodError do
+      Generator.new(@chromosome_1, @chromosome_2) do
+        rawr!
+      end
+    end
   end
   
   def test_combine

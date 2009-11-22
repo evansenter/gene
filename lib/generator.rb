@@ -17,7 +17,7 @@ class Generator
   end
   
   def combine
-    Chromosome.new(num_genes, num_points, image_dimensions) { generate_configuration }
+    Chromosome.new(num_genes, num_points, image_dimensions, &configuration)
   end
   
   private
@@ -46,24 +46,24 @@ class Generator
     ]
   end
   
-  def generate_configuration
+  def configuration
     lambda do
       num_genes.times.each do |index|
-        send(:"gene_#{index}", new_gene_from(gene_map[read_sequence][index]))
+        send(:"gene_#{index}", &new_gene_from(gene_map[read_sequence][index]))
       end
     end
   end
   
-  def new_gene_from(model_gene)  
+  def new_gene_from(model_gene)
     lambda do
       num_points.times.each do |index|
         [:x, :y].each do |axis| 
-          send(:"trait_#{axis}_#{index}", new_trait_from(model_gene.polygon.points[index].send(axis)))
+          send(:"trait_#{axis}_#{index}", &new_trait_from(model_gene.polygon.points[index].send(axis)))
         end
       end
 
       model_gene.color.each_pair do |color, model_trait|
-        gene.send(:"trait_#{color}", new_trait_from(model_trait))
+        send(:"trait_#{color}", &new_trait_from(model_trait))
       end
     end
   end
@@ -84,12 +84,10 @@ class Generator
   end
   
   def method_missing(name, *args, &block)
-    method_name = name.to_s
-    
-    if method_name.match(/^set_xover_freq$/) && args.first.is_a?(Float)
-      @xover_freq = args.first
-    elsif method_name.match(/^set_mutation_freq$/) && args.first.is_a?(Float)
-      @mutation_freq = args.first
+    case name.to_s
+    when "set_xover_freq":    @xover_freq    = args.first
+    when "set_mutation_freq": @mutation_freq = args.first
+    else :_super
     end
   end
 end

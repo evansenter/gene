@@ -11,11 +11,9 @@ module ModuleExtensions
 
   def alias_method_chain(target, feature)
     method_name, extension = target.to_s.match(/(\w+)(\W?)/).to_a[1..-1]
-  
-    new_method, old_method = "#{method_name}_with_#{feature}#{extension}", "#{method_name}_without_#{feature}#{extension}"
-  
-    alias_method old_method, target
-    alias_method target, new_method
+    
+    alias_method "#{method_name}_without_#{feature}#{extension}", target
+    alias_method target, "#{method_name}_with_#{feature}#{extension}"
   end
 end
 
