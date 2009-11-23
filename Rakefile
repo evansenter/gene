@@ -21,9 +21,3 @@ task :run_tests do
   print "Total results: #{totals[:tests]} tests run in #{$1} seconds: #{totals[:assertions]} assertions, #{totals[:failures]} failures, #{totals[:errors]} errors\n\n"
   print "Your tests are #{totals[:failures].zero? && totals[:errors].zero? ? 'PASSING' : 'FAILING'}.\n"
 end
-
-desc "Use rsync to copy updates from the codebase to the gem"
-task :update_gem do
-  sh "rsync -avz ./lib/* ./gem/gene/lib"
-  sh "rsync -avz ./test/**_test.rb ./gem/gene/test"
-end
