@@ -17,7 +17,7 @@ class TraitTest < Test::Unit::TestCase
     
     assert_equal 10, trait_1.x
     
-    assert_raise ArgumentError do
+    assert_raise NoMethodError do
       trait_1.y
     end
   end

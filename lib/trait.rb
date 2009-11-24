@@ -1,5 +1,5 @@
-class Trait
-  include Dsl, Calculator
+class Trait < Dsl
+  include Calculator
   
   STANDARD_DEVIATION = {
     :default => 0.1,
@@ -11,6 +11,7 @@ class Trait
   def initialize(name, range)
     @name  = name
     @range = range
+    super
   end
   
   def mutated_value
@@ -52,6 +53,6 @@ class Trait
     when /^set_value$/:    @value              = args.first
     when /^deviation$/:    @standard_deviation = args.first * range.max
     when /^deviate_from$/: @standard_deviation = new_standard_deviation_from(args.first)
-    else :_super end
+    else super end
   end
 end

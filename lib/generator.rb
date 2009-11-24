@@ -1,5 +1,5 @@
-class Generator
-  include Dsl, Aligner
+class Generator < Dsl
+  include Aligner
   
   DEFAULT_XOVER_FREQ    = 0.1
   DEFAULT_MUTATION_FREQ = 0.25
@@ -14,6 +14,7 @@ class Generator
     @gene_map         = align_chromosomes
     @fitness_map      = chromosomes.map(&:fitness)
     @current_sequence = rand(2)
+    super
   end
   
   def combine
@@ -28,6 +29,7 @@ class Generator
   end
   
   def validate_generator
+    # Once these parameters get pushed into a more global scope, this validation can go away completely, as can get_parameters.
     if @chromosome_1.get_parameters != @chromosome_2.get_parameters
       raise(ArgumentError, "The two chromosomes don't have matching parameters")
     elsif !chromosomes.all?(&:fitness)
@@ -87,7 +89,7 @@ class Generator
     case name.to_s
     when "set_xover_freq":    @xover_freq    = args.first
     when "set_mutation_freq": @mutation_freq = args.first
-    else :_super
+    else super
     end
   end
 end

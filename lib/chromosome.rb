@@ -1,5 +1,5 @@
-class Chromosome
-  include Dsl, Geometry
+class Chromosome < Dsl
+  include Geometry
   
   DEFAULT_FITNESS = 0.5
   
@@ -10,6 +10,7 @@ class Chromosome
     @num_genes        = num_genes
     @num_points       = num_points
     @image_dimensions = image_dimensions
+    super
   end
   
   def get_parameters
@@ -39,7 +40,7 @@ class Chromosome
     case name.to_s
     when /gene_(\d+)/: (@genes ||= [])[$1.to_i] = Gene.new(num_points, image_dimensions, &block)
     when "set_fitness": @fitness = args.first
-    else :_super
+    else super
     end
   end
 end

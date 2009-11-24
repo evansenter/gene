@@ -1,6 +1,4 @@
-class Gene
-  include Dsl
-  
+class Gene < Dsl
   attr_reader :polygon, :num_points, :image_dimensions, :color
   
   def initialize(num_points, image_dimensions, &block)
@@ -8,6 +6,7 @@ class Gene
     @image_dimensions = image_dimensions
     
     assert_at_least 3, num_points
+    super
   end
   
   private
@@ -79,7 +78,7 @@ class Gene
     when /^point_(\d+)$/:      point_at($1.to_i, *args, &block)
     when /^point_(\d+)_(\w)$/: point_from($1.to_i, $2, &block)
     when /^trait_(\w)$/:       color_from($1, &block)
-    else :_super
+    else super
     end
   end
 end

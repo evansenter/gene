@@ -4,7 +4,7 @@
 * Incorporate fitness in Chromosome:
   * Fitness has two parts:
     1) [DONE] When the environment is initialized, all Chromosomes should have their fitness set to 0.5
-    2) Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
+    2) [DONE from the Chromosome's perspective] Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
     
 * Start building the petri.rb file out.
   * Container for multiple chromosomes
