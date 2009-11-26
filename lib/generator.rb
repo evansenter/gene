@@ -5,11 +5,10 @@ class Generator < Dsl
   DEFAULT_MUTATION_FREQ = 0.25
   
   attr_accessor :current_sequence
-  attr_reader   :cells, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
+  attr_reader   :cells, :gene_map, :fitness_map, :xover_freq, :mutation_freq
   
   def initialize(cell_1, cell_2)
     @cells = (@cell_1, @cell_2 = cell_1, cell_2)
-    validate_generator
     
     @gene_map         = align_cells
     @fitness_map      = cells.map(&:fitness)
@@ -18,7 +17,7 @@ class Generator < Dsl
   end
   
   def combine
-    Cell.new(num_genes, num_points, image_dimensions, &configuration)
+    Cell.new(&configuration)
   end
   
   private
@@ -26,17 +25,6 @@ class Generator < Dsl
   def finish_init
     @xover_freq    ||= DEFAULT_XOVER_FREQ
     @mutation_freq ||= DEFAULT_MUTATION_FREQ
-  end
-  
-  def validate_generator
-    # Once these parameters get pushed into a more global scope, this validation can go away completely, as can get_parameters.
-    if @cell_1.get_parameters != @cell_2.get_parameters
-      raise(ArgumentError, "The two cells don't have matching parameters")
-    elsif !cells.all?(&:fitness)
-      raise(ArgumentError, "Both cells need to have a fitness value")
-    end
-    
-    @num_genes, @num_points, @image_dimensions = @cell_1.get_parameters
   end
   
   def align_cells

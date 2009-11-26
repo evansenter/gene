@@ -9,6 +9,8 @@ class Dsl
   end
   
   def method_missing(name, *args, &block)
+    return Petri.send(name) if Petri.respond_to?(name)
+    
     @_original_self ? @_original_self.send(name, *args, &block) : super
   end
 end

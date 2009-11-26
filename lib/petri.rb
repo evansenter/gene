@@ -22,7 +22,7 @@ class Petri < Dsl
   end
   
   def fill_out_cells
-    @dish = num_cells.times.map { }#Cell.new }
+    @dish = num_cells.times.map { Cell.new }
   end
   
   def set_parameter(name, value)
@@ -35,10 +35,9 @@ class Petri < Dsl
     self.class.instance_variable_set(:"@#{name}", value)
   end
   
-  def method_missing(name, *args, &block)
+  def method_missing(name, *args, &block) 
     case name
     when :set_num_cells, :set_num_genes, :set_num_points: set_parameter(name, args.first)
-    when :num_cells, :num_genes, :num_points:             self.class.send(name)
     else super
     end
   end

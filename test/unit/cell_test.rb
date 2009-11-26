@@ -2,10 +2,11 @@ require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class CellTest < Test::Unit::TestCase
   def setup
-    @num_genes        = 50
-    @num_points       = 3
-    @image_dimensions = Point.new(640, 480)
-    @cell       = Cell.new(@num_genes, @num_points, @image_dimensions)
+    Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
+    Petri.stubs(:num_genes).returns(3)
+    Petri.stubs(:num_points).returns(3)
+    
+    @cell = Cell.new
   end
   
   def test_true
@@ -13,13 +14,13 @@ class CellTest < Test::Unit::TestCase
   end
 
   def test_initialize
-    image_range_x = 0...@image_dimensions.x
-    image_range_y = 0...@image_dimensions.y
+    image_range_x = 0...Petri.image_dimensions.x
+    image_range_y = 0...Petri.image_dimensions.y
     color_range   = 0..255
     alpha_range   = 0.0..1.0
 
     @cell.genes.each do |gene|      
-      assert_equal @num_points, gene.polygon.num_points
+      assert_equal Petri.num_points, gene.polygon.num_points
       
       assert gene.polygon.points.all? { |point| image_range_x.include?(point.x.value) && image_range_y.include?(point.y.value) }
       assert gene.color.rgb.all? { |vector| color_range.include?(vector.value) }
@@ -28,15 +29,15 @@ class CellTest < Test::Unit::TestCase
   end
   
   def test_initialize__with_block
-    cell = Cell.new(@num_genes, @num_points, @image_dimensions) do
+    cell = Cell.new do
       set_fitness 1
     end
     
-    lambda { |index| assert cell.genes[index].is_a?(Gene) } | cell.num_genes.times
+    lambda { |index| assert cell.genes[index].is_a?(Gene) } | Petri.num_genes.times
     assert_equal 1, cell.fitness
     
     assert_raise NoMethodError do
-      Cell.new(@num_genes, @num_points, @image_dimensions) { rawr! }
+      Cell.new { rawr! }
     end
   end
   
@@ -45,17 +46,13 @@ class CellTest < Test::Unit::TestCase
   end
   
   def test_initialize__fitness_explicitly_set
-    cell = Cell.new(@num_genes, @num_points, @image_dimensions) { set_fitness 0.75 }
+    cell = Cell.new { set_fitness 0.75 }
     
     assert_equal 0.75, cell.fitness
   end
   
-  def test_get_parameters
-    assert_equal [50, 3, @image_dimensions], @cell.get_parameters
-  end
-  
   def test_genes_by_alpha
-    cell = Cell.new(3, 3, @image_dimensions) do
+    cell = Cell.new do
       gene_0 do
         trait_a do
           set_value 0.5
@@ -78,7 +75,7 @@ class CellTest < Test::Unit::TestCase
   end
   
   def test_genes_from_alignment_map
-    cell = Cell.new(3, 3, @image_dimensions)
+    cell = Cell.new
   
     assert_equal [cell.genes[2], cell.genes[0], cell.genes[1]], cell.genes_from_alignment_map([2, 0, 1])
   end

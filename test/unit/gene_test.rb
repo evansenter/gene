@@ -6,14 +6,10 @@ class GeneTest < Test::Unit::TestCase
   end
   
   def setup
-    points = 4
-    @gene = Gene.new(points, Point.new(100, 100))
-  end
-  
-  def test_setup__exception_when_less_than_three_points
-    assert_raise ArgumentError do
-      @gene = Gene.new(0, Point.new(100, 100))
-    end
+    Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
+    Petri.stubs(:num_points).returns(3)
+
+    @gene = Gene.new
   end
 
   def test_polygon_has_extra_methods
@@ -43,24 +39,22 @@ class GeneTest < Test::Unit::TestCase
   end
   
   def test_initialize__no_default_values
-    points = 10
     image_dimensions = Point.new(640, 480)
-    gene = Gene.new(points, image_dimensions)
     
-    assert_equal 10, gene.polygon.num_points
+    assert_equal 3, @gene.polygon.num_points
     
-    gene.polygon.points.each do |point|
+    @gene.polygon.points.each do |point|
       assert((0...image_dimensions.x) === point.x.value)
       assert((0...image_dimensions.y) === point.y.value)
     end
  
-    gene.color.rgb.each do |vector|
+    @gene.color.rgb.each do |vector|
       assert((0..255) === vector.value)
     end
   end
   
   def test_initialize__with_block
-    gene = Gene.new(3, Point.new(640, 480)) do
+    gene = Gene.new do
       point_1_x { set_value 100 }
       
       point_2 100, 100
@@ -71,7 +65,7 @@ class GeneTest < Test::Unit::TestCase
     lambda do |index|
       assert gene.polygon[index].x.is_a?(Trait)
       assert gene.polygon[index].y.is_a?(Trait)
-    end | gene.num_points.times
+    end | Petri.num_points.times
     
     lambda do |trait_name|
       assert gene.color.send(trait_name).is_a?(Trait)

@@ -2,12 +2,13 @@ require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class GeneratorTest < Test::Unit::TestCase
   def setup
-    @num_genes        = 5
-    @num_points       = 3
-    @image_dimensions = Point.new(640, 480)
-    @cell_1     = Cell.new(@num_genes, @num_points, @image_dimensions)
-    @cell_2     = Cell.new(@num_genes, @num_points, @image_dimensions)
-    @generator        = Generator.new(@cell_1, @cell_2)
+    Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
+    Petri.stubs(:num_genes).returns(5)
+    Petri.stubs(:num_points).returns(3)
+    
+    @cell_1    = Cell.new
+    @cell_2    = Cell.new
+    @generator = Generator.new(@cell_1, @cell_2)
   end
   
   def test_true
@@ -35,30 +36,6 @@ class GeneratorTest < Test::Unit::TestCase
   
   def test_combine
     assert_equal Cell, @generator.combine.class
-  end
-  
-  def test_validate_meiosis_for__cells_dont_match
-    @cell_1.expects(:get_parameters).returns(:chromsome_1)
-    @cell_2.expects(:get_parameters).returns(:chromsome_2)
-  
-    @cell_1.expects(:fitness).never
-    @cell_2.expects(:fitness).never
-  
-    assert_raise ArgumentError do
-      @generator.send(:validate_generator)
-    end
-  end
-  
-  def test_validate_generator__fitness_missing
-    @cell_1.expects(:get_parameters).returns(:params)
-    @cell_2.expects(:get_parameters).returns(:params)
-  
-    @cell_1.expects(:fitness).returns(:value)
-    @cell_2.expects(:fitness).returns(nil)
-  
-    assert_raise ArgumentError do
-      @generator.send(:validate_generator)
-    end
   end
   
   def test_mutate__returns_normal_trait_value

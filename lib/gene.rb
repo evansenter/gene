@@ -1,13 +1,5 @@
 class Gene < Dsl
-  attr_reader :polygon, :num_points, :image_dimensions, :color
-  
-  def initialize(num_points, image_dimensions, &block)
-    @num_points       = num_points
-    @image_dimensions = image_dimensions
-    
-    assert_at_least 3, num_points
-    super
-  end
+  attr_reader :polygon, :color
   
   private
   

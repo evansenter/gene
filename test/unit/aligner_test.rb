@@ -8,8 +8,11 @@ end
 
 class AlignerTest < Test::Unit::TestCase
   def setup
-    @test_class       = TestClass.new
-    @image_dimensions = Point.new(640, 480)
+    Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
+    Petri.stubs(:num_genes).returns(3)
+    Petri.stubs(:num_points).returns(3)
+    
+    @test_class = TestClass.new
   end
   
   def test_true
@@ -18,12 +21,12 @@ class AlignerTest < Test::Unit::TestCase
 
   def test_align_crossover_for
     @test_class.cells = [
-      Cell.new(3, 3, @image_dimensions) do
+      Cell.new do
         gene_0 &three_points_at(0, 0)
         gene_1 &three_points_at(10, 0)
         gene_2 &three_points_at(20, 0)
       end,
-      Cell.new(3, 3, @image_dimensions) do
+      Cell.new do
         gene_0 &three_points_at(10, 0)
         gene_1 &three_points_at(20, 0)
         gene_2 &three_points_at(30, 0)
@@ -37,12 +40,14 @@ class AlignerTest < Test::Unit::TestCase
   end
   
   def test_crossover_map
+    Petri.stubs(:num_genes).returns(2)
+    
     @test_class.cells = [
-      Cell.new(2, 3, @image_dimensions) do
+      Cell.new do
         gene_0 &three_points_at(0, 0)
         gene_1 &three_points_at(15, 0)
       end,
-      Cell.new(2, 3, @image_dimensions) do
+      Cell.new do
         gene_0 &three_points_at(10, 0)
         gene_1 &three_points_at(22.5, 0)
       end
@@ -52,7 +57,9 @@ class AlignerTest < Test::Unit::TestCase
   end
   
   def test_middle_point_of
-    gene = Gene.new(4, @image_dimensions) do
+    Petri.stubs(:num_points).returns(4)
+    
+    gene = Gene.new do
       point_0 0, 0
       point_1 30, 0
       point_2 0, 15
