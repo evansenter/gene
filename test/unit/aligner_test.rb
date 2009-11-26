@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class TestClass
-  attr_accessor :chromosomes
+  attr_accessor :cells
   
   include Aligner
 end
@@ -17,13 +17,13 @@ class AlignerTest < Test::Unit::TestCase
   end
 
   def test_align_crossover_for
-    @test_class.chromosomes = [
-      Chromosome.new(3, 3, @image_dimensions) do
+    @test_class.cells = [
+      Cell.new(3, 3, @image_dimensions) do
         gene_0 &three_points_at(0, 0)
         gene_1 &three_points_at(10, 0)
         gene_2 &three_points_at(20, 0)
       end,
-      Chromosome.new(3, 3, @image_dimensions) do
+      Cell.new(3, 3, @image_dimensions) do
         gene_0 &three_points_at(10, 0)
         gene_1 &three_points_at(20, 0)
         gene_2 &three_points_at(30, 0)
@@ -32,17 +32,17 @@ class AlignerTest < Test::Unit::TestCase
 
     optimal_alignment = @test_class.align_crossover
     
-    assert_equal [0, 1, 2], optimal_alignment[:chromosome_1]
-    assert_equal [1, 0, 2], optimal_alignment[:chromosome_2]
+    assert_equal [0, 1, 2], optimal_alignment[:cell_1]
+    assert_equal [1, 0, 2], optimal_alignment[:cell_2]
   end
   
   def test_crossover_map
-    @test_class.chromosomes = [
-      Chromosome.new(2, 3, @image_dimensions) do
+    @test_class.cells = [
+      Cell.new(2, 3, @image_dimensions) do
         gene_0 &three_points_at(0, 0)
         gene_1 &three_points_at(15, 0)
       end,
-      Chromosome.new(2, 3, @image_dimensions) do
+      Cell.new(2, 3, @image_dimensions) do
         gene_0 &three_points_at(10, 0)
         gene_1 &three_points_at(22.5, 0)
       end

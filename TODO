@@ -1,13 +1,13 @@
 * Reflesh test coverage in Generator
 * Do we really need to pass down information like image_dimensions and num_genes, num_points all over the place? It's fixed from runtime. Maybe a global config object (or have Petri set constants on itself) is a better place for this.
 
-* Incorporate fitness in Chromosome:
+* Incorporate fitness in Cell:
   * Fitness has two parts:
-    1) [DONE] When the environment is initialized, all Chromosomes should have their fitness set to 0.5
-    2) [DONE from the Chromosome's perspective] Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
+    1) [DONE] When the environment is initialized, all Cells should have their fitness set to 0.5
+    2) [DONE from the Cell's perspective] Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
     
 * Start building the petri.rb file out.
-  * Container for multiple chromosomes
+  * Container for multiple cells
   * Concept of rounds
     1) Compare to target (Pixel by pixel comparison to get a 3D [RGB] Euclidian distance from the target)
       a) Use a cache from object_id => similarity to reduce number of comparisons necessary

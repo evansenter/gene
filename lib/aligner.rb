@@ -2,10 +2,10 @@ module Aligner
   def align_crossover
     optimal_alignment = Hungarian.new(crossover_map).solve
 
-    returning({ :chromosome_1 => [], :chromosome_2 => [] }) do |alignment_hash|
+    returning({ :cell_1 => [], :cell_2 => [] }) do |alignment_hash|
       optimal_alignment.each do |tuple|
-        alignment_hash[:chromosome_1] << tuple.first
-        alignment_hash[:chromosome_2] << tuple.last
+        alignment_hash[:cell_1] << tuple.first
+        alignment_hash[:cell_2] << tuple.last
       end
     end
   end
@@ -13,8 +13,8 @@ module Aligner
   private
   
   def crossover_map
-    @chromosomes.first.genes.map do |gene_1|
-      @chromosomes.last.genes.map do |gene_2|
+    @cells.first.genes.map do |gene_1|
+      @cells.last.genes.map do |gene_2|
         distance_between(middle_point_of(gene_1), middle_point_of(gene_2))
       end
     end

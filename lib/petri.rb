@@ -22,7 +22,7 @@ class Petri < Dsl
   end
   
   def fill_out_cells
-    @dish = num_cells.times.map { }#Chromosome.new }
+    @dish = num_cells.times.map { }#Cell.new }
   end
   
   def set_parameter(name, value)

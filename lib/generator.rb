@@ -5,20 +5,20 @@ class Generator < Dsl
   DEFAULT_MUTATION_FREQ = 0.25
   
   attr_accessor :current_sequence
-  attr_reader   :chromosomes, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
+  attr_reader   :cells, :gene_map, :fitness_map, :xover_freq, :mutation_freq, :num_genes, :num_points, :image_dimensions
   
-  def initialize(chromosome_1, chromosome_2)
-    @chromosomes = (@chromosome_1, @chromosome_2 = chromosome_1, chromosome_2)
+  def initialize(cell_1, cell_2)
+    @cells = (@cell_1, @cell_2 = cell_1, cell_2)
     validate_generator
     
-    @gene_map         = align_chromosomes
-    @fitness_map      = chromosomes.map(&:fitness)
+    @gene_map         = align_cells
+    @fitness_map      = cells.map(&:fitness)
     @current_sequence = rand(2)
     super
   end
   
   def combine
-    Chromosome.new(num_genes, num_points, image_dimensions, &configuration)
+    Cell.new(num_genes, num_points, image_dimensions, &configuration)
   end
   
   private
@@ -30,21 +30,21 @@ class Generator < Dsl
   
   def validate_generator
     # Once these parameters get pushed into a more global scope, this validation can go away completely, as can get_parameters.
-    if @chromosome_1.get_parameters != @chromosome_2.get_parameters
-      raise(ArgumentError, "The two chromosomes don't have matching parameters")
-    elsif !chromosomes.all?(&:fitness)
-      raise(ArgumentError, "Both chromosomes need to have a fitness value")
+    if @cell_1.get_parameters != @cell_2.get_parameters
+      raise(ArgumentError, "The two cells don't have matching parameters")
+    elsif !cells.all?(&:fitness)
+      raise(ArgumentError, "Both cells need to have a fitness value")
     end
     
-    @num_genes, @num_points, @image_dimensions = @chromosome_1.get_parameters
+    @num_genes, @num_points, @image_dimensions = @cell_1.get_parameters
   end
   
-  def align_chromosomes
+  def align_cells
     alignment_for = align_crossover
 
     [
-      @chromosome_1.genes_from_alignment_map(alignment_for[:chromosome_1]),
-      @chromosome_2.genes_from_alignment_map(alignment_for[:chromosome_2])
+      @cell_1.genes_from_alignment_map(alignment_for[:cell_1]),
+      @cell_2.genes_from_alignment_map(alignment_for[:cell_2])
     ]
   end
   
