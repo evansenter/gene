@@ -1,4 +1,4 @@
-module ObjectExtensions
+class Object
   def returning(value)
     yield value
     value
@@ -23,5 +23,3 @@ module ObjectExtensions
     class << self.class; self; end
   end
 end
-
-class Object; include ObjectExtensions; end

@@ -1,9 +1,3 @@
-module UnboundMethodExtensions
-  def self.included(base)
-    base.class_eval do
-      alias [] bind
-    end
-  end
+class UnboundMethod
+  alias [] bind
 end
-
-class UnboundMethod; include UnboundMethodExtensions; end

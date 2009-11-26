@@ -1,9 +1,5 @@
-module ModuleExtensions
-  def self.included(base)
-    base.class_eval do
-      alias [] instance_method
-    end
-  end
+class Module
+  alias [] instance_method
 
   def []=(symbol, function)
     self.instance_eval { define_method(symbol, function) }
@@ -16,5 +12,3 @@ module ModuleExtensions
     alias_method target, "#{method_name}_with_#{feature}#{extension}"
   end
 end
-
-class Module; include ModuleExtensions; end

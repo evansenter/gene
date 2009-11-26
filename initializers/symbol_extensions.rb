@@ -1,4 +1,4 @@
-module SymbolExtensions
+class Symbol
   def [](object)
     object.method(self)
   end
@@ -9,5 +9,3 @@ module SymbolExtensions
     eigenclass.instance_eval { define_method(symbol, function) }
   end
 end
-
-class Symbol; include SymbolExtensions; end
