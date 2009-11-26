@@ -38,7 +38,7 @@ class Chromosome < Dsl
   
   def method_missing(name, *args, &block)
     case name.to_s
-    when /gene_(\d+)/: (@genes ||= [])[$1.to_i] = Gene.new(num_points, image_dimensions, &block)
+    when /^gene_(\d+)$/: (@genes ||= [])[$1.to_i] = Gene.new(num_points, image_dimensions, &block)
     when "set_fitness": @fitness = args.first
     else super
     end

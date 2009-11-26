@@ -18,6 +18,10 @@ module ObjectExtensions
       raise(ArgumentError, message || "You must provide at least #{number_required} objects (#{number_present} #{number_present == 1 ? 'was' : 'were'} provided)")
     end
   end
+  
+  def class_metaclass
+    class << self.class; self; end
+  end
 end
 
 class Object; include ObjectExtensions; end
