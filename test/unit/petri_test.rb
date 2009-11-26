@@ -1,13 +1,17 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class PetriTest < Test::Unit::TestCase
+  def setup
+    # Don't make a petri here.
+  end
+  
   def test_true
     assert true
   end
   
   def test_prepare_image
-    dish = Petri.new(:image) { set_num_cells 1 }
-    assert_equal :image, dish.original_image
+    petri = setup_petri
+    assert_equal :image, petri.original_image
     assert_equal Point.new(640, 480), Petri.image_dimensions
   end
   
@@ -32,10 +36,30 @@ class PetriTest < Test::Unit::TestCase
   end
   
   def test_initialize
-    Petri.new(:image)
+    petri = Petri.new(:image)
     
     assert_equal 30, Petri.num_cells
     assert_equal 50, Petri.num_genes
     assert_equal  3, Petri.num_points
+    
+    assert_equal 30, petri.dish.size
+    assert petri.dish.all? { |cell| cell.is_a?(Cell) }
+  end
+  
+  def test_round
+    petri = setup_petri
+    assert_equal 0, petri.round
+    
+    petri.send(:next_round)
+    assert_equal 1, petri.round
+    
+    petri.send(:next_round)
+    assert_equal 2, petri.round
+  end
+  
+  private
+  
+  def setup_petri
+    Petri.new(:image) { set_num_cells 1 }
   end
 end

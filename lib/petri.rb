@@ -1,7 +1,8 @@
 class Petri < Dsl
-  attr_reader :original_image, :dish
+  attr_reader :round, :original_image, :dish
   
   def initialize(image)
+    @round          = 0
     @original_image = image
     prepare_image
     super
@@ -23,6 +24,10 @@ class Petri < Dsl
   
   def fill_out_cells
     @dish = num_cells.times.map { Cell.new }
+  end
+  
+  def next_round
+    @round += 1
   end
   
   def set_parameter(name, value)

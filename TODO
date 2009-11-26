@@ -7,7 +7,7 @@
     2) [DONE from the Cell's perspective] Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
     
 * Start building the petri.rb file out.
-  * Container for multiple cells
+  * [DONE] Container for multiple cells
   * Concept of rounds
     1) Compare to target (Pixel by pixel comparison to get a 3D [RGB] Euclidian distance from the target)
       a) Use a cache from object_id => similarity to reduce number of comparisons necessary
