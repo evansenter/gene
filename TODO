@@ -15,7 +15,7 @@
     3) Update fitness (distribution 0..1)
     4) Prune weak organisms (Remove entries in the similarity cache)
     5) Randomly pair off organisms for mitosis
-      a) Have a pool of n organisms, where n % 3 = 0. (Can set by n += 3 - n % 3 to enforce)
+      a) [DONE] Have a pool of n organisms, where n % 3 = 0. (Can set by n += 3 - n % 3 to enforce)
     
 * Integrate an image library and plan out the render operation
 

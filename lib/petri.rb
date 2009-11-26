@@ -30,6 +30,10 @@ class Petri < Dsl
     @round += 1
   end
   
+  def set_num_cells(desired)
+    set_parameter(:num_cells, (desired % 3) == 0 ? desired : desired + 3 - (desired % 3))
+  end
+  
   def set_parameter(name, value)
     name = name.to_s.gsub(/^set_/, "")
     
@@ -42,7 +46,7 @@ class Petri < Dsl
   
   def method_missing(name, *args, &block) 
     case name
-    when :set_num_cells, :set_num_genes, :set_num_points: set_parameter(name, args.first)
+    when :set_num_genes, :set_num_points: set_parameter(name, args.first)
     else super
     end
   end

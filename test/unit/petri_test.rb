@@ -22,7 +22,7 @@ class PetriTest < Test::Unit::TestCase
       set_num_points 3
     end
     
-    assert_equal 1, Petri.num_cells
+    assert_equal 3, Petri.num_cells
     assert_equal 2, Petri.num_genes
     assert_equal 3, Petri.num_points
     
@@ -44,6 +44,14 @@ class PetriTest < Test::Unit::TestCase
     
     assert_equal 30, petri.dish.size
     assert petri.dish.all? { |cell| cell.is_a?(Cell) }
+  end
+  
+  def test_initialize__num_cells_divisible_by_three
+    [1, 2, 3].each do |i|
+      assert_equal 3, Petri.new(:image) { set_num_cells i }.num_cells
+    end
+        
+    assert_equal 6, Petri.new(:image) { set_num_cells 4 }.num_cells
   end
   
   def test_round
