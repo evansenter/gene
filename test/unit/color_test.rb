@@ -12,10 +12,10 @@ class ColorTest < Test::Unit::TestCase
   
   def test_rgba_format
     color = Color.new(
-      Trait.new(:value, 0.0..1.0) { set_value 0 },
-      Trait.new(:value, 0.0..1.0) { set_value 0.25 },
-      Trait.new(:value, 0.0..1.0) { set_value 0.5 },
-      Trait.new(:value, 0.0..1.0) { set_value 0.75 }
+      Trait.new(0.0..1.0) { set_value 0 },
+      Trait.new(0.0..1.0) { set_value 0.25 },
+      Trait.new(0.0..1.0) { set_value 0.5 },
+      Trait.new(0.0..1.0) { set_value 0.75 }
     )
     
     assert_equal "rgba(0.0%, 25.0%, 50.0%, 0.75)", color.rgba_format

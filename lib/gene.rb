@@ -14,13 +14,13 @@ class Gene < Dsl
     @polygon   = num_points.times.map do |index|
       if polygon[index]
         returning(polygon[index]) do |point|
-          point.x ||= Trait.new(:x, 0...image_dimensions.x)
-          point.y ||= Trait.new(:y, 0...image_dimensions.y)
+          point.x ||= Trait.new(0...image_dimensions.x)
+          point.y ||= Trait.new(0...image_dimensions.y)
         end
       else
         Point.new(
-          Trait.new(:x, 0...image_dimensions.x),
-          Trait.new(:y, 0...image_dimensions.y)
+          Trait.new(0...image_dimensions.x),
+          Trait.new(0...image_dimensions.y)
         )
       end
     end
@@ -28,7 +28,7 @@ class Gene < Dsl
   
   def fill_out_color
     @color ||= Color.new
-    color.each_pair { |channel, trait| color.send(:"#{channel}=", Trait.new(:value, 0.0..1.0)) unless trait }
+    color.each_pair { |channel, trait| color.send(:"#{channel}=", Trait.new(0.0..1.0)) unless trait }
   end
   
   def initialize_singleton_methods_for_polygon_and_color
@@ -39,19 +39,19 @@ class Gene < Dsl
   def point_at(index, x, y)
     point = (@polygon ||= [])[index] ||= Point.new
     
-    point.x = Trait.new(:x, 0...image_dimensions.x) { set_value x }
-    point.y = Trait.new(:y, 0...image_dimensions.y) { set_value y }
+    point.x = Trait.new(0...image_dimensions.x) { set_value x }
+    point.y = Trait.new(0...image_dimensions.y) { set_value y }
   end
   
   def point_from(index, name, &block)
     point = (@polygon ||= [])[index] ||= Point.new
     
-    point.send(:"#{name}=", Trait.new(:"#{name}", 0...image_dimensions.send(:"#{name}"), &block))
+    point.send(:"#{name}=", Trait.new(0...image_dimensions.send(:"#{name}"), &block))
   end
   
   def color_from(channel, &block)
     @color ||= Color.new
-    color.send(:"#{channel}=", Trait.new(:value, 0.0..1.0, &block))
+    color.send(:"#{channel}=", Trait.new(0.0..1.0, &block))
   end
   
   def method_missing(name, *args, &block)

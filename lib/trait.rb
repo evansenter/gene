@@ -6,10 +6,9 @@ class Trait < Dsl
     :range   => 0.01..0.25
   }
   
-  attr_reader :name, :value, :range, :standard_deviation
+  attr_reader :value, :range, :standard_deviation
   
-  def initialize(name, range)
-    @name  = name
+  def initialize(range)
     @range = range
     super
   end
@@ -39,8 +38,7 @@ class Trait < Dsl
   end
   
   def fill_out_value    
-    @value   ||= Trait.generate_value(range.max)
-    name[self] = lambda { @value }
+    @value ||= Trait.generate_value(range.max)
   end
   
   def fill_out_deviation
