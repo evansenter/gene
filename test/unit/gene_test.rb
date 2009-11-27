@@ -1,15 +1,15 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class GeneTest < Test::Unit::TestCase
-  def test_true
-    assert true
-  end
-  
   def setup
     Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
     Petri.stubs(:num_points).returns(3)
 
     @gene = Gene.new
+  end
+
+  def test_true
+    assert true
   end
 
   def test_polygon_has_extra_methods
@@ -25,17 +25,10 @@ class GeneTest < Test::Unit::TestCase
     end
   end
   
-  def test_color_has_extra_methods
-    assert @gene.color.respond_to?(:rgb)
-    assert @gene.color.respond_to?(:a)
-  end
-  
   def test_color_has_correct_setup
-    [:r, :g, :b, :a].each do |vector|
-      assert_equal Trait, @gene.color.send(vector).class
+    [:r, :g, :b, :a].each do |channel|
+      assert_equal Trait, @gene.color.send(channel).class
     end
-
-    assert_equal [@gene.color.r, @gene.color.g, @gene.color.b], @gene.color.rgb
   end
   
   def test_initialize__no_default_values
@@ -48,8 +41,8 @@ class GeneTest < Test::Unit::TestCase
       assert((0...image_dimensions.y) === point.y.value)
     end
  
-    @gene.color.rgb.each do |vector|
-      assert((0..255) === vector.value)
+    @gene.color.rgb.each do |channel|
+      assert((0.0..1.0) === channel.value)
     end
   end
   

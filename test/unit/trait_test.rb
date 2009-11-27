@@ -81,7 +81,7 @@ class TraitTest < Test::Unit::TestCase
   end
 
   def test_mutated_value__inclusive
-    trait = Trait.new(:x, (0..100))    
+    trait = Trait.new(:x, 0..100)
     Trait.stubs(:get_normal_random_variable).returns(1)
     
     trait.instance_variable_set(:@standard_deviation, 1000)
@@ -95,15 +95,23 @@ class TraitTest < Test::Unit::TestCase
   end
   
   def test_mutated_value__exclusive
-    trait = Trait.new(:x, (0...100))
+    trait = Trait.new(:x, 0...100)
     Trait.stubs(:get_normal_random_variable).returns(1)
     
     trait.instance_variable_set(:@standard_deviation, 1000)
     assert_equal 99, trait.mutated_value
   end
   
+  def test_percentify
+    trait = Trait.new(:x, 0..100) { set_value 12 }
+    assert_equal "12.0%", trait.percentify
+    
+    trait = Trait.new(:x, 0.0..1.0) { set_value 0.5 }
+    assert_equal "50.0%", trait.percentify
+  end
+  
   def test_new_standard_deviation_from
-    trait = Trait.new(:x, (0...100))
+    trait = Trait.new(:x, 0...100)
     
     # The float.to_s is to ensure comparison works.
     assert_equal Trait::STANDARD_DEVIATION[:range].max.to_s, trait.send(:new_standard_deviation_from, 0).to_s

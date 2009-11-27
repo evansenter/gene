@@ -1,5 +1,7 @@
+* Convert RGB values to 0.0..1.0 range to integrate with Magick::MaxRGB, or something that will work with http://www.simplesystems.org/RMagick/doc/imusage.html#color_names for Draw#fill(color)
+* Image#each_pixel method yields a Pixel, x, y coordinate.
+* Image#pixel_color(x, y) returns the Pixel object that responds to Pixel#red, Pixel#green and Pixel#blue
 * Reflesh test coverage in Generator
-* Do we really need to pass down information like image_dimensions and num_genes, num_points all over the place? It's fixed from runtime. Maybe a global config object (or have Petri set constants on itself) is a better place for this.
 
 * Incorporate fitness in Cell:
   * Fitness has two parts:

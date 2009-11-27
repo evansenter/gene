@@ -52,8 +52,8 @@ class Generator < Dsl
         end
       end
 
-      model_gene.color.each_pair do |color, model_trait|
-        send(:"trait_#{color}", &new_trait_from(model_trait))
+      model_gene.color.each_pair do |channel, model_trait|
+        send(:"trait_#{channel}", &new_trait_from(model_trait))
       end
     end
   end

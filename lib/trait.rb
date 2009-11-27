@@ -27,6 +27,10 @@ class Trait < Dsl
     end
   end
   
+  def percentify
+    "#{value / range.max.to_f * 100}%"
+  end
+  
   private
   
   def finish_init

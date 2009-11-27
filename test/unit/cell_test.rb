@@ -16,15 +16,13 @@ class CellTest < Test::Unit::TestCase
   def test_initialize
     image_range_x = 0...Petri.image_dimensions.x
     image_range_y = 0...Petri.image_dimensions.y
-    color_range   = 0..255
-    alpha_range   = 0.0..1.0
+    channel_range = 0.0..1.0
 
     @cell.genes.each do |gene|      
       assert_equal Petri.num_points, gene.polygon.num_points
       
       assert gene.polygon.points.all? { |point| image_range_x.include?(point.x.value) && image_range_y.include?(point.y.value) }
-      assert gene.color.rgb.all? { |vector| color_range.include?(vector.value) }
-      assert alpha_range.include?(gene.color.a.value)
+      assert gene.color.each_pair { |channel, trait| channel_range.include?(trait.value) }
     end
   end
   
@@ -76,22 +74,6 @@ class CellTest < Test::Unit::TestCase
   
   def test_genes_from_alignment_map
     cell = Cell.new
-  
     assert_equal [cell.genes[2], cell.genes[0], cell.genes[1]], cell.genes_from_alignment_map([2, 0, 1])
-  end
-  
-  private
-  
-  def mutation_distribution_helper
-    trait = Trait.new(:x, (0..255), { :default => 10, :standard_deviation => 0.25 })
-    distribution = trait.range.map { 0.0 }
-    
-    1000.times do
-      value = Cell.mutate(trait, 0.25)
-      distribution[value] += 1
-    end
-    
-    sum = lambda { |a, b| a + b } <= distribution
-    p distribution.map { |value| value / sum * 100 }
   end
 end

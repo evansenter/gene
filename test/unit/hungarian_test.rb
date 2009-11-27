@@ -1,12 +1,12 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
 class TraitTest < Test::Unit::TestCase
-  def test_true
-    assert true
-  end
-  
   def setup
     @hungarian = Hungarian.new([[1, 0], [0, 1]])
+  end
+
+  def test_true
+    assert true
   end
 
   def test_minimize_rows
