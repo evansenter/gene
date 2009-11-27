@@ -1,17 +1,17 @@
 class Petri < Dsl
-  attr_reader :round, :original_image, :dish
+  attr_reader :round, :image, :dish
   
-  def initialize(image)
-    @round          = 0
-    @original_image = image
-    prepare_image
+  def initialize(image_path)
+    @round = 0
+    prepare_image_at(image_path)
     super
   end
   
   private
   
-  def prepare_image
-    set_parameter(:image_dimensions, Point.new(640, 480))
+  def prepare_image_at(image_path)
+    @image = Magick::Image.read(image_path).first
+    set_parameter(:image_dimensions, Point.new(image.columns, image.rows))
   end
   
   def finish_init

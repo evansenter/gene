@@ -11,12 +11,12 @@ class PetriTest < Test::Unit::TestCase
   
   def test_prepare_image
     petri = setup_petri
-    assert_equal :image, petri.original_image
-    assert_equal Point.new(640, 480), Petri.image_dimensions
+    assert_equal Magick::Image, petri.image.class
+    assert_equal Point.new(600, 800), Petri.image_dimensions
   end
   
   def test_initialize__with_block
-    Petri.new(:image) do
+    Petri.new(test_image_path) do
       set_num_cells  1
       set_num_genes  2
       set_num_points 3
@@ -31,12 +31,12 @@ class PetriTest < Test::Unit::TestCase
     end
     
     assert_raise NoMethodError do
-      Petri.new(:image) { set_num_cells 1 }.rawr!
+      Petri.new(test_image_path) { set_num_cells 1 }.rawr!
     end
   end
   
   def test_initialize
-    petri = Petri.new(:image)
+    petri = Petri.new(test_image_path)
     
     assert_equal 30, Petri.num_cells
     assert_equal 50, Petri.num_genes
@@ -48,10 +48,10 @@ class PetriTest < Test::Unit::TestCase
   
   def test_initialize__num_cells_divisible_by_three
     [1, 2, 3].each do |i|
-      assert_equal 3, Petri.new(:image) { set_num_cells i }.num_cells
+      assert_equal 3, Petri.new(test_image_path) { set_num_cells i }.num_cells
     end
         
-    assert_equal 6, Petri.new(:image) { set_num_cells 4 }.num_cells
+    assert_equal 6, Petri.new(test_image_path) { set_num_cells 4 }.num_cells
   end
   
   def test_round
@@ -68,6 +68,10 @@ class PetriTest < Test::Unit::TestCase
   private
   
   def setup_petri
-    Petri.new(:image) { set_num_cells 1 }
+    Petri.new(test_image_path) { set_num_cells 1 }
+  end
+  
+  def test_image_path
+    File.join(File.dirname(__FILE__), "..", "assets", "Nova.jpg")
   end
 end
