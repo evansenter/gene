@@ -5,12 +5,17 @@ RGB = Struct.new(:red, :green, :blue)
 class TestClass
   include Imagine
   
-  def initialize(pixels)
-    @pixels = pixels
+  def image_dimensions
+    Point.new(2, 2)
   end
   
   def each_pixel
-    @pixels.each { |params| yield *params }
+    [
+      [RGB.new(0, 0, 0), 0, 0],
+      [RGB.new(0, 0, 0), 0, 1],
+      [RGB.new(0, 0, 0), 1, 0],
+      [RGB.new(0, 0, 0), 1, 1]
+    ].each { |params| yield *params }
   end
 end
 
@@ -19,7 +24,7 @@ class ImagineTest < Test::Unit::TestCase
     Magick.send(:remove_const, :MaxRGB)
     Magick.const_set(:MaxRGB, 1)
     
-    @test_class = TestClass.new(pixels)
+    @test_class = TestClass.new
     @test_class.stubs(:target_image).returns(@test_class)
   end
   
@@ -45,14 +50,5 @@ class ImagineTest < Test::Unit::TestCase
     returning(stub) do |image|
       2.times { |x| 2.times { |y| image.stubs(:pixel_color).with(x, y).returns(color) } }
     end
-  end
-  
-  def pixels
-    [
-      [RGB.new(0, 0, 0), 0, 0],
-      [RGB.new(0, 0, 0), 0, 1],
-      [RGB.new(0, 0, 0), 1, 0],
-      [RGB.new(0, 0, 0), 1, 1]
-    ]
   end
 end

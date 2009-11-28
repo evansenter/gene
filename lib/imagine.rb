@@ -1,13 +1,12 @@
 module Imagine
   def compare_image_to(image)
-    aggregate_deviation, count = 0.0, 0
+    aggregate_deviation = 0.0
     
     target_image.each_pixel do |target_pixel, x, y|      
       aggregate_deviation += compare_pixels(target_pixel, image.pixel_color(x, y))
-      count += 3
     end
     
-    1 - Math.sqrt(aggregate_deviation / (Magick::MaxRGB ** 2 * count))
+    1 - Math.sqrt(aggregate_deviation / (Magick::MaxRGB ** 2 * image_dimensions.x * image_dimensions.y * 3))
   end
   
   private
