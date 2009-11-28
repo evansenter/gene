@@ -11,7 +11,7 @@ class PetriTest < Test::Unit::TestCase
   
   def test_prepare_image
     petri = setup_petri
-    assert_equal Magick::Image, petri.image.class
+    assert_equal Magick::Image, petri.target_image.class
     assert_equal Point.new(600, 800), Petri.image_dimensions
   end
   

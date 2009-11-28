@@ -1,5 +1,7 @@
 class Petri < Dsl
-  attr_reader :round, :image, :dish
+  include Imagine
+  
+  attr_reader :round, :target_image, :dish
   
   def initialize(image_path)
     @round = 0
@@ -10,8 +12,8 @@ class Petri < Dsl
   private
   
   def prepare_image_at(image_path)
-    @image = Magick::Image.read(image_path).first
-    set_parameter(:image_dimensions, Point.new(image.columns, image.rows))
+    @target_image = Magick::Image.read(image_path).first
+    set_parameter(:image_dimensions, Point.new(target_image.columns, target_image.rows))
   end
   
   def finish_init

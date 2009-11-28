@@ -1,24 +1,16 @@
-* Convert RGB values to 0.0..1.0 range to integrate with Magick::MaxRGB, or something that will work with http://www.simplesystems.org/RMagick/doc/imusage.html#color_names for Draw#fill(color)
-* Image#each_pixel method yields a Pixel, x, y coordinate.
-* Image#pixel_color(x, y) returns the Pixel object that responds to Pixel#red, Pixel#green and Pixel#blue
 * Reflesh test coverage in Generator
 
 * Incorporate fitness in Cell:
-  * Fitness has two parts:
-    1) [DONE] When the environment is initialized, all Cells should have their fitness set to 0.5
-    2) [DONE from the Cell's perspective] Fitness is recalculated each round, with the weakest organism getting 0 and the strongest match getting 1; inner values are uniformly distributed
+  * Fitness is an RMSE measure against the target image, per channel per pixel.
     
 * Start building the petri.rb file out.
   * [DONE] Container for multiple cells
   * Concept of rounds
-    1) Compare to target (Pixel by pixel comparison to get a 3D [RGB] Euclidian distance from the target)
-      a) Use a cache from object_id => similarity to reduce number of comparisons necessary
-    2) Sort by rank
-    3) Update fitness (distribution 0..1)
-    4) Prune weak organisms (Remove entries in the similarity cache)
-    5) Randomly pair off organisms for mitosis
+    1) Compare to target (RMSE)
+      a) Use a cache from object_id => similarity to reduce number of comparisons necessary, or leverage the fitness attribute (If it is set, there is no need to recompute. There could be implications in trait instantiation during combination.)
+    2) Sort by rank and...
+    3) Prune weak organisms (Remove entries in the similarity cache, if using a cache.)
+    4) Randomly pair off organisms for mitosis
       a) [DONE] Have a pool of n organisms, where n % 3 = 0. (Can set by n += 3 - n % 3 to enforce)
-    
-* Integrate an image library and plan out the render operation
 
 * Think about using the garbage collector...
