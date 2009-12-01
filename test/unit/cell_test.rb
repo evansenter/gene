@@ -27,26 +27,11 @@ class CellTest < Test::Unit::TestCase
   end
   
   def test_initialize__with_block
-    cell = Cell.new do
-      set_fitness 1
-    end
-    
-    lambda { |index| assert cell.genes[index].is_a?(Gene) } | Petri.num_genes.times
-    assert_equal 1, cell.fitness
+    lambda { |index| assert Cell.new.genes[index].is_a?(Gene) } | Petri.num_genes.times
     
     assert_raise NoMethodError do
       Cell.new { rawr! }
     end
-  end
-  
-  def test_initialize__fitness_implicitly_set_to_default
-    assert_equal Cell::DEFAULT_FITNESS, @cell.fitness
-  end
-  
-  def test_initialize__fitness_explicitly_set
-    cell = Cell.new { set_fitness 0.75 }
-    
-    assert_equal 0.75, cell.fitness
   end
   
   def test_genes_by_alpha

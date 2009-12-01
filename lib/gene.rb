@@ -1,4 +1,6 @@
 class Gene < Dsl
+  include Geometry
+  
   attr_reader :polygon, :color
   
   private

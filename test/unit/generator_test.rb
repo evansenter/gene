@@ -6,8 +6,10 @@ class GeneratorTest < Test::Unit::TestCase
     Petri.stubs(:num_genes).returns(5)
     Petri.stubs(:num_points).returns(3)
     
-    @cell_1    = Cell.new
-    @cell_2    = Cell.new
+    @cell_1 = Cell.new
+    @cell_2 = Cell.new
+    [@cell_1, @cell_2].each { |cell| cell.fitness = 0.5 }
+    
     @generator = Generator.new(@cell_1, @cell_2)
   end
   

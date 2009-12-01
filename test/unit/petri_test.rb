@@ -54,6 +54,16 @@ class PetriTest < Test::Unit::TestCase
     assert_equal 6, Petri.new(test_image_path) { set_num_cells 4 }.num_cells
   end
   
+  def test_sort_by_fitness!
+    cells = [stub(:fitness => 0.5), stub(:fitness => 0.75), stub(:fitness => 0.25)]
+    
+    petri = setup_petri
+    petri.instance_variable_set(:@dish, cells)
+    petri.send(:sort_by_fitness!)
+    
+    assert_equal [0.75, 0.5, 0.25], petri.dish.map(&:fitness)
+  end
+  
   def test_round
     petri = setup_petri
     assert_equal 0, petri.round

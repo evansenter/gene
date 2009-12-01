@@ -1,16 +1,6 @@
 * Reflesh test coverage in Generator
-
-* Incorporate fitness in Cell:
-  * Fitness is an RMSE measure against the target image, per channel per pixel.
-    
-* Start building the petri.rb file out.
-  * [DONE] Container for multiple cells
-  * Concept of rounds
-    1) Compare to target (RMSE)
-      a) Use a cache from object_id => similarity to reduce number of comparisons necessary, or leverage the fitness attribute (If it is set, there is no need to recompute. There could be implications in trait instantiation during combination.)
-    2) Sort by rank and...
-    3) Prune weak organisms (Remove entries in the similarity cache, if using a cache.)
-    4) Randomly pair off organisms for mitosis
-      a) [DONE] Have a pool of n organisms, where n % 3 = 0. (Can set by n += 3 - n % 3 to enforce)
-
 * Think about using the garbage collector...
+
+require "initializers/runner.rb"
+petri = Petri.new("./test/assets/Nova.jpg")
+petri.evolve while petri.dish.first.fitness < 0.7

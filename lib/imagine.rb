@@ -1,5 +1,6 @@
 module Imagine
   def compare_image_to(image)
+    # http://en.wikipedia.org/wiki/RMSD
     aggregate_deviation = 0.0
     
     target_image.each_pixel do |target_pixel, x, y|      

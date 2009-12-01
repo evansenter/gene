@@ -9,6 +9,27 @@ class Petri < Dsl
     super
   end
   
+  def evolve
+    puts "Starting round #{round}"
+    puts "Generating new cells"
+    
+    top_k = dish[0, dish.length / 3 * 2]
+    @dish = (top_k + (dish.length - top_k.length).times.inject([]) do |new_cells, index|
+      new_cells << Generator.new(top_k[rand(top_k.length)], top_k[rand(top_k.length)]).combine
+    end)
+    
+    puts "Done!"
+    
+    calculate_fitnesses
+    sort_by_fitness!
+    
+    puts "Best fitness is #{dish.first.fitness}"
+    puts "Fitnesses are #{dish.map(&:object_id).join(', ')}"
+    puts "Objects are #{dish.map(&:fitness).join(', ')}"
+    
+    next_round
+  end
+  
   private
   
   def prepare_image_at(image_path)
@@ -17,15 +38,31 @@ class Petri < Dsl
   end
   
   def finish_init
-    set_parameter(:num_cells, 30) unless self.class.respond_to?(:num_cells)
+    set_parameter(:num_cells,  6) unless self.class.respond_to?(:num_cells)
     set_parameter(:num_genes, 50) unless self.class.respond_to?(:num_genes)
     set_parameter(:num_points, 3) unless self.class.respond_to?(:num_points)
     
     fill_out_cells
+    calculate_fitnesses
+    sort_by_fitness!
   end
   
   def fill_out_cells
     @dish = num_cells.times.map { Cell.new }
+  end
+  
+  def calculate_fitnesses
+    puts "Calculating new fitnesses"
+    
+    dish.each do |cell|
+      cell.fitness ||= compare_image_to(cell.image)
+    end
+    
+    puts "Done!"
+  end
+  
+  def sort_by_fitness!
+    dish.sort! { |a, b| b.fitness <=> a.fitness }
   end
   
   def next_round

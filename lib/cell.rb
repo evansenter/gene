@@ -1,10 +1,6 @@
-class Cell < Dsl
-  include Geometry
-  
-  DEFAULT_FITNESS = 0.5
-  
+class Cell < Dsl  
   attr_accessor :fitness
-  attr_reader   :genes
+  attr_reader   :genes, :image
   
   def genes_by_alpha
     genes.sort { |gene_1, gene_2| gene_2.color.a.value <=> gene_1.color.a.value }
@@ -17,18 +13,32 @@ class Cell < Dsl
   private
   
   def finish_init
-    @fitness ||= DEFAULT_FITNESS
     fill_out_genes
+    draw_image
   end
   
   def fill_out_genes
     @genes = num_genes.times.map { |index| (@genes ||= [])[index] || Gene.new }
   end
   
+  def draw_image
+    puts "Drawing image for cell #{object_id}"
+    
+    @image = Magick::Image.new(image_dimensions.x, image_dimensions.y)
+    pen    = Magick::Draw.new
+  
+    genes_by_alpha do |gene|
+      pen.fill(gene.color.rgba_format)
+      pen.polygon(*gene.hulled_sequence)
+      pen.draw(@image)
+    end
+    
+    puts "Done!"
+  end
+  
   def method_missing(name, *args, &block)
     case name.to_s
     when /^gene_(\d+)$/: (@genes ||= [])[$1.to_i] = Gene.new(&block)
-    when "set_fitness":   @fitness = args.first
     else super
     end
   end
