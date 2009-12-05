@@ -10,22 +10,19 @@ class Petri < Dsl
   end
   
   def evolve
-    puts "Starting round #{round}"
-    puts "Generating new cells"
-    
     top_k = dish[0, dish.length / 3 * 2]
     @dish = (top_k + (dish.length - top_k.length).times.inject([]) do |new_cells, index|
       new_cells << Generator.new(top_k[rand(top_k.length)], top_k[rand(top_k.length)]).combine
     end)
     
-    puts "Done!"
-    
     calculate_fitnesses
     sort_by_fitness!
     
-    puts "Best fitness is #{dish.first.fitness}"
-    puts "Fitnesses are #{dish.map(&:object_id).join(', ')}"
-    puts "Objects are #{dish.map(&:fitness).join(', ')}"
+    if (round % 100).zero?
+      dish.first.image.write("#{round}.png")
+      puts dish.first.genes.map { |gene| "[" + gene.polygon.map { |point| "#{point.x.value}, #{point.y.value}" }.join(", ") + "]" }.join(", ")
+      puts "Fitness: #{dish.first.fitness}"
+    end
     
     next_round
   end
@@ -39,8 +36,8 @@ class Petri < Dsl
   
   def finish_init
     set_parameter(:num_cells,  6) unless self.class.respond_to?(:num_cells)
-    set_parameter(:num_genes, 50) unless self.class.respond_to?(:num_genes)
-    set_parameter(:num_points, 3) unless self.class.respond_to?(:num_points)
+    set_parameter(:num_genes,  3) unless self.class.respond_to?(:num_genes)
+    set_parameter(:num_points, 4) unless self.class.respond_to?(:num_points)
     
     fill_out_cells
     calculate_fitnesses
@@ -52,13 +49,9 @@ class Petri < Dsl
   end
   
   def calculate_fitnesses
-    puts "Calculating new fitnesses"
-    
     dish.each do |cell|
       cell.fitness ||= compare_image_to(cell.image)
     end
-    
-    puts "Done!"
   end
   
   def sort_by_fitness!

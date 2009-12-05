@@ -22,18 +22,14 @@ class Cell < Dsl
   end
   
   def draw_image
-    puts "Drawing image for cell #{object_id}"
-    
     @image = Magick::Image.new(image_dimensions.x, image_dimensions.y)
     pen    = Magick::Draw.new
   
-    genes_by_alpha do |gene|
+    genes_by_alpha.each do |gene|
       pen.fill(gene.color.rgba_format)
       pen.polygon(*gene.hulled_sequence)
       pen.draw(@image)
     end
-    
-    puts "Done!"
   end
   
   def method_missing(name, *args, &block)

@@ -1,6 +1,7 @@
+* Things aren't working because the image is coming out white! (Cell#draw_image)
 * Reflesh test coverage in Generator
 * Think about using the garbage collector...
 
 require "initializers/runner.rb"
-petri = Petri.new("./test/assets/Nova.jpg")
+petri = Petri.new("./test/assets/Squares.jpg")
 petri.evolve while petri.dish.first.fitness < 0.7
