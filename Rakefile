@@ -1,5 +1,5 @@
 desc "Runs the test suite"
-task :run_tests do  
+task :test do  
   require "benchmark"
   
   totals = { :tests => 0, :assertions => 0, :failures => 0, :errors => 0 }
