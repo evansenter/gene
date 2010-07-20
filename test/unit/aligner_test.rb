@@ -1,12 +1,12 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-class TestClass
-  attr_accessor :cells
-  
-  include Aligner
-end
-
 class AlignerTest < Test::Unit::TestCase
+  class TestClass
+    attr_accessor :cells
+
+    include Aligner
+  end
+  
   def setup
     Petri.stubs(:image_dimensions).returns(Point.new(640, 480))
     Petri.stubs(:num_genes).returns(3)

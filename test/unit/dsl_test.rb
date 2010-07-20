@@ -1,17 +1,17 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-class TestClass < Dsl
-  def initialize
-    @set_in_init = true
-    super
+class DslTest < Test::Unit::TestCase
+  class TestClass < Dsl
+    def initialize
+      @set_in_init = true
+      super
+    end
+
+    def finish_init
+      @set_in_finish_init = true
+    end
   end
   
-  def finish_init
-    @set_in_finish_init = true
-  end
-end
-
-class DslTest < Test::Unit::TestCase
   def setup
     @test_class = TestClass.new do
       @set_in_block = true

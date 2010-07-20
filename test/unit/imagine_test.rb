@@ -1,25 +1,25 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-RGB = Struct.new(:red, :green, :blue)
-
-class TestClass
-  include Imagine
-  
-  def image_dimensions
-    Point.new(2, 2)
-  end
-  
-  def each_pixel
-    [
-      [RGB.new(0, 0, 0), 0, 0],
-      [RGB.new(0, 0, 0), 0, 1],
-      [RGB.new(0, 0, 0), 1, 0],
-      [RGB.new(0, 0, 0), 1, 1]
-    ].each { |params| yield *params }
-  end
-end
-
 class ImagineTest < Test::Unit::TestCase
+  RGB = Struct.new(:red, :green, :blue)
+  
+  class TestClass
+    include Imagine
+
+    def image_dimensions
+      Point.new(2, 2)
+    end
+
+    def each_pixel
+      [
+        [RGB.new(0, 0, 0), 0, 0],
+        [RGB.new(0, 0, 0), 0, 1],
+        [RGB.new(0, 0, 0), 1, 0],
+        [RGB.new(0, 0, 0), 1, 1]
+      ].each { |params| yield *params }
+    end
+  end
+  
   def setup
     Magick.send(:remove_const, :MaxRGB)
     Magick.const_set(:MaxRGB, 1)

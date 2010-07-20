@@ -1,12 +1,12 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-class TestClass
-  include Geometry
-  
-  attr_accessor :polygon
-end
-
 class GeometryTest < Test::Unit::TestCase
+  class TestClass
+    include Geometry
+
+    attr_accessor :polygon
+  end
+  
   def setup
     @test_class = TestClass.new
   end

@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), "..", "test_helper.rb")
 
-class TestClass
-  include Calculator
-end
-
 class CalculatorTest < Test::Unit::TestCase
+  class TestClass
+    include Calculator
+  end
+  
   def test_true
     assert true
   end

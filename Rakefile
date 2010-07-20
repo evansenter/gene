@@ -1,23 +1,15 @@
-desc "Runs the test suite"
-task :test do  
-  require "benchmark"
-  
-  totals = { :tests => 0, :assertions => 0, :failures => 0, :errors => 0 }
-  Benchmark.measure do
+require "rubygems"
+require "rake"
+require "echoe"
 
-    FileList["./test/**/*_test.rb"].map { |path| path.gsub("test/", "") }.each do |test|
-      results = `ruby -C test/ #{test}`
-      results =~ /(\d+) tests, (\d+) assertions, (\d+) failures, (\d+) errors/
-  
-      totals[:tests]      += $1.to_i
-      totals[:assertions] += $2.to_i
-      totals[:failures]   += $3.to_i
-      totals[:errors]     += $4.to_i 
-  
-      print "#{results}\n"
-    end
-  end.real.to_s.match(/(\d+\.\d{2})/)
-
-  print "Total results: #{totals[:tests]} tests run in #{$1} seconds: #{totals[:assertions]} assertions, #{totals[:failures]} failures, #{totals[:errors]} errors\n\n"
-  print "Your tests are #{totals[:failures].zero? && totals[:errors].zero? ? 'PASSING' : 'FAILING'}.\n"
+Echoe.new("gene", "0.1.0") do |config|
+  config.description              = "Sample genetic program in Ruby"
+  config.url                      = "http://github.com/evansenter/gene"
+  config.author                   = "Evan Senter"
+  config.email                    = "evansenter@gmail.com"
+  config.ignore_pattern           = ["tmp/*", "script/*"]
+  config.dependencies             = ["rmagick"]
+  config.development_dependencies = []
 end
+
+Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |task| load task }
